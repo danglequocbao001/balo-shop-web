@@ -3,15 +3,25 @@ import {
   faCartShopping,
   faRegistered,
   faRightFromBracket,
+  faLock,
+  faUser,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
+import { TOKEN_LOCAL_STORAGE } from "../api/constants";
 const Navbar = () => {
   const state = useSelector((state) => state.HandleCart);
+  const [token, setToken] = useState("");
+  const localStorageToken = localStorage.getItem(TOKEN_LOCAL_STORAGE);
+
+  useEffect(() => {
+    setToken(localStorageToken);
+  }, [localStorageToken]);
 
   localStorage.setItem("test", JSON.stringify(state));
+
   const cartCount = JSON.parse(localStorage.getItem("test"));
   return (
     <div>
@@ -56,18 +66,46 @@ const Navbar = () => {
             </ul>
 
             <div className="buttons">
-              <NavLink to="/login" className="btn btn-outline-dark">
-                Login
-                <FontAwesomeIcon className="ms-2" icon={faRightFromBracket} />
-              </NavLink>
-              <NavLink to="/register" className="btn btn-outline-dark mx-3">
-                Register
-                <FontAwesomeIcon className="ms-2" icon={faRegistered} />
-              </NavLink>
+              {!token && (
+                <>
+                  <NavLink to="/login" className="btn btn-outline-dark">
+                    Login
+                    <FontAwesomeIcon
+                      className="ms-2"
+                      icon={faRightFromBracket}
+                    />
+                  </NavLink>
+                  <NavLink to="/register" className="btn btn-outline-dark mx-3">
+                    Register
+                    <FontAwesomeIcon className="ms-2" icon={faRegistered} />
+                  </NavLink>
+                </>
+              )}
               <NavLink to="/cart" className="btn btn-outline-dark">
                 Cart ({cartCount.length})
                 <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
               </NavLink>
+
+              {token && (
+                <>
+                  <NavLink to="/profile" className="btn btn-outline-dark">
+                    Profile
+                    <FontAwesomeIcon className="ms-2" icon={faUser} />
+                  </NavLink>
+                  <button
+                    style={{ border: "none", backgroundColor: "transparent" }}
+                    onClick={() => {
+                      localStorage.clear();
+                      window.location.reload();
+                    }}
+                  >
+                    <NavLink to="/login" className="btn btn-outline-dark">
+                      Đăng xuất
+                      <FontAwesomeIcon className="ms-2" icon={faLock} />
+                    </NavLink>
+                  </button>
+                </>
+              )}
             </div>
           </div>
         </div>

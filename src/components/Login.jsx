@@ -21,6 +21,7 @@ const Login = () => {
       localStorage.setItem(TOKEN_LOCAL_STORAGE, data.auth_token);
       toast.success(TEXT_CONSTANTS.DANG_NHAP_THANH_CONG);
       navigate("/");
+      window.location.reload();
     } catch (err) {
       toast.error(err.message);
     }
