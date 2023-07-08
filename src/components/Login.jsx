@@ -18,7 +18,7 @@ const Login = () => {
     setLoading(true);
     try {
       const data = await authApi.loginCustomer(param);
-      localStorage.setItem(TOKEN_LOCAL_STORAGE, data.auth_token);
+      localStorage.setItem(TOKEN_LOCAL_STORAGE, data[TOKEN_LOCAL_STORAGE]);
       toast.success(TEXT_CONSTANTS.DANG_NHAP_THANH_CONG);
       navigate("/");
       window.location.reload();

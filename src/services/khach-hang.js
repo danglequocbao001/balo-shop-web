@@ -10,4 +10,9 @@ const fetchCustomerById = async (ma_kh) => {
   return data;
 };
 
-export { fetchAllCustomers, fetchCustomerById };
+const fetchCurrentCustomer = async () => {
+  const data = await khachHangApi.getMe();
+  return data;
+};
+
+export { fetchAllCustomers, fetchCustomerById, fetchCurrentCustomer };

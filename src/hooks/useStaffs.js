@@ -48,7 +48,7 @@ export const useFetchStaffById = (ma_nv) => {
 
 export const useFetchCurrentStaff = () => {
   const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
+  const [data, setData] = useState();
 
   useEffect(() => {
     setLoading(true);
