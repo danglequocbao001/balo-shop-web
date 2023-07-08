@@ -24,6 +24,7 @@ api.interceptors.request.use(async (config) => {
       const token = localStorage.getItem(TOKEN_LOCAL_STORAGE);
       token && (config.headers[TOKEN_LOCAL_STORAGE] = `${token}`);
     } catch (error) {
+      console.log("requestError", error);
       localStorage.clear();
       // navigate("/login");
       throw error.response.data || error;
@@ -38,7 +39,7 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
-    console.log(error);
+    console.log("errorerror", error);
     throw error.response.data || error;
   }
 );

@@ -7,16 +7,6 @@ export default {
     return api.get(API_CONSTANTS.PRODUCTS.GET_ALL);
   },
   getOne: (ma_mh) => {
-    return api.get(API_CONSTANTS.PRODUCTS.GET_ONE, ma_mh);
+    return api.get(API_CONSTANTS.PRODUCTS.GET_ONE(ma_mh));
   },
-
-  //   forgetPassword: (params) => {
-  //     return api.post(API_CONSTANTS.AUTH.FORGET_PASSWORD, params);
-  //   },
-  //   resetPassword: (params) => {
-  //     return api.post(API_CONSTANTS.AUTH.RESET_PASSWORD, params);
-  //   },
-  //   updatePassword: (params) => {
-  //     return api.post(API_CONSTANTS.AUTH.UPDATE_PASSWORD, params);
-  //   },
 };

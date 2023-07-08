@@ -60,7 +60,6 @@ const Products = () => {
         </div> */}
         {products &&
           products.map((product) => {
-            console.log(product.mo_ta.length);
             return (
               <div className="col-md-3 mb-4" key={product.ma_mh}>
                 <div className="card h-100px text-center p-4">

@@ -20,7 +20,7 @@ function App() {
           <Route path="/login" element={<Login />}></Route>
           <Route path="/" element={<Home />}></Route>
           <Route exact path="/products" element={<Products />}></Route>
-          <Route exact path="/products/:id" element={<Product />}></Route>
+          <Route exact path="/products/:ma_mh" element={<Product />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
         </Routes>
       </BrowserRouter>
