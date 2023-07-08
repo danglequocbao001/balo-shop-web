@@ -17,11 +17,20 @@ function App() {
       <BrowserRouter>
         <Navbar />
         <Routes>
-          <Route path="/login" element={<Login />}></Route>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/login" element={<Login />}></Route>
+          <Route path="/signup" element={<Login />}></Route>
           <Route exact path="/products" element={<Products />}></Route>
           <Route exact path="/products/:ma_mh" element={<Product />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
+
+          <Route path="/admin/nha-cung-cap" element={<></>}></Route>
+          <Route path="/admin/loai-mat-hang" element={<></>}></Route>
+          <Route path="/admin/mat-hang" element={<></>}></Route>
+          <Route path="/admin/quang-cao" element={<></>}></Route>
+          <Route path="/admin/khach-hang" element={<></>}></Route>
+          <Route path="/admin/nhan-vien" element={<></>}></Route>
+          <Route path="/admin/thong-ke-doanh-thu" element={<></>}></Route>
         </Routes>
       </BrowserRouter>
     </div>

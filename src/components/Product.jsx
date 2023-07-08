@@ -45,10 +45,10 @@ const Product = () => {
                 className="btn btn-outline-dark"
                 onClick={() => addProduct(product)}
               >
-                Add to Cart
+                Thêm vào giỏ hàng
               </button>
               <Link to="/cart" className="btn btn-outline-dark mx-3">
-                Go to Cart
+                Tới giỏ hàng
               </Link>
             </div>
           </>

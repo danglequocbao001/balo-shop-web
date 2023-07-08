@@ -81,7 +81,7 @@ const Navbar = () => {
                   </NavLink>
                 </>
               )}
-              <NavLink to="/cart" className="btn btn-outline-dark mx-3">
+              <NavLink to="/cart" className="btn btn-outline-dark mx-2">
                 Cart ({cartCount.length})
                 <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
               </NavLink>
