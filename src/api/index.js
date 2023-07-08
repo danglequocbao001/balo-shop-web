@@ -1,4 +1,19 @@
 import authApi from "./auth";
 import productsApi from "./products";
+import khachHangApi from "./khach-hang";
+import loaiMatHangApi from "./loai-mat-hang";
+import nhaCungCapApi from "./nha-cung-cap";
+import nhanVienApi from "./nhan-vien";
+import ordersStatusApi from "./orders-status";
+import quangCaoApi from "./quang-cao";
 
-export { authApi, productsApi };
+export {
+  authApi,
+  productsApi,
+  khachHangApi,
+  loaiMatHangApi,
+  nhaCungCapApi,
+  nhanVienApi,
+  ordersStatusApi,
+  quangCaoApi,
+};
