@@ -11,8 +11,6 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  localStorage.setItem("auth-token", "auth-token");
-
   return (
     <div className="App">
       <ToastContainer />

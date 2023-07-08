@@ -4,21 +4,23 @@ import "../styles/Login.css";
 import { authApi } from "../api";
 import { toast } from "react-toastify";
 import TEXT_CONSTANTS from "../constants/text";
+import { useNavigate } from "react-router-dom";
+import { TOKEN_LOCAL_STORAGE } from "../api/constants";
 
 const Login = () => {
   const [isLoading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
+  const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
   const onLogin = async (param) => {
-    console.log(param);
     setLoading(true);
     try {
       const data = await authApi.loginCustomer(param);
-      console.log(data);
-      localStorage.setItem("auth-token", data.auth_token);
+      localStorage.setItem(TOKEN_LOCAL_STORAGE, data.auth_token);
       toast.success(TEXT_CONSTANTS.DANG_NHAP_THANH_CONG);
+      navigate("/");
     } catch (err) {
       toast.error(err.message);
     }

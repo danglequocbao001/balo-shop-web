@@ -10,7 +10,7 @@ import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 const Navbar = () => {
   const state = useSelector((state) => state.HandleCart);
-  console.log(state);
+
   localStorage.setItem("test", JSON.stringify(state));
   const cartCount = JSON.parse(localStorage.getItem("test"));
   return (

@@ -1,6 +1,6 @@
 export const BASE_URL = "http://localhost:5000/api";
 
-export const TOKEN = "auth-token";
+export const TOKEN_LOCAL_STORAGE = "authorization";
 
 const API_CONSTANTS = {
   AUTH: {

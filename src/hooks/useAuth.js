@@ -6,3 +6,7 @@ export const useCreateCustomer = () => {
 
   return { isLoading };
 };
+
+export const useGetCustomer = () => {
+  const [isLoading, setLoading] = useState(false);
+}

@@ -7,7 +7,6 @@ export default {
     return api.post(API_CONSTANTS.AUTH.SIGNUP_CUSTOMER, params);
   },
   loginCustomer: (params) => {
-    console.log("dcmmmm", params);
     return api.post(API_CONSTANTS.AUTH.LOGIN_CUSTOMER, params);
   },
   loginStaff: (params) => {
