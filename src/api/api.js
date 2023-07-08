@@ -19,13 +19,13 @@ api.interceptors.request.use(async (config) => {
     config.url === API_CONSTANTS.AUTH.LOGIN_STAFF
   ) {
   } else {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     try {
       const token = localStorage.getItem(TOKEN_LOCAL_STORAGE);
       token && (config.headers[TOKEN_LOCAL_STORAGE] = `${token}`);
     } catch (error) {
       localStorage.clear();
-      navigate("/login");
+      // navigate("/login");
       throw error.response.data || error;
     }
   }
@@ -38,6 +38,7 @@ api.interceptors.response.use(
     return response.data;
   },
   (error) => {
+    console.log(error);
     throw error.response.data || error;
   }
 );

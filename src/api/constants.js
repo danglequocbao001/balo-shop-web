@@ -25,7 +25,8 @@ const API_CONSTANTS = {
     DELETE: (ma_ncc) => `/nha-cung-cap/${ma_ncc}`,
   },
   PRODUCTS: {
-    GET: "/mat-hang",
+    GET_ALL: "/mat-hang",
+    GET_ONE: (ma_mh) => `/mat-hang/${ma_mh}`,
     POST: "/mat-hang",
     PUT: (ma_mh) => `/mat-hang/${ma_mh}`,
     DELETE: (ma_mh) => `/mat-hang/${ma_mh}`,
