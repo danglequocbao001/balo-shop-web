@@ -12,11 +12,13 @@ const API_CONSTANTS = {
   CUSTOMERS: {
     GET_ALL: "/khach-hang/find-all",
     GET_ONE: (ma_kh) => `/khach-hang/find-one/${ma_kh}`,
+    GET_ME: "/khach-hang/find-me",
     UPDATE: (ma_kh) => `/khach-hang/${ma_kh}`,
   },
   STAFFS: {
-    GET_ALL: "/nhan-vien",
+    GET_ALL: "/nhan-vien/find-all",
     GET_ONE: (ma_nv) => `/nhan-vien/find-one/${ma_nv}`,
+    GET_ME: "/nhan-vien/find-me",
   },
   SUPPLIER: {
     GET: "/nha-cung-cap",
