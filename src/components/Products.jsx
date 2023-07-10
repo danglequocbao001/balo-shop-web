@@ -53,11 +53,11 @@ const Products = () => {
 
   return (
     <div>
-      {/* <ListProducts
+      <ListProducts
         title={"Tất cả sản phẩm"}
         listProducts={products}
         isListProductsLoading={isProductsLoading}
-      /> */}
+      />
       <ListProducts
         title={"Sản phẩm mới"}
         listProducts={newProducts}
