@@ -3,6 +3,7 @@ import { toast } from "react-toastify";
 import {
   fetchAllProducts,
   fetchAllNewProducts,
+  fetchAllPromotionProducts,
   fetchProductById,
 } from "../services/products";
 
@@ -44,6 +45,26 @@ export const useFetchAllNewProducts = () => {
   }, []);
 
   return { newProducts: data, isLoading };
+};
+
+export const useFetchAllPromotionProducts = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchAllPromotionProducts()
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  return { promoteProducts: data, isLoading };
 };
 
 export const useFetchOneProducts = (ma_mh) => {

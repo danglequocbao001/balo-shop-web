@@ -10,9 +10,19 @@ const fetchAllNewProducts = async () => {
   return data;
 };
 
+const fetchAllPromotionProducts = async () => {
+  const data = await productsApi.getAllPromotion();
+  return data;
+};
+
 const fetchProductById = async (ma_mh) => {
   const data = await productsApi.getOne(ma_mh);
   return data;
 };
 
-export { fetchAllProducts, fetchAllNewProducts, fetchProductById };
+export {
+  fetchAllProducts,
+  fetchAllNewProducts,
+  fetchAllPromotionProducts,
+  fetchProductById,
+};
