@@ -1,13 +1,10 @@
-/* eslint-disable jsx-a11y/anchor-is-valid */
 import React from "react";
 import "react-loading-skeleton/dist/skeleton.css";
-import { NavLink } from "react-router-dom";
 import {
   useFetchAllProducts,
   useFetchAllNewProducts,
   useFetchAllPromotionProducts,
 } from "../hooks/useProducts";
-import moneyFormatter from "../helpers/money";
 
 import ListProducts from "./ListProducts";
 
@@ -53,8 +50,6 @@ const Products = () => {
           </button>
         </div> */
   }
-
-  console.log(isProductsLoading);
 
   return (
     <div>

@@ -2,25 +2,9 @@ import React from "react";
 import moneyFormatter from "../helpers/money";
 import { NavLink } from "react-router-dom";
 import COLOR_CONSTANTS from "../constants/colors";
+import LoadingSpinner from "./LoadingSpinnner/LoadingSpinner";
 
 const ListProducts = (param) => {
-  console.log("fuck", param);
-  const Loading = () => {
-    return (
-      <>
-        <div className="mb-5 pb-5">
-          <button className="btn btn-outline-dark me-3">All</button>
-          <button className="btn btn-outline-dark me-3">Men's Clothing</button>
-          <button className="btn btn-outline-dark me-3">
-            Woman's Clothing
-          </button>
-          <button className="btn btn-outline-dark me-3">Jewelery </button>
-          <button className="btn btn-outline-dark me-3">Electronic</button>
-        </div>
-      </>
-    );
-  };
-
   const ShowListProducts = () => {
     return (
       <div className="container my-5 py-5">
@@ -97,7 +81,7 @@ const ListProducts = (param) => {
   };
   return (
     <div>
-      {param.isListProductsLoading && <Loading />}
+      {param.isListProductsLoading && <LoadingSpinner />}
       {!param.isListProductsLoading && <ShowListProducts />}
     </div>
   );
