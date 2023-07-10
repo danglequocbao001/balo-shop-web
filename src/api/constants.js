@@ -29,6 +29,7 @@ const API_CONSTANTS = {
   PRODUCTS: {
     GET_ALL: "/mat-hang",
     GET_ONE: (ma_mh) => `/mat-hang/${ma_mh}`,
+    GET_ALL_NEW: "mat-hang/find-news",
     CREATE: "/mat-hang",
     UPDATE: (ma_mh) => `/mat-hang/${ma_mh}`,
     DELETE: (ma_mh) => `/mat-hang/${ma_mh}`,

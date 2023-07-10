@@ -5,9 +5,14 @@ const fetchAllProducts = async () => {
   return data;
 };
 
+const fetchAllNewProducts = async () => {
+  const data = await productsApi.getAllNew();
+  return data;
+};
+
 const fetchProductById = async (ma_mh) => {
   const data = await productsApi.getOne(ma_mh);
   return data;
 };
 
-export { fetchAllProducts, fetchProductById };
+export { fetchAllProducts, fetchAllNewProducts, fetchProductById };
