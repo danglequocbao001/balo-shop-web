@@ -10,6 +10,7 @@ import {
   MDBCardImage,
 } from "mdb-react-ui-kit";
 import { useFetchCurrentCustomer } from "../../hooks/useKhachHang";
+import COLOR_CONSTANTS from "../../constants/colors";
 
 const Profile = () => {
   const { customer } = useFetchCurrentCustomer();
@@ -22,7 +23,17 @@ const Profile = () => {
             <MDBCardText>{key}</MDBCardText>
           </MDBCol>
           <MDBCol sm="9">
-            <MDBCardText className="text-muted">{value}</MDBCardText>
+            <MDBCardText
+              style={{
+                fontWeight: "bold",
+                color:
+                  key === "Đang hoạt động"
+                    ? COLOR_CONSTANTS.SUCCESS
+                    : COLOR_CONSTANTS.BLACK,
+              }}
+            >
+              {value}
+            </MDBCardText>
           </MDBCol>
         </MDBRow>
         <hr />

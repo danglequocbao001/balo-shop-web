@@ -1,6 +1,6 @@
 import axios from "axios";
 import API_CONSTANTS, { BASE_URL, TOKEN_LOCAL_STORAGE } from "./constants";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 const api = axios.create({
   baseURL: BASE_URL,

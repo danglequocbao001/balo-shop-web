@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import "../styles/Login.css";
 import { authApi } from "../api";
@@ -8,14 +8,14 @@ import { useNavigate } from "react-router-dom";
 import { TOKEN_LOCAL_STORAGE } from "../api/constants";
 
 const Login = () => {
-  const [isLoading, setLoading] = useState(false);
+  // const [isLoading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
   const onLogin = async (param) => {
-    setLoading(true);
+    // setLoading(true);
     try {
       const data = await authApi.loginCustomer(param);
       localStorage.setItem(TOKEN_LOCAL_STORAGE, data[TOKEN_LOCAL_STORAGE]);

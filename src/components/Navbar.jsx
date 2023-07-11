@@ -45,12 +45,12 @@ const Navbar = () => {
             <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link " aria-current="page" to="/">
-                  Home
+                  Trang chủ
                 </NavLink>
               </li>
               <li className="nav-item">
                 <NavLink className="nav-link" to="/products">
-                  Product
+                  Sản phẩm
                 </NavLink>
               </li>
               <li className="nav-item">
@@ -69,27 +69,27 @@ const Navbar = () => {
               {!token && (
                 <>
                   <NavLink to="/login" className="btn btn-outline-dark">
-                    Login
+                    Đăng nhập
                     <FontAwesomeIcon
                       className="ms-2"
                       icon={faRightFromBracket}
                     />
                   </NavLink>
                   <NavLink to="/register" className="btn btn-outline-dark mx-3">
-                    Register
+                    Đăng ký
                     <FontAwesomeIcon className="ms-2" icon={faRegistered} />
                   </NavLink>
                 </>
               )}
               <NavLink to="/cart" className="btn btn-outline-dark mx-2">
-                Cart ({cartCount.length})
+                Giỏ hàng ({cartCount.length})
                 <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
               </NavLink>
 
               {token && (
                 <>
                   <NavLink to="/profile" className="btn btn-outline-dark">
-                    Profile
+                    Người dùng
                     <FontAwesomeIcon className="ms-2" icon={faUser} />
                   </NavLink>
                   <button

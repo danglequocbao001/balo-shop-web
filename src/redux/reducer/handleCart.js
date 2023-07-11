@@ -19,7 +19,7 @@ const HandleCart = (state = cart, action) => {
           },
         ];
       }
-      localStorage.setItem("cartItems", JSON.stringify());
+    // localStorage.setItem("cartItems", JSON.stringify());
 
     case "DELETEITEM":
       const exist1 = state.find((x) => x.id === product.id);
