@@ -2,13 +2,14 @@ import "./App.css";
 import Home from "./components/Home";
 import Navbar from "./components/Navbar";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import Products from "./components/Products";
-import Product from "./components/Product";
+
 import Cart from "./components/Cart";
 import Login from "./components/Login";
 
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import Products from "./components/products/Products";
+import Product from "./components/products/Product";
 
 function App() {
   return (

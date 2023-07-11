@@ -5,7 +5,7 @@ import {
   useFetchAllNewProducts,
   useFetchAllPromotionProducts,
   useFetchAllBestSellerProducts,
-} from "../hooks/useProducts";
+} from "../../hooks/useProducts";
 
 import ListProducts from "./ListProducts";
 

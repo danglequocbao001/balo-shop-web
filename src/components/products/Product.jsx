@@ -1,9 +1,9 @@
 import React from "react";
 import { Link, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addItem } from "../redux/action";
-import { useFetchOneProducts } from "../hooks/useProducts";
-import moneyFormatter from "../helpers/money";
+import { addItem } from "../../redux/action";
+import { useFetchOneProducts } from "../../hooks/useProducts";
+import moneyFormatter from "../../helpers/money";
 const Product = () => {
   const { ma_mh } = useParams();
   const dispatch = useDispatch();
