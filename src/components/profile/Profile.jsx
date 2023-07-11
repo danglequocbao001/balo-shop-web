@@ -11,7 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useFetchCurrentCustomer } from "../../hooks/useKhachHang";
 
-export default function ProfilePage() {
+const Profile = () => {
   const { customer } = useFetchCurrentCustomer();
 
   const customerDetailItem = (id, key, value) => {
@@ -115,4 +115,6 @@ export default function ProfilePage() {
       </MDBContainer>
     </div>
   );
-}
+};
+
+export default Profile;

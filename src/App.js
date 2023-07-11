@@ -10,7 +10,7 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Products from "./components/products/Products";
 import Product from "./components/products/Product";
-import ProfilePage from "./components/profile/Profile";
+import Profile from "./components/profile/Profile";
 
 function App() {
   return (
@@ -25,7 +25,7 @@ function App() {
           <Route exact path="/products" element={<Products />}></Route>
           <Route exact path="/products/:ma_mh" element={<Product />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
-          <Route path="/profile" element={<ProfilePage />}></Route>
+          <Route path="/profile" element={<Profile />}></Route>
 
           <Route path="/admin/nha-cung-cap" element={<></>}></Route>
           <Route path="/admin/loai-mat-hang" element={<></>}></Route>
