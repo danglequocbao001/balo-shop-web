@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import {
-  fetchAllProducts,
-  fetchAllNewProducts,
-  fetchAllPromotionProducts,
-  fetchProductById,
-} from "../services/products";
+import { fetchAllProducts, fetchProductById } from "../services/products";
 
 export const useFetchAllProducts = () => {
   const [isLoading, setLoading] = useState(false);
@@ -33,9 +28,12 @@ export const useFetchAllNewProducts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchAllNewProducts()
+    fetchAllProducts()
       .then((data) => {
-        setData(data);
+        const result = data.filter((product) => {
+          return product.is_new === true;
+        });
+        setData(result);
         setLoading(false);
       })
       .catch((err) => {
@@ -53,9 +51,12 @@ export const useFetchAllPromotionProducts = () => {
 
   useEffect(() => {
     setLoading(true);
-    fetchAllPromotionProducts()
+    fetchAllProducts()
       .then((data) => {
-        setData(data);
+        const result = data.filter((product) => {
+          return product.khuyen_mai !== undefined;
+        });
+        setData(result);
         setLoading(false);
       })
       .catch((err) => {
@@ -65,6 +66,29 @@ export const useFetchAllPromotionProducts = () => {
   }, []);
 
   return { promoteProducts: data, isLoading };
+};
+
+export const useFetchAllBestSellerProducts = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    setLoading(true);
+    fetchAllProducts()
+      .then((data) => {
+        const result = data.filter((product) => {
+          return product.chi_tiet_da_ban !== undefined;
+        });
+        setData(result);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  }, []);
+
+  return { bestSellerProducts: data, isLoading };
 };
 
 export const useFetchOneProducts = (ma_mh) => {

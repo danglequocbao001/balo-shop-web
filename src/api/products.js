@@ -9,12 +9,6 @@ export default {
   getOne: (ma_mh) => {
     return api.get(API_CONSTANTS.PRODUCTS.GET_ONE(ma_mh));
   },
-  getAllNew: () => {
-    return api.get(API_CONSTANTS.PRODUCTS.GET_ALL_NEW);
-  },
-  getAllPromotion: () => {
-    return api.get(API_CONSTANTS.PRODUCTS.GET_ALL_PROMOTION);
-  },
   create: (param) => {
     return api.post(API_CONSTANTS.PRODUCTS.CREATE, param);
   },

@@ -4,6 +4,7 @@ import {
   useFetchAllProducts,
   useFetchAllNewProducts,
   useFetchAllPromotionProducts,
+  useFetchAllBestSellerProducts,
 } from "../hooks/useProducts";
 
 import ListProducts from "./ListProducts";
@@ -12,9 +13,10 @@ const Products = () => {
   const { products, isLoading: isProductsLoading } = useFetchAllProducts();
   const { newProducts, isLoading: isNewProductsLoading } =
     useFetchAllNewProducts();
-
   const { promoteProducts, isLoading: isPromoteProductsLoading } =
     useFetchAllPromotionProducts();
+  const { bestSellerProducts, isLoading: isBestSellerProductsLoading } =
+    useFetchAllBestSellerProducts();
 
   {
     /* <div className="mb-5 pb-5">
@@ -53,11 +55,11 @@ const Products = () => {
 
   return (
     <div>
-      <ListProducts
+      {/* <ListProducts
         title={"Tất cả sản phẩm"}
         listProducts={products}
         isListProductsLoading={isProductsLoading}
-      />
+      /> */}
       <ListProducts
         title={"Sản phẩm mới"}
         listProducts={newProducts}
@@ -67,6 +69,11 @@ const Products = () => {
         title={"Sản phẩm đang được khuyến mãi"}
         listProducts={promoteProducts}
         isListProductsLoading={isPromoteProductsLoading}
+      />
+      <ListProducts
+        title={"Sản phẩm bán chạy"}
+        listProducts={bestSellerProducts}
+        isListProductsLoading={isBestSellerProductsLoading}
       />
     </div>
   );
