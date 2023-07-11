@@ -20,9 +20,9 @@ const Navbar = () => {
     setToken(localStorageToken);
   }, [localStorageToken]);
 
-  localStorage.setItem("test", JSON.stringify(state));
+  localStorage.setItem("cart", JSON.stringify(state));
 
-  const cartCount = JSON.parse(localStorage.getItem("test"));
+  const cartCount = JSON.parse(localStorage.getItem("cart"));
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light">

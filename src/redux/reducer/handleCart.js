@@ -4,30 +4,32 @@ const HandleCart = (state = cart, action) => {
   switch (action.type) {
     case "ADDITEM":
       //check product exist
-      const exist = state.find((x) => x.id === product.id);
+      const exist = state.find((x) => x.ma_mh === product.ma_mh);
       //increase quanlity product
       if (exist) {
         return state.map((item) =>
-          item.id === product.id ? { ...item, qty: item.qty + 1 } : item
+          item.ma_mh === product.ma_mh
+            ? { ...item, quantity: item.quantity + 1 }
+            : item
         );
       } else {
         return [
           ...state,
           {
             ...product,
-            qty: 1,
+            quantity: 1,
           },
         ];
       }
     // localStorage.setItem("cartItems", JSON.stringify());
 
     case "DELETEITEM":
-      const exist1 = state.find((x) => x.id === product.id);
-      if (exist1.qty === 1) {
-        return state.filter((x) => x.id !== exist1.id);
+      const exist1 = state.find((x) => x.ma_mh === product.ma_mh);
+      if (exist1.quantity === 1) {
+        return state.filter((x) => x.ma_mh !== exist1.ma_mh);
       } else {
         return state.map((x) =>
-          x.id === product.id ? { ...x, qty: x.qty - 1 } : x
+          x.ma_mh === product.ma_mh ? { ...x, quantity: x.quantity - 1 } : x
         );
       }
     // return{

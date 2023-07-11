@@ -3,6 +3,7 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { deleteItem, addItem } from "../redux/action";
 import { Link } from "react-router-dom";
+import moneyFormatter from "../helpers/money";
 const Cart = () => {
   const state = useSelector((state) => state.HandleCart);
   const dispatch = useDispatch();
@@ -25,22 +26,41 @@ const Cart = () => {
   };
   const cartItems = state.map((product) => {
     return (
-      <div className="px-4 my-5 bg-light rounded-3 py-5" key={product.id}>
+      <div className="px-4 my-5 bg-light rounded-3 py-5" key={product.ma_mh}>
         <div className="container py-4">
           <div className="row justify-content-center">
             <div className="col-md-4">
               <img
-                src={product.image}
-                alt={product.title}
+                src={product.hinh_anh}
+                alt={product.ten_mh}
                 width="200px"
                 height="180px"
-              ></img>
+              />
             </div>
             <div className="col-md-4">
-              <h3>{product.title}</h3>
+              <h3>{product.ten_mh}</h3>
+              <h5
+                style={{
+                  textDecoration: product.khuyen_mai ? "line-through" : "none",
+                  fontWeight: product.khuyen_mai ? "300" : "500",
+                }}
+              >{`Đơn giá: ${moneyFormatter.format(product.gia)}`}</h5>
+              {product.khuyen_mai && (
+                <h5>{`Giảm còn: ${moneyFormatter.format(
+                  product.khuyen_mai.gia_sau_khi_giam
+                )}`}</h5>
+              )}
               <p className="lead fw-bold">
-                {product.qty} X ${product.price} = $
-                {product.qty * product.price}
+                {`${product.quantity} x ${moneyFormatter.format(
+                  product.khuyen_mai
+                    ? product.khuyen_mai.gia_sau_khi_giam
+                    : product.gia
+                )} = ${moneyFormatter.format(
+                  product.quantity *
+                    (product.khuyen_mai
+                      ? product.khuyen_mai.gia_sau_khi_giam
+                      : product.gia)
+                )}`}
               </p>
               <button
                 className="btn btn-outline-dark me-4"
@@ -70,7 +90,7 @@ const Cart = () => {
               to="/checkout"
               className="btn btn-outline-dark mb-5 w-25 mx-auto"
             >
-              Proceed to Checkout
+              Đặt hàng
             </Link>
           </div>
         </div>
