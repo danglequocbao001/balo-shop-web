@@ -26,8 +26,10 @@ const ListProducts = (param) => {
                         backgroundColor: COLOR_CONSTANTS.ERROR,
                         position: "absolute",
                         zIndex: 1,
+                        borderTopLeftRadius: 5,
                         borderBottomRightRadius: 10,
                         paddingTop: 7,
+                        marginTop: 0.5,
                       }}
                     >
                       <span
@@ -41,8 +43,34 @@ const ListProducts = (param) => {
                       </span>
                     </div>
                   )}
+                  {product.chi_tiet_da_ban && (
+                    <div
+                      style={{
+                        width: 170,
+                        height: 40,
+                        backgroundColor: COLOR_CONSTANTS.SUCCESS,
+                        position: "absolute",
+                        zIndex: 1,
+                        borderTopRightRadius: 5,
+                        borderBottomLeftRadius: 10,
+                        paddingTop: 7,
+                        marginLeft: 136,
+                        marginTop: 0.5,
+                      }}
+                    >
+                      <span
+                        style={{
+                          color: COLOR_CONSTANTS.WHITE,
+                          fontWeight: "bold",
+                          marginLeft: 7,
+                        }}
+                      >
+                        {`Bán chạy (đã bán ${product.chi_tiet_da_ban.tong_so_da_ban})`}
+                      </span>
+                    </div>
+                  )}
                   <div className="card h-100px text-center p-4">
-                    <span style={{ fontSize: 20 }}>
+                    <span style={{ fontSize: 20, marginTop: 20 }}>
                       {`${product.ma_loai_mh}/${product.loai_mat_hang.ten_loai_mh}`}
                     </span>
                     <img
