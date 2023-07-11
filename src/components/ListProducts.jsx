@@ -18,7 +18,7 @@ const ListProducts = (param) => {
             param.listProducts.map((product) => {
               return (
                 <div className="col-md-3 mb-4" key={product.ma_mh}>
-                  {param.isPromotion && (
+                  {product.khuyen_mai && (
                     <div
                       style={{
                         width: 60,
@@ -37,20 +37,19 @@ const ListProducts = (param) => {
                           marginLeft: 7,
                         }}
                       >
-                        {`-${product.phan_tram_giam_gia}%`}
+                        {`-${product.khuyen_mai.phan_tram_giam_gia}%`}
                       </span>
                     </div>
                   )}
                   <div className="card h-100px text-center p-4">
+                    <span style={{ fontSize: 20 }}>
+                      {`${product.ma_mh}/${product.loai_mat_hang.ten_loai_mh}`}
+                    </span>
                     <img
                       src={product.hinh_anh}
                       className="card-img-top"
                       height="250px"
-                      alt={
-                        param.isPromotion
-                          ? product.ten_loai_mh
-                          : product.loai_mat_hang.ten_loai_mh
-                      }
+                      alt={product.loai_mat_hang.ten_loai_mh}
                     />
                     <div className="card-body">
                       <h5 className="card-title">{product.ten_mh}</h5>

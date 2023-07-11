@@ -65,7 +65,6 @@ const Products = () => {
       />
       <ListProducts
         title={"Sản phẩm đang được khuyến mãi"}
-        isPromotion={true}
         listProducts={promoteProducts}
         isListProductsLoading={isPromoteProductsLoading}
       />
