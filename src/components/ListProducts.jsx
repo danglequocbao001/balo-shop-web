@@ -21,20 +21,20 @@ const ListProducts = (param) => {
                   {product.khuyen_mai && (
                     <div
                       style={{
-                        width: 60,
+                        width: 55,
                         height: 40,
                         backgroundColor: COLOR_CONSTANTS.ERROR,
                         position: "absolute",
                         zIndex: 1,
                         borderBottomRightRadius: 10,
-                        paddingTop: 5,
+                        paddingTop: 7,
                       }}
                     >
                       <span
                         style={{
                           color: COLOR_CONSTANTS.WHITE,
                           fontWeight: "bold",
-                          marginLeft: 7,
+                          marginLeft: 5,
                         }}
                       >
                         {`-${product.khuyen_mai.phan_tram_giam_gia}%`}
@@ -53,9 +53,29 @@ const ListProducts = (param) => {
                     />
                     <div className="card-body">
                       <h5 className="card-title">{product.ten_mh}</h5>
-                      <p className="card-text">
+                      <p
+                        className="card-text"
+                        style={{
+                          textDecoration: product.khuyen_mai
+                            ? "line-through"
+                            : "none",
+                          fontWeight: product.khuyen_mai ? "300" : "bold",
+                        }}
+                      >
                         {`Giá: ${moneyFormatter.format(product.gia)}`}
                       </p>
+                      {product.khuyen_mai && (
+                        <p
+                          className="card-text"
+                          style={{
+                            fontWeight: "bold",
+                          }}
+                        >
+                          {`Giảm còn: ${moneyFormatter.format(
+                            product.khuyen_mai.gia_sau_khi_giam
+                          )}`}
+                        </p>
+                      )}
                       <p className="card-text">
                         {product.mo_ta.length > 28
                           ? `${product.mo_ta.substring(0, 28)}...`
