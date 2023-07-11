@@ -1,7 +1,7 @@
 const COLOR_CONSTANTS = {
   SUCCESS: "#22bb33",
   ERROR: "#ff3333",
-  WARNING: "#f0ad4e",
+  WARNING: "#ffd119",
   WHITE: "#ffffff",
   BLACK: "#000000",
 };

@@ -2,13 +2,14 @@ import React from "react";
 import { Carousel } from "antd";
 import { useFetchAllQuangCaos } from "../../hooks/useQuangCao";
 import { styled } from "styled-components";
+import COLOR_CONSTANTS from "../../constants/colors";
 
 const CarouselWrapper = styled(Carousel)`
   > .slick-dots li button {
-    background: #000000;
+    background: ${COLOR_CONSTANTS.BLACK};
   }
   > .slick-dots li.slick-active button {
-    background: #000000;
+    background: ${COLOR_CONSTANTS.BLACK};
   }
 `;
 
