@@ -5,10 +5,13 @@ import { addItem } from "../../redux/action";
 import { useFetchOneProducts } from "../../hooks/useProducts";
 import moneyFormatter from "../../helpers/money";
 import ProductItem from "./ProductItem";
+import { toast } from "react-toastify";
+
 const Product = () => {
   const { ma_mh } = useParams();
   const dispatch = useDispatch();
   const addProduct = (product) => {
+    toast.success("Thêm vào giỏ hàng thành công");
     dispatch(addItem(product));
   };
 

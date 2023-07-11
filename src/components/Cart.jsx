@@ -6,13 +6,16 @@ import { Link } from "react-router-dom";
 import moneyFormatter from "../helpers/money";
 const Cart = () => {
   const state = useSelector((state) => state.HandleCart);
+
   const dispatch = useDispatch();
+
   const handleAdd = (item) => {
     dispatch(addItem(item));
   };
   const handleDel = (item) => {
     dispatch(deleteItem(item));
   };
+
   const emptyCart = () => {
     return (
       <div className="px-4 my-5 bg-light rounded-3 py-5">
@@ -24,6 +27,7 @@ const Cart = () => {
       </div>
     );
   };
+
   const cartItems = state.map((product) => {
     return (
       <div className="px-4 my-5 bg-light rounded-3 py-5" key={product.ma_mh}>
