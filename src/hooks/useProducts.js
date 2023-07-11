@@ -2,7 +2,14 @@ import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { fetchAllProducts, fetchProductById } from "../services/products";
 
-export const useFetchAllProducts = () => {
+export const PRODUCTS_FILTER = {
+  ALL: "ALL",
+  NEW: "NEW",
+  PROMOTE: "PROMOTE",
+  BEST_SELLER: "BEST_SELLER",
+};
+
+export const useFetchAllProducts = (filter) => {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
@@ -10,85 +17,33 @@ export const useFetchAllProducts = () => {
     setLoading(true);
     fetchAllProducts()
       .then((data) => {
-        setData(data);
+        if (filter === PRODUCTS_FILTER.NEW) {
+          const result = data.filter((product) => {
+            return product.is_new === true;
+          });
+          setData(result);
+        } else if (filter === PRODUCTS_FILTER.PROMOTE) {
+          const result = data.filter((product) => {
+            return product.khuyen_mai !== undefined;
+          });
+          setData(result);
+        } else if (filter === PRODUCTS_FILTER.BEST_SELLER) {
+          const result = data.filter((product) => {
+            return product.chi_tiet_da_ban !== undefined;
+          });
+          setData(result);
+        } else {
+          setData(data);
+        }
         setLoading(false);
       })
       .catch((err) => {
         toast.error(err.message);
         setLoading(false);
       });
-  }, []);
+  }, [filter]);
 
   return { products: data, isLoading };
-};
-
-export const useFetchAllNewProducts = () => {
-  const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchAllProducts()
-      .then((data) => {
-        const result = data.filter((product) => {
-          return product.is_new === true;
-        });
-        setData(result);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  return { newProducts: data, isLoading };
-};
-
-export const useFetchAllPromotionProducts = () => {
-  const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchAllProducts()
-      .then((data) => {
-        const result = data.filter((product) => {
-          return product.khuyen_mai !== undefined;
-        });
-        setData(result);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  return { promoteProducts: data, isLoading };
-};
-
-export const useFetchAllBestSellerProducts = () => {
-  const [isLoading, setLoading] = useState(false);
-  const [data, setData] = useState([]);
-
-  useEffect(() => {
-    setLoading(true);
-    fetchAllProducts()
-      .then((data) => {
-        const result = data.filter((product) => {
-          return product.chi_tiet_da_ban !== undefined;
-        });
-        setData(result);
-        setLoading(false);
-      })
-      .catch((err) => {
-        toast.error(err.message);
-        setLoading(false);
-      });
-  }, []);
-
-  return { bestSellerProducts: data, isLoading };
 };
 
 export const useFetchOneProducts = (ma_mh) => {
