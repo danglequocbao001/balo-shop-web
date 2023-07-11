@@ -1,6 +1,16 @@
 import React from "react";
 import { Carousel } from "antd";
 import { useFetchAllQuangCaos } from "../../hooks/useQuangCao";
+import { styled } from "styled-components";
+
+const CarouselWrapper = styled(Carousel)`
+  > .slick-dots li button {
+    background: #000000;
+  }
+  > .slick-dots li.slick-active button {
+    background: #000000;
+  }
+`;
 
 const Advertisement = () => {
   const { quangCaos } = useFetchAllQuangCaos();
@@ -10,7 +20,7 @@ const Advertisement = () => {
       <div>
         <div
           style={{
-            padding: "50px 10% 20px 10%",
+            padding: "50px 12% 20px 12%",
           }}
         >
           <span
@@ -35,9 +45,9 @@ const Advertisement = () => {
           src={item.hinh_anh}
           alt={item.ten_qc}
           style={{
-            width: "80%",
+            width: "74%",
             height: "600px",
-            marginLeft: "10%",
+            marginLeft: "12%",
           }}
         />
       </div>
@@ -45,9 +55,9 @@ const Advertisement = () => {
   };
 
   return (
-    <Carousel autoplay>
+    <CarouselWrapper autoplay>
       {quangCaos && quangCaos.map((item) => AdvertisementItem(item))}
-    </Carousel>
+    </CarouselWrapper>
   );
 };
 
