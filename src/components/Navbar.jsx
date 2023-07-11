@@ -28,7 +28,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
           <NavLink className="navbar-brand fw-bold fs-4" to="/">
-            BLQD Balo Shop
+            B Balo Shop
           </NavLink>
           <button
             className="navbar-toggler"
