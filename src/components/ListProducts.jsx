@@ -43,7 +43,7 @@ const ListProducts = (param) => {
                   )}
                   <div className="card h-100px text-center p-4">
                     <span style={{ fontSize: 20 }}>
-                      {`${product.ma_mh}/${product.loai_mat_hang.ten_loai_mh}`}
+                      {`${product.ma_loai_mh}/${product.loai_mat_hang.ten_loai_mh}`}
                     </span>
                     <img
                       src={product.hinh_anh}
