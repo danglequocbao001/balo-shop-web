@@ -27,8 +27,10 @@ const Profile = () => {
               style={{
                 fontWeight: "bold",
                 color:
-                  key === "Đang hoạt động"
+                  value === "Đang hoạt động"
                     ? COLOR_CONSTANTS.SUCCESS
+                    : key === "Đang hoạt động"
+                    ? COLOR_CONSTANTS.ERROR
                     : COLOR_CONSTANTS.BLACK,
               }}
             >

@@ -89,7 +89,7 @@ const Navbar = () => {
               {token && (
                 <>
                   <NavLink to="/profile" className="btn btn-outline-dark">
-                    Người dùng
+                    Khách hàng
                     <FontAwesomeIcon className="ms-2" icon={faUser} />
                   </NavLink>
                   <button
