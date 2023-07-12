@@ -41,7 +41,9 @@ const Product = () => {
                   fontSize: 30,
                 }}
               >
-                {`Giá: ${moneyFormatter.format(product.gia)}`}
+                {`Giá: ${moneyFormatter.format(
+                  product.thay_doi_gia.gia_dang_ap_dung
+                )}`}
               </p>
               {product.khuyen_mai && (
                 <p

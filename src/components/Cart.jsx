@@ -48,7 +48,7 @@ const Cart = () => {
                   textDecoration: product.khuyen_mai ? "line-through" : "none",
                   fontWeight: product.khuyen_mai ? "300" : "500",
                 }}
-              >{`Đơn giá: ${moneyFormatter.format(product.gia)}`}</h5>
+              >{`Đơn giá: ${moneyFormatter.format(product.thay_doi_gia.gia_dang_ap_dung)}`}</h5>
               {product.khuyen_mai && (
                 <h5>{`Giảm còn: ${moneyFormatter.format(
                   product.khuyen_mai.gia_sau_khi_giam
@@ -58,12 +58,12 @@ const Cart = () => {
                 {`${product.quantity} x ${moneyFormatter.format(
                   product.khuyen_mai
                     ? product.khuyen_mai.gia_sau_khi_giam
-                    : product.gia
+                    : product.thay_doi_gia.gia_dang_ap_dung
                 )} = ${moneyFormatter.format(
                   product.quantity *
                     (product.khuyen_mai
                       ? product.khuyen_mai.gia_sau_khi_giam
-                      : product.gia)
+                      : product.thay_doi_gia.gia_dang_ap_dung)
                 )}`}
               </p>
               <button

@@ -123,7 +123,9 @@ const ProductItem = (param) => {
                 fontWeight: param.product.khuyen_mai ? "300" : "bold",
               }}
             >
-              {`Giá: ${moneyFormatter.format(param.product.gia)}`}
+              {`Giá: ${moneyFormatter.format(
+                param.product.thay_doi_gia.gia_dang_ap_dung
+              )}`}
             </p>
             {param.product.khuyen_mai && (
               <p
