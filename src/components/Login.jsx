@@ -31,7 +31,13 @@ const Login = () => {
     <>
       <p className="title">Login Form</p>
 
-      <form className="Login" onSubmit={handleSubmit(onLogin)}>
+      <form
+        className="Login"
+        onSubmit={handleSubmit(onLogin)}
+        style={{
+          display: "inline-grid",
+        }}
+      >
         <input type="email" required {...register("email_kh")} />
         <input type="password" required {...register("mat_khau")} />
         <input type={"submit"} style={{ backgroundColor: "#a1eafb" }} />

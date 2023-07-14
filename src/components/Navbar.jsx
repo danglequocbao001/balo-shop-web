@@ -23,6 +23,7 @@ const Navbar = () => {
   localStorage.setItem("cart", JSON.stringify(state));
 
   const cartCount = JSON.parse(localStorage.getItem("cart"));
+
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light">

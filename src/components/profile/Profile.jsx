@@ -11,6 +11,7 @@ import {
 } from "mdb-react-ui-kit";
 import { useFetchCurrentCustomer } from "../../hooks/useKhachHang";
 import COLOR_CONSTANTS from "../../constants/colors";
+import EditProfileModal from "./EditProfileModal";
 
 const Profile = () => {
   const { customer } = useFetchCurrentCustomer();
@@ -76,14 +77,27 @@ const Profile = () => {
                     style={{ width: "150px" }}
                     fluid
                   />
-                  <p
-                    className="mb-1"
+                  <div
                     style={{
-                      fontWeight: "bold",
-                      fontSize: 20,
-                      marginTop: 10,
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      marginLeft: "10%",
                     }}
-                  >{`${customer.ho_kh} ${customer.ten_kh}`}</p>
+                  >
+                    <p
+                      className="mb-1"
+                      style={{
+                        fontWeight: "bold",
+                        fontSize: 20,
+                        marginTop: 10,
+                      }}
+                    >
+                      {`${customer.ho_kh} ${customer.ten_kh}`}
+                    </p>
+                    <EditProfileModal />
+                  </div>
                   <p className="mb-4">{`${customer.dia_chi}`}</p>
                   <NavLink className="btn btn-dark">Đổi mật khẩu</NavLink>
                 </MDBCardBody>
