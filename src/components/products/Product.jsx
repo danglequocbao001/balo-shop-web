@@ -25,7 +25,12 @@ const Product = () => {
       <>
         {product && (
           <>
-            <div className="col-md-6">
+            <div
+              className="col-md-4"
+              style={{
+                marginLeft: 180,
+              }}
+            >
               <ProductItem product={product} productDetail={true} />
             </div>
             <div className="col-md-6">
@@ -63,8 +68,14 @@ const Product = () => {
               <h5 className="my-4">{`Nhà sản xuất: ${product.nha_san_xuat}`}</h5>
               <h5>{`Mô tả: ${product.mo_ta}`}</h5>
             </div>
-            <div className="col-md-6"></div>
-            <div className="col-md-6">
+            <div className="col-md-4"></div>
+            <div
+              className="col-md-4"
+              style={{
+                marginLeft: 180,
+                marginTop: 30,
+              }}
+            >
               <button
                 className="btn btn-outline-dark"
                 onClick={() => addProduct(product)}
