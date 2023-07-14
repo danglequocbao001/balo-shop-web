@@ -4,5 +4,7 @@ const COLOR_CONSTANTS = {
   WARNING: "#ffd119",
   WHITE: "#ffffff",
   BLACK: "#000000",
+
+  LIGHT_GREY: "#F8F9FA",
 };
 export default COLOR_CONSTANTS;

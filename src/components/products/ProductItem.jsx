@@ -3,6 +3,11 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
 
 const ProductItem = (param) => {
+  console.log(
+    "fuckk",
+    (param.productDetail === true && param.isCart === undefined) ||
+      (param.productDetail === undefined && param.isCart === true)
+  );
   const khuyenMai = () => {
     return (
       <div
@@ -146,7 +151,10 @@ const ProductItem = (param) => {
             </p>
             <p className="card-text">{`Còn lại: ${param.product.so_luong}`}</p>
             <p className="card-text">{`Nhà sản xuất: ${param.product.nha_san_xuat}`}</p>
-            {param.productDetail !== true && (
+            {!(
+              (param.productDetail === true && param.isCart === undefined) ||
+              (param.productDetail === undefined && param.isCart === true)
+            ) && (
               <NavLink
                 to={`/products/${param.product.ma_mh}`}
                 className="btn btn-dark"
