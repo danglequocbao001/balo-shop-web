@@ -54,12 +54,6 @@ const Cart = () => {
         <div className="container py-4">
           <div className="row justify-content-center">
             <div className="col-md-4">
-              {/* <img
-                src={product.hinh_anh}
-                alt={product.ten_mh}
-                width="200px"
-                height="180px"
-              /> */}
               <ProductItem product={product} isCart={true} />
             </div>
             <div className="col-md-4">
@@ -108,9 +102,37 @@ const Cart = () => {
     );
   });
 
+  const tempTotalPrice = () => {
+    return (
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "flex-end",
+          display: "flex",
+          padding: "0px 40px",
+          margin: "20px 0",
+        }}
+      >
+        <span
+          style={{
+            fontWeight: "bold",
+            fontSize: 25,
+            backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
+            padding: 10,
+            paddingBottom: 0,
+            borderRadius: 10,
+            marginRight: 150,
+          }}
+        >
+          {`Tổng tiền tạm tính: ${moneyFormatter.format(tmpPrice)}`}
+        </span>
+      </div>
+    );
+  };
+
   const buttons = () => {
     return (
-      <>
+      <div>
         <div className="container">
           <div className="row">
             <Link
@@ -121,37 +143,15 @@ const Cart = () => {
             </Link>
           </div>
         </div>
-      </>
+      </div>
     );
   };
+
   return (
     <div>
       {state.length === 0 && emptyCart()}
       {state.length !== 0 && cartItems}
-      {
-        <div
-          style={{
-            alignItems: "center",
-            justifyContent: "flex-end",
-            display: "flex",
-            padding: "0px 40px",
-            margin: "20px 0",
-          }}
-        >
-          <span
-            style={{
-              fontWeight: "bold",
-              fontSize: 25,
-              backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
-              padding: 10,
-              paddingBottom: 0,
-              borderRadius: 10,
-            }}
-          >
-            {`Tổng tiền tạm tính: ${moneyFormatter.format(tmpPrice)}`}
-          </span>
-        </div>
-      }
+      {tempTotalPrice()}
       {state.length !== 0 && buttons()}
     </div>
   );
