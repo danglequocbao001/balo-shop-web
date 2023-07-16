@@ -3,6 +3,10 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
 
 const ProductItem = (param) => {
+  const productDetailAndCartNoUse = !(
+    (param.productDetail === true && param.isCart === undefined) ||
+    (param.productDetail === undefined && param.isCart === true)
+  );
   const khuyenMai = () => {
     return (
       <div
@@ -99,7 +103,7 @@ const ProductItem = (param) => {
           width: 307,
         }}
       >
-        {param.productDetail !== true && (
+        {productDetailAndCartNoUse && (
           <span style={{ fontSize: 20, marginTop: 20 }}>
             {`${param.product.ma_loai_mh}/${param.product.loai_mat_hang.ten_loai_mh}`}
           </span>
@@ -107,11 +111,21 @@ const ProductItem = (param) => {
         <img
           src={param.product.hinh_anh}
           className="card-img-top"
-          height={param.productDetail !== true ? "250px" : "350px"}
-          width={param.productDetail !== true ? "" : "150px"}
           alt={param.product.loai_mat_hang.ten_loai_mh}
+          style={
+            productDetailAndCartNoUse
+              ? {
+                  height: 250,
+                  width: 250,
+                }
+              : {
+                  height: 150,
+                  width: 150,
+                  marginLeft: 50,
+                }
+          }
         />
-        {param.productDetail !== true && (
+        {productDetailAndCartNoUse && (
           <div className="card-body" style={{ marginBottom: 20 }}>
             <h5 className="card-title">{param.product.ten_mh}</h5>
             <p
@@ -146,10 +160,7 @@ const ProductItem = (param) => {
             </p>
             <p className="card-text">{`Còn lại: ${param.product.so_luong}`}</p>
             <p className="card-text">{`Nhà sản xuất: ${param.product.nha_san_xuat}`}</p>
-            {!(
-              (param.productDetail === true && param.isCart === undefined) ||
-              (param.productDetail === undefined && param.isCart === true)
-            ) && (
+            {productDetailAndCartNoUse && (
               <NavLink
                 to={`/products/${param.product.ma_mh}`}
                 className="btn btn-dark"

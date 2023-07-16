@@ -50,7 +50,7 @@ const Cart = () => {
 
   const cartItems = state.map((product) => {
     return (
-      <div className="px-4 my-5 bg-light rounded-3 py-2" key={product.ma_mh}>
+      <div className="bg-light rounded-3" key={product.ma_mh}>
         <div className="container py-4">
           <div className="row justify-content-center">
             <div className="col-md-4">
@@ -83,18 +83,21 @@ const Cart = () => {
                       : product.thay_doi_gia.gia_dang_ap_dung)
                 )}`}
               </p>
-              <button
-                className="btn btn-outline-dark me-4"
-                onClick={() => handleDel(product)}
-              >
-                -
-              </button>
-              <button
-                className="btn btn-outline-dark"
-                onClick={() => handleAdd(product)}
-              >
-                +
-              </button>
+              <h5>{`Còn lại: ${product.so_luong}`}</h5>
+              <div style={{ marginTop: 20 }}>
+                <button
+                  className="btn btn-outline-dark me-4"
+                  onClick={() => handleDel(product)}
+                >
+                  -
+                </button>
+                <button
+                  className="btn btn-outline-dark"
+                  onClick={() => handleAdd(product)}
+                >
+                  +
+                </button>
+              </div>
             </div>
           </div>
         </div>
