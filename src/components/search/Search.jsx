@@ -98,7 +98,6 @@ const Search = () => {
       const data = await fetchSearchProduct(paramSearch);
       const dataFiltered = await khacSearchFilter(data, otherParam);
       setProducts(dataFiltered);
-      toast.success("Tìm kiếm thành công");
       setLoading(false);
     } catch (err) {
       toast.error(err.message);
