@@ -74,9 +74,15 @@ const Search = () => {
         return product.is_new === true;
       });
     } else if (filter === PRODUCTS_FILTER.PROMOTE) {
-      return productsSearched.filter((product) => {
-        return product.khuyen_mai !== undefined;
-      });
+      return productsSearched
+        .filter((product) => {
+          return product.khuyen_mai !== undefined;
+        })
+        .sort(function (a, b) {
+          return (
+            b.khuyen_mai.phan_tram_giam_gia - a.khuyen_mai.phan_tram_giam_gia
+          );
+        });
     } else if (filter === PRODUCTS_FILTER.BEST_SELLER) {
       return productsSearched.filter((product) => {
         return product.chi_tiet_da_ban !== undefined;

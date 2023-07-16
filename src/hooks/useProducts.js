@@ -23,9 +23,16 @@ export const useFetchAllProducts = (filter) => {
           });
           setData(result);
         } else if (filter === PRODUCTS_FILTER.PROMOTE) {
-          const result = data.filter((product) => {
-            return product.khuyen_mai !== undefined;
-          });
+          const result = data
+            .filter((product) => {
+              return product.khuyen_mai !== undefined;
+            })
+            .sort(function (a, b) {
+              return (
+                b.khuyen_mai.phan_tram_giam_gia -
+                a.khuyen_mai.phan_tram_giam_gia
+              );
+            });
           setData(result);
         } else if (filter === PRODUCTS_FILTER.BEST_SELLER) {
           const result = data.filter((product) => {
