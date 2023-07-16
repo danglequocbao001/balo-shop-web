@@ -32,6 +32,7 @@ const API_CONSTANTS = {
     CREATE: "/mat-hang",
     UPDATE: (ma_mh) => `/mat-hang/${ma_mh}`,
     DELETE: (ma_mh) => `/mat-hang/${ma_mh}`,
+    SEARCH: "mat-hang/search",
   },
   PRODUCTS_TYPE: {
     GET: "/loai-mat-hang",

@@ -11,6 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 import Products from "./components/products/Products";
 import Product from "./components/products/Product";
 import Profile from "./components/profile/Profile";
+import Search from "./components/search/Search";
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
           <Route exact path="/products/:ma_mh" element={<Product />}></Route>
           <Route path="/cart" element={<Cart />}></Route>
           <Route path="/profile" element={<Profile />}></Route>
+          <Route path="/search" element={<Search />}></Route>
 
           <Route path="/admin/nha-cung-cap" element={<></>}></Route>
           <Route path="/admin/loai-mat-hang" element={<></>}></Route>

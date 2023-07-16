@@ -5,6 +5,7 @@ import {
   faRightFromBracket,
   faLock,
   faUser,
+  faSearch,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -82,6 +83,10 @@ const Navbar = () => {
                   </NavLink>
                 </>
               )}
+              <NavLink to="/search" className="btn btn-outline-dark mx-2">
+                Tìm kiếm
+                <FontAwesomeIcon className="ms-2" icon={faSearch} />
+              </NavLink>
               <NavLink to="/cart" className="btn btn-outline-dark mx-2">
                 Giỏ hàng ({cartCount.length})
                 <FontAwesomeIcon className="ms-2" icon={faCartShopping} />

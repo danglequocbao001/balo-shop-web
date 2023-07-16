@@ -18,4 +18,7 @@ export default {
   delete: (ma_mh) => {
     return api.delete(API_CONSTANTS.PRODUCTS.DELETE(ma_mh));
   },
+  search: (param) => {
+    return api.post(API_CONSTANTS.PRODUCTS.SEARCH, param);
+  },
 };

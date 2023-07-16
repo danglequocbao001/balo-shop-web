@@ -10,4 +10,9 @@ const fetchProductById = async (ma_mh) => {
   return data;
 };
 
-export { fetchAllProducts, fetchProductById };
+const fetchSearchProduct = async (param) => {
+  const data = await productsApi.search(param);
+  return data;
+};
+
+export { fetchAllProducts, fetchProductById, fetchSearchProduct };
