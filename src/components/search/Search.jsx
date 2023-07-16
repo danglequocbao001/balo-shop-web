@@ -3,7 +3,7 @@ import { fetchSearchProduct } from "../../services/products";
 import { toast } from "react-toastify";
 import ListProducts from "../products/ListProducts";
 import { Select, Button, Typography, Input } from "antd";
-import { useFetchAllProducts } from "../../hooks/useProducts";
+import { PRODUCTS_FILTER, useFetchAllProducts } from "../../hooks/useProducts";
 import COLOR_CONSTANTS from "../../constants/colors";
 
 const { Text, Title } = Typography;
@@ -41,6 +41,7 @@ const Search = () => {
     gia_max: null,
     ten_loai_mh: null,
   });
+  const [otherParam, setOtherParam] = useState(PRODUCTS_FILTER.ALL);
 
   const getUniqueNhaSanXuat = (products) => {
     const uniqueNhaSanXuat = [
@@ -67,11 +68,30 @@ const Search = () => {
     return formattedLoaiMatHangs;
   };
 
+  const khacSearchFilter = async (productsSearched, filter) => {
+    if (filter === PRODUCTS_FILTER.NEW) {
+      return productsSearched.filter((product) => {
+        return product.is_new === true;
+      });
+    } else if (filter === PRODUCTS_FILTER.PROMOTE) {
+      return productsSearched.filter((product) => {
+        return product.khuyen_mai !== undefined;
+      });
+    } else if (filter === PRODUCTS_FILTER.BEST_SELLER) {
+      return productsSearched.filter((product) => {
+        return product.chi_tiet_da_ban !== undefined;
+      });
+    } else {
+      return productsSearched;
+    }
+  };
+
   const onSearch = async (paramSearch) => {
     setLoading(true);
     try {
       const data = await fetchSearchProduct(paramSearch);
-      setProducts(data);
+      const dataFiltered = await khacSearchFilter(data, otherParam);
+      setProducts(dataFiltered);
       toast.success("Tìm kiếm thành công");
       setLoading(false);
     } catch (err) {
@@ -181,6 +201,25 @@ const Search = () => {
                       gia_max: parseInt(e.target.value),
                     });
                   }}
+                />
+              </div>
+              <div style={{ marginRight: 15 }}>
+                <Text>Khác</Text>
+                <Select
+                  style={{ width: 160 }}
+                  defaultValue={"Tất cả"}
+                  onChange={(khac) => {
+                    setOtherParam(khac);
+                  }}
+                  options={[
+                    { value: PRODUCTS_FILTER.ALL, label: "Tất cả" },
+                    { value: PRODUCTS_FILTER.NEW, label: "Sản phẩm mới" },
+                    {
+                      value: PRODUCTS_FILTER.PROMOTE,
+                      label: "Đang khuyến mãi",
+                    },
+                    { value: PRODUCTS_FILTER.BEST_SELLER, label: "Bán chạy" },
+                  ]}
                 />
               </div>
             </div>
