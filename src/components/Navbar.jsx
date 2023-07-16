@@ -29,7 +29,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
           <NavLink className="navbar-brand fw-bold fs-4" to="/">
-            B Balo Shop
+            B359 Balo Shop
           </NavLink>
           <button
             className="navbar-toggler"

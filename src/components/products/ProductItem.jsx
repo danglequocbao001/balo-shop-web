@@ -3,11 +3,6 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
 
 const ProductItem = (param) => {
-  console.log(
-    "fuckk",
-    (param.productDetail === true && param.isCart === undefined) ||
-      (param.productDetail === undefined && param.isCart === true)
-  );
   const khuyenMai = () => {
     return (
       <div

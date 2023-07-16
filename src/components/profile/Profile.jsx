@@ -96,7 +96,7 @@ const Profile = () => {
                     >
                       {`${customer.ho_kh} ${customer.ten_kh}`}
                     </p>
-                    <EditProfileModal />
+                    <EditProfileModal customer={customer} />
                   </div>
                   <p className="mb-4">{`${customer.dia_chi}`}</p>
                   <NavLink className="btn btn-dark">Đổi mật khẩu</NavLink>
