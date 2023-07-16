@@ -1,6 +1,8 @@
 import { NavLink } from "react-router-dom";
 import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
+import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
+import { toast } from "react-toastify";
 
 const ProductItem = (param) => {
   const productDetailAndCartNoUse = !(
@@ -161,12 +163,23 @@ const ProductItem = (param) => {
             <p className="card-text">{`Còn lại: ${param.product.so_luong}`}</p>
             <p className="card-text">{`Nhà sản xuất: ${param.product.nha_san_xuat}`}</p>
             {productDetailAndCartNoUse && (
-              <NavLink
-                to={`/products/${param.product.ma_mh}`}
-                className="btn btn-dark"
-              >
-                Mua ngay
-              </NavLink>
+              <>
+                {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null ? (
+                  <NavLink
+                    to={`/products/${param.product.ma_mh}`}
+                    className="btn btn-dark"
+                  >
+                    Mua ngay
+                  </NavLink>
+                ) : (
+                  <NavLink
+                    onClick={() => toast.warn("Vui lòng đăng nhập trước")}
+                    className="btn btn-dark"
+                  >
+                    Mua ngay
+                  </NavLink>
+                )}
+              </>
             )}
           </div>
         )}

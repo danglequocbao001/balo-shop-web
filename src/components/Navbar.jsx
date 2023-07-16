@@ -30,7 +30,7 @@ const Navbar = () => {
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
           <NavLink className="navbar-brand fw-bold fs-4" to="/">
-            B359 Balo Shop
+            B Balo Shop
           </NavLink>
           <button
             className="navbar-toggler"
@@ -68,6 +68,10 @@ const Navbar = () => {
             </ul>
 
             <div className="buttons">
+              <NavLink to="/search" className="btn btn-outline-dark mx-5">
+                Tìm kiếm
+                <FontAwesomeIcon className="ms-2" icon={faSearch} />
+              </NavLink>
               {!token && (
                 <>
                   <NavLink to="/login" className="btn btn-outline-dark">
@@ -77,23 +81,19 @@ const Navbar = () => {
                       icon={faRightFromBracket}
                     />
                   </NavLink>
-                  <NavLink to="/register" className="btn btn-outline-dark mx-3">
+                  <NavLink to="/register" className="btn btn-outline-dark mx-1">
                     Đăng ký
                     <FontAwesomeIcon className="ms-2" icon={faRegistered} />
                   </NavLink>
                 </>
               )}
-              <NavLink to="/search" className="btn btn-outline-dark mx-2">
-                Tìm kiếm
-                <FontAwesomeIcon className="ms-2" icon={faSearch} />
-              </NavLink>
-              <NavLink to="/cart" className="btn btn-outline-dark mx-2">
-                Giỏ hàng ({cartCount.length})
-                <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
-              </NavLink>
 
               {token && (
                 <>
+                  <NavLink to="/cart" className="btn btn-outline-dark mx-2">
+                    Giỏ hàng ({cartCount.length})
+                    <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
+                  </NavLink>
                   <NavLink to="/profile" className="btn btn-outline-dark">
                     Khách hàng
                     <FontAwesomeIcon className="ms-2" icon={faUser} />
