@@ -1,4 +1,4 @@
-const districts = [
+const DISTRICTS = [
   {
     value: "001",
     label: "Quận Ba Đình",
@@ -3526,4 +3526,4 @@ const districts = [
   },
 ];
 
-export default districts;
+export default DISTRICTS;

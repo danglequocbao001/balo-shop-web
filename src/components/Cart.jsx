@@ -7,11 +7,20 @@ import moneyFormatter from "../helpers/money";
 import COLOR_CONSTANTS from "../constants/colors";
 import ProductItem from "./products/ProductItem";
 import { useFetchAllProvinces } from "../hooks/useOrders";
-
-import { Select, Button, Typography, Input } from "antd";
+import { Select, Typography, Input } from "antd";
 import { fetchProvinceById, fetchWardById } from "../services/orders";
 import { toast } from "react-toastify";
-const { Text, Title } = Typography;
+
+const { Text } = Typography;
+
+const inputHead = {
+  marginBottom: 20,
+  display: "flex",
+};
+
+const inputHeadLabel = {
+  width: 180,
+};
 
 const Cart = () => {
   const { provinces } = useFetchAllProvinces();
@@ -22,7 +31,6 @@ const Cart = () => {
       label: "",
     },
   ]);
-
   const [wards, setWards] = useState([
     {
       value: "",
@@ -36,7 +44,7 @@ const Cart = () => {
     province: "",
     district: "",
     ward: "",
-    address: "",
+    addressDetail: "",
   });
 
   const dispatch = useDispatch();
@@ -53,7 +61,7 @@ const Cart = () => {
       <div className="px-4 my-5 bg-light rounded-3 py-5">
         <div className="container py-4">
           <div className="row">
-            <h3>Your Cart is Empty</h3>
+            <h3>Giỏ hàng trống</h3>
           </div>
         </div>
       </div>
@@ -63,11 +71,7 @@ const Cart = () => {
   const getProvinceById = async (id) => {
     try {
       const data = await fetchProvinceById(id);
-      const result = data.map(({ code, name_with_type }) => ({
-        value: code,
-        label: name_with_type,
-      }));
-      setDistricts(result);
+      setDistricts(data);
     } catch (err) {
       toast.error(err.message);
     }
@@ -76,11 +80,7 @@ const Cart = () => {
   const getWardById = async (id) => {
     try {
       const data = await fetchWardById(id);
-      const result = data.map(({ code, name_with_type }) => ({
-        value: code,
-        label: name_with_type,
-      }));
-      setWards(result);
+      setWards(data);
     } catch (err) {
       toast.error(err.message);
     }
@@ -187,13 +187,144 @@ const Cart = () => {
     );
   };
 
+  const onOrder = () => {
+    const fields = {
+      province: "Tỉnh",
+      district: "Thành phố / Huyện",
+      ward: "Phường / Xã",
+      addressDetail: "Địa chỉ cụ thể",
+    };
+    for (const [key, value] of Object.entries(address)) {
+      if (value === "") {
+        toast.warn(`Không được bỏ trống ${fields[key]}`);
+      }
+    }
+    console.log(address);
+  };
+
+  const addressComponent = () => {
+    return (
+      <div
+        style={{
+          width: 500,
+          marginLeft: 100,
+          marginTop: 30,
+        }}
+      >
+        <div style={{ display: "flex" }}>
+          <div style={inputHead}>
+            <Text style={inputHeadLabel}>Họ người nhận</Text>
+            <Input
+              placeholder="Nhập họ người nhận"
+              onChange={(e) => {
+                setAddress({
+                  ...address,
+                  addressDetail: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div style={inputHead}>
+            <Text style={inputHeadLabel}>Tên người nhận</Text>
+            <Input
+              placeholder="Nhập tên người nhận"
+              onChange={(e) => {
+                setAddress({
+                  ...address,
+                  addressDetail: e.target.value,
+                });
+              }}
+            />
+          </div>
+        </div>
+        <div style={inputHead}>
+          <Text style={inputHeadLabel}>Họ người nhận</Text>
+          <Input
+            placeholder="Nhập họ người nhận"
+            onChange={(e) => {
+              setAddress({
+                ...address,
+                addressDetail: e.target.value,
+              });
+            }}
+          />
+        </div>
+        <div style={{ marginBottom: 15 }}>
+          <Text style={{ marginRight: 100 }}>Tỉnh</Text>
+          <Select
+            style={{ width: 200 }}
+            onChange={(value, label) => {
+              getProvinceById(value);
+              setAddress({
+                ...address,
+                province: label.label,
+              });
+            }}
+            options={provinces}
+          />
+        </div>
+        <div style={{ marginBottom: 15 }}>
+          <Text
+            style={{
+              marginRight: 8,
+            }}
+          >
+            Thành phố / Huyện
+          </Text>
+          <Select
+            style={{ width: 200 }}
+            onChange={(value, label) => {
+              getWardById(value);
+              setAddress({
+                ...address,
+                district: label.label,
+              });
+            }}
+            options={districts}
+          />
+        </div>
+        <div style={{ marginBottom: 15 }}>
+          <Text
+            style={{
+              marginRight: 52,
+            }}
+          >
+            Phường / Xã
+          </Text>
+          <Select
+            style={{ width: 200 }}
+            onChange={(value, label) => {
+              setAddress({
+                ...address,
+                ward: label.label,
+              });
+            }}
+            options={wards}
+          />
+        </div>
+        <div style={inputHead}>
+          <Text style={inputHeadLabel}>Địa chỉ cụ thể</Text>
+          <Input
+            placeholder="Nhập địa chỉ cụ thể"
+            onChange={(e) => {
+              setAddress({
+                ...address,
+                addressDetail: e.target.value,
+              });
+            }}
+          />
+        </div>
+      </div>
+    );
+  };
+
   const buttons = () => {
     return (
       <div>
         <div className="container">
           <div className="row">
             <Link
-              to="/checkout"
+              onClick={() => onOrder()}
               className="btn btn-outline-dark mb-5 w-25 mx-auto"
             >
               Đặt hàng
@@ -206,52 +337,7 @@ const Cart = () => {
 
   return (
     <div>
-      {provinces.length > 0 && (
-        <>
-          <div style={{ marginRight: 15 }}>
-            <Text>Tỉnh</Text>
-            <Select
-              style={{ width: 120 }}
-              onChange={(value, label) => {
-                getProvinceById(value);
-                setAddress({
-                  ...address,
-                  province: label.label,
-                });
-              }}
-              options={provinces}
-            />
-          </div>
-          <div style={{ marginRight: 15 }}>
-            <Text>Thành phố / Huyện</Text>
-            <Select
-              style={{ width: 120 }}
-              onChange={(value, label) => {
-                getWardById(value);
-                setAddress({
-                  ...address,
-                  district: label.label,
-                });
-              }}
-              options={districts}
-            />
-          </div>
-          <div style={{ marginRight: 15 }}>
-            <Text>Phường / Xã</Text>
-            <Select
-              style={{ width: 120 }}
-              onChange={(value, label) => {
-                setAddress({
-                  ...address,
-                  ward: label.label,
-                });
-              }}
-              options={wards}
-            />
-          </div>
-          <Button onClick={() => console.log(address)} />
-        </>
-      )}
+      {provinces.length > 0 && addressComponent()}
       {state.length === 0 && emptyCart()}
       {state.length !== 0 && cartItems}
       {tempTotalPrice()}

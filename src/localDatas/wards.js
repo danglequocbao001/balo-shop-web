@@ -1,4 +1,4 @@
-export const wards = [
+export const WARDS = [
   {
     value: "19483",
     label: "Xã  A Dơi",
@@ -52996,4 +52996,4 @@ export const wards = [
   },
 ];
 
-export default wards;
+export default WARDS;
