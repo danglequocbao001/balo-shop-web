@@ -1,8 +1,7 @@
 /* eslint-disable import/no-anonymous-default-export */
 import api from "./api";
 
-// const ALLOW_CORS = "https://cors-anywhere.herokuapp.com/"
-const ALLOW_CORS = "https://proxy.cors.sh/"
+const ALLOW_CORS = "http://localhost:8080/";
 
 export default {
   getAllProvinces: () => {
