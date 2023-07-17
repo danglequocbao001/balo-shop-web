@@ -6,10 +6,38 @@ import { Link } from "react-router-dom";
 import moneyFormatter from "../helpers/money";
 import COLOR_CONSTANTS from "../constants/colors";
 import ProductItem from "./products/ProductItem";
+import { useFetchAllProvinces } from "../hooks/useOrders";
+
+import { Select, Button, Typography, Input } from "antd";
+import { fetchProvinceById, fetchWardById } from "../services/orders";
+import { toast } from "react-toastify";
+const { Text, Title } = Typography;
 
 const Cart = () => {
+  const { provinces } = useFetchAllProvinces();
+
+  const [districts, setDistricts] = useState([
+    {
+      value: "",
+      label: "",
+    },
+  ]);
+
+  const [wards, setWards] = useState([
+    {
+      value: "",
+      label: "",
+    },
+  ]);
+
   const state = useSelector((state) => state.HandleCart);
   const [tmpPrice, setTmpPrice] = useState(0);
+  const [address, setAddress] = useState({
+    province: "",
+    district: "",
+    ward: "",
+    address: "",
+  });
 
   const dispatch = useDispatch();
 
@@ -30,6 +58,32 @@ const Cart = () => {
         </div>
       </div>
     );
+  };
+
+  const getProvinceById = async (id) => {
+    try {
+      const data = await fetchProvinceById(id);
+      const result = data.map(({ code, name_with_type }) => ({
+        value: code,
+        label: name_with_type,
+      }));
+      setDistricts(result);
+    } catch (err) {
+      toast.error(err.message);
+    }
+  };
+
+  const getWardById = async (id) => {
+    try {
+      const data = await fetchWardById(id);
+      const result = data.map(({ code, name_with_type }) => ({
+        value: code,
+        label: name_with_type,
+      }));
+      setWards(result);
+    } catch (err) {
+      toast.error(err.message);
+    }
   };
 
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -152,6 +206,52 @@ const Cart = () => {
 
   return (
     <div>
+      {provinces.length > 0 && (
+        <>
+          <div style={{ marginRight: 15 }}>
+            <Text>Tỉnh</Text>
+            <Select
+              style={{ width: 120 }}
+              onChange={(value, label) => {
+                getProvinceById(value);
+                setAddress({
+                  ...address,
+                  province: label.label,
+                });
+              }}
+              options={provinces}
+            />
+          </div>
+          <div style={{ marginRight: 15 }}>
+            <Text>Thành phố / Huyện</Text>
+            <Select
+              style={{ width: 120 }}
+              onChange={(value, label) => {
+                getWardById(value);
+                setAddress({
+                  ...address,
+                  district: label.label,
+                });
+              }}
+              options={districts}
+            />
+          </div>
+          <div style={{ marginRight: 15 }}>
+            <Text>Phường / Xã</Text>
+            <Select
+              style={{ width: 120 }}
+              onChange={(value, label) => {
+                setAddress({
+                  ...address,
+                  ward: label.label,
+                });
+              }}
+              options={wards}
+            />
+          </div>
+          <Button onClick={() => console.log(address)} />
+        </>
+      )}
       {state.length === 0 && emptyCart()}
       {state.length !== 0 && cartItems}
       {tempTotalPrice()}
