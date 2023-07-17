@@ -1,23 +1,38 @@
-// import { ordersApi } from "../api";
-import PROVINCES from "../localDatas/provinces";
-import DISTRICTS from "../localDatas/districts";
-import WARDS from "../localDatas/wards";
+import { ordersApi } from "../api";
 
 const fetchAllProvinces = async () => {
-  const data = PROVINCES;
-  return data;
+  const data = await ordersApi.getAllProvinces();
+
+  return data.map(({ code, name }) => {
+    return {
+      value: code,
+      label: name,
+    };
+  });
 };
 
-const fetchProvinceById = async (id) => {
-  // const data = await ordersApi.getProvinceById(id);
-  const data = DISTRICTS;
-  return data.filter((obj) => obj.parent_code === id);
+const fetchDistrictsByProvinceId = async (id) => {
+  const data = await ordersApi.getDistrictsByProvinceId(id);
+  return data.districts.map(({ code, name }) => {
+    return {
+      value: code,
+      label: name,
+    };
+  });
 };
 
-const fetchWardById = async (id) => {
-  // const data = await ordersApi.getWardById(id);
-  const data = WARDS;
-  return data.filter((obj) => obj.parent_code === id);
+const fetchWardsByDistrictId = async (id) => {
+  const data = await ordersApi.getWardsByDistrictId(id);
+  return data.wards.map(({ code, name }) => {
+    return {
+      value: code,
+      label: name,
+    };
+  });
 };
 
-export { fetchAllProvinces, fetchProvinceById, fetchWardById };
+export {
+  fetchAllProvinces,
+  fetchDistrictsByProvinceId,
+  fetchWardsByDistrictId,
+};

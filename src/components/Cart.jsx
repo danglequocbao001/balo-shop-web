@@ -8,7 +8,10 @@ import COLOR_CONSTANTS from "../constants/colors";
 import ProductItem from "./products/ProductItem";
 import { useFetchAllProvinces } from "../hooks/useOrders";
 import { Select, Typography, Input } from "antd";
-import { fetchProvinceById, fetchWardById } from "../services/orders";
+import {
+  fetchDistrictsByProvinceId,
+  fetchWardsByDistrictId,
+} from "../services/orders";
 import { toast } from "react-toastify";
 
 const { Text } = Typography;
@@ -68,9 +71,9 @@ const Cart = () => {
     );
   };
 
-  const getProvinceById = async (id) => {
+  const getWardByProvinceId = async (id) => {
     try {
-      const data = await fetchProvinceById(id);
+      const data = await fetchDistrictsByProvinceId(id);
       setDistricts(data);
     } catch (err) {
       toast.error(err.message);
@@ -79,7 +82,7 @@ const Cart = () => {
 
   const getWardById = async (id) => {
     try {
-      const data = await fetchWardById(id);
+      const data = await fetchWardsByDistrictId(id);
       setWards(data);
     } catch (err) {
       toast.error(err.message);
@@ -254,7 +257,7 @@ const Cart = () => {
           <Select
             style={{ width: 200 }}
             onChange={(value, label) => {
-              getProvinceById(value);
+              getWardByProvinceId(value);
               setAddress({
                 ...address,
                 province: label.label,
@@ -337,7 +340,7 @@ const Cart = () => {
 
   return (
     <div>
-      {provinces.length > 0 && addressComponent()}
+      {provinces.length > 0 && state.length !== 0 && addressComponent()}
       {state.length === 0 && emptyCart()}
       {state.length !== 0 && cartItems}
       {tempTotalPrice()}

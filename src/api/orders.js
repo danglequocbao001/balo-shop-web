@@ -1,18 +1,21 @@
 /* eslint-disable import/no-anonymous-default-export */
 import api from "./api";
 
+// const ALLOW_CORS = "https://cors-anywhere.herokuapp.com/"
+const ALLOW_CORS = "https://proxy.cors.sh/"
+
 export default {
   getAllProvinces: () => {
-    return api.get("https://vn-public-apis.fpo.vn/provinces/getAll?limit=-1");
+    return api.get(`${ALLOW_CORS}https://provinces.open-api.vn/api/p/`);
   },
-  getProvinceById: (id) => {
+  getDistrictsByProvinceId: (id) => {
     return api.get(
-      `https://vn-public-apis.fpo.vn/districts/getByProvince?provinceCode=${id}&limit=-1`
+      `${ALLOW_CORS}https://provinces.open-api.vn/api/p/${id}?depth=2`
     );
   },
-  getWardById: (id) => {
+  getWardsByDistrictId: (id) => {
     return api.get(
-      `https://vn-public-apis.fpo.vn/wards/getByDistrict?districtCode=${id}&limit=-1`
+      `${ALLOW_CORS}https://provinces.open-api.vn/api/d/${id}?depth=2`
     );
   },
 };

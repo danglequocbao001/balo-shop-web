@@ -9,6 +9,8 @@ const api = axios.create({
     "Content-Type": "application/json",
     "Cache-Control": "no-cache",
     "Access-Control-Allow-Origin": "*",
+    "Access-Control-Allow-Methods": "GET, PUT, POST, DELETE, HEAD, OPTIONS",
+    "x-cors-api-key": "temp_dc1d573a13ce13fd7cfafc0d1dede2cf",
   },
 });
 
