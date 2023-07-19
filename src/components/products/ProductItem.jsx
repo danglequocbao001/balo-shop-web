@@ -41,7 +41,7 @@ const ProductItem = (param) => {
     return (
       <div
         style={{
-          width: 170,
+          width: 175,
           height: 40,
           backgroundColor: COLOR_CONSTANTS.SUCCESS,
           position: "absolute",
@@ -49,7 +49,7 @@ const ProductItem = (param) => {
           borderTopRightRadius: 5,
           borderBottomLeftRadius: 10,
           paddingTop: 7,
-          marginLeft: 136,
+          marginLeft: 132,
           marginTop: 0.5,
         }}
       >
