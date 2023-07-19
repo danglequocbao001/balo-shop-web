@@ -9,12 +9,12 @@ import ProductItem from "./products/ProductItem";
 import { useFetchAllProvinces } from "../hooks/useOrders";
 import { Select, Typography, Input } from "antd";
 import {
-  createOrder,
   fetchDistrictsByProvinceId,
   fetchWardsByDistrictId,
 } from "../services/orders";
 import { toast } from "react-toastify";
 import { useFetchCurrentCustomer } from "../hooks/useKhachHang";
+import { ordersApi } from "../api";
 
 const { Text } = Typography;
 
@@ -111,7 +111,7 @@ const Cart = () => {
       }
       setTmpPrice(tempPrice);
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [JSON.parse(localStorage.getItem("cart"))]);
 
   useEffect(() => {
@@ -125,7 +125,7 @@ const Cart = () => {
         addressDetail: customer.dia_chi,
       });
     }
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [customer]);
 
   const tempTotalPrice = () => {
@@ -182,19 +182,9 @@ const Cart = () => {
   const getProducts = (products) => {
     let result = [];
     for (let product of products) {
-      let don_gia_dat = product["gia"];
-      if ("khuyen_mai" in product) {
-        don_gia_dat = product["khuyen_mai"]["gia_sau_khi_giam"];
-      } else {
-        if ("thay_doi_gia" in product) {
-          don_gia_dat = product["thay_doi_gia"]["gia_dang_ap_dung"];
-        }
-      }
       result.push({
         ma_mh: product["ma_mh"],
         so_luong_dat: product["quantity"],
-        don_gia_dat: don_gia_dat,
-        so_luong: product["so_luong"],
       });
     }
     return result;
@@ -211,9 +201,15 @@ const Cart = () => {
       ma_kh: infoCart.ma_kh,
       cac_mat_hang: getProducts(products),
     };
-    await createOrder(bodyOrder)
-      .then(() => console.log("ok"))
-      .catch((err) => console.log(err));
+
+    await ordersApi
+      .create(bodyOrder)
+      .then(() => {
+        toast.success("Đặt hàng thành công!");
+      })
+      .catch((err) => {
+        toast.error(err.message);
+      });
   };
 
   const cartItems = state.map((product) => {
