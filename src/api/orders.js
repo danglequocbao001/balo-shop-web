@@ -19,4 +19,7 @@ export default {
   create: (params) => {
     return api.post(API_CONSTANTS.ORDERS.CREATE, params);
   },
+  purchase: (param) => {
+    return api.post(API_CONSTANTS.ORDERS.PURCHASE, param);
+  },
 };

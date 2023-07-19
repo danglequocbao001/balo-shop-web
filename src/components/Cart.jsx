@@ -210,6 +210,8 @@ const Cart = () => {
       .catch((err) => {
         toast.error(err.message);
       });
+
+    // await ordersApi.purchase();
   };
 
   const cartItems = state.map((product) => {

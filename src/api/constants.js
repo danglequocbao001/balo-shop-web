@@ -49,6 +49,7 @@ const API_CONSTANTS = {
   },
   ORDERS: {
     CREATE: "/don-dat-hang",
+    PURCHASE: "/don-dat-hang/purchase"
   },
   ORDERS_STATUS: {
     GET: "/trang-thai-ddh",
