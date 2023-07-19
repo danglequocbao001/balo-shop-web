@@ -9,10 +9,12 @@ import ProductItem from "./products/ProductItem";
 import { useFetchAllProvinces } from "../hooks/useOrders";
 import { Select, Typography, Input } from "antd";
 import {
+  createOrder,
   fetchDistrictsByProvinceId,
   fetchWardsByDistrictId,
 } from "../services/orders";
 import { toast } from "react-toastify";
+import { useFetchCurrentCustomer } from "../hooks/useKhachHang";
 
 const { Text } = Typography;
 
@@ -23,10 +25,12 @@ const inputHead = {
 
 const inputHeadLabel = {
   width: 180,
+  marginTop: 5,
 };
 
 const Cart = () => {
   const { provinces } = useFetchAllProvinces();
+  const { customer } = useFetchCurrentCustomer();
 
   const [districts, setDistricts] = useState([
     {
@@ -43,7 +47,11 @@ const Cart = () => {
 
   const state = useSelector((state) => state.HandleCart);
   const [tmpPrice, setTmpPrice] = useState(0);
-  const [address, setAddress] = useState({
+  const [infoCart, setInfoCart] = useState({
+    ma_kh: "",
+    ho_kh: "",
+    ten_kh: "",
+    sdt: "",
     province: "",
     district: "",
     ward: "",
@@ -103,7 +111,110 @@ const Cart = () => {
       }
       setTmpPrice(tempPrice);
     }
-  });
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [JSON.parse(localStorage.getItem("cart"))]);
+
+  useEffect(() => {
+    if (customer !== undefined) {
+      setInfoCart({
+        ...infoCart,
+        ma_kh: customer.ma_kh,
+        ho_kh: customer.ho_kh,
+        ten_kh: customer.ten_kh,
+        sdt: customer.sdt,
+        addressDetail: customer.dia_chi,
+      });
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [customer]);
+
+  const tempTotalPrice = () => {
+    return (
+      <div
+        style={{
+          alignItems: "center",
+          justifyContent: "flex-end",
+          display: "flex",
+          padding: "0px 40px",
+          margin: "20px 0",
+        }}
+      >
+        <span
+          style={{
+            fontWeight: "bold",
+            fontSize: 25,
+            backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
+            padding: 10,
+            paddingBottom: 0,
+            borderRadius: 10,
+            marginRight: 150,
+          }}
+        >
+          {`Tổng tiền tạm tính: ${moneyFormatter.format(tmpPrice)}`}
+        </span>
+      </div>
+    );
+  };
+
+  const onCheckOrder = () => {
+    let flag = 0;
+    const fields = {
+      province: "Tỉnh",
+      district: "Thành phố / Huyện",
+      ward: "Phường / Xã",
+      addressDetail: "Địa chỉ cụ thể",
+      ho_kh: "Họ người nhận",
+      ten_kh: "Tên người nhận",
+      sdt: "Số điện thoại",
+    };
+    for (const [key, value] of Object.entries(infoCart)) {
+      if (value === "") {
+        toast.warn(`Không được bỏ trống ${fields[key]}`);
+        flag += 1;
+      }
+    }
+
+    if (flag === 0) {
+      onOrder();
+    }
+  };
+
+  const getProducts = (products) => {
+    let result = [];
+    for (let product of products) {
+      let don_gia_dat = product["gia"];
+      if ("khuyen_mai" in product) {
+        don_gia_dat = product["khuyen_mai"]["gia_sau_khi_giam"];
+      } else {
+        if ("thay_doi_gia" in product) {
+          don_gia_dat = product["thay_doi_gia"]["gia_dang_ap_dung"];
+        }
+      }
+      result.push({
+        ma_mh: product["ma_mh"],
+        so_luong_dat: product["quantity"],
+        don_gia_dat: don_gia_dat,
+        so_luong: product["so_luong"],
+      });
+    }
+    return result;
+  };
+
+  const onOrder = async () => {
+    const products = JSON.parse(localStorage.getItem("cart"));
+
+    const bodyOrder = {
+      dia_chi_giao: `${infoCart.addressDetail}, ${infoCart.ward}, ${infoCart.district}, ${infoCart.province}`,
+      ho_nguoi_nhan: infoCart.ho_kh,
+      ten_nguoi_nhan: infoCart.ten_kh,
+      sdt: infoCart.sdt,
+      ma_kh: infoCart.ma_kh,
+      cac_mat_hang: getProducts(products),
+    };
+    await createOrder(bodyOrder)
+      .then(() => console.log("ok"))
+      .catch((err) => console.log(err));
+  };
 
   const cartItems = state.map((product) => {
     return (
@@ -162,54 +273,11 @@ const Cart = () => {
     );
   });
 
-  const tempTotalPrice = () => {
-    return (
-      <div
-        style={{
-          alignItems: "center",
-          justifyContent: "flex-end",
-          display: "flex",
-          padding: "0px 40px",
-          margin: "20px 0",
-        }}
-      >
-        <span
-          style={{
-            fontWeight: "bold",
-            fontSize: 25,
-            backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
-            padding: 10,
-            paddingBottom: 0,
-            borderRadius: 10,
-            marginRight: 150,
-          }}
-        >
-          {`Tổng tiền tạm tính: ${moneyFormatter.format(tmpPrice)}`}
-        </span>
-      </div>
-    );
-  };
-
-  const onOrder = () => {
-    const fields = {
-      province: "Tỉnh",
-      district: "Thành phố / Huyện",
-      ward: "Phường / Xã",
-      addressDetail: "Địa chỉ cụ thể",
-    };
-    for (const [key, value] of Object.entries(address)) {
-      if (value === "") {
-        toast.warn(`Không được bỏ trống ${fields[key]}`);
-      }
-    }
-    console.log(address);
-  };
-
   const addressComponent = () => {
     return (
       <div
         style={{
-          width: 500,
+          width: 600,
           marginLeft: 100,
           marginTop: 30,
         }}
@@ -220,34 +288,40 @@ const Cart = () => {
             <Input
               placeholder="Nhập họ người nhận"
               onChange={(e) => {
-                setAddress({
-                  ...address,
-                  addressDetail: e.target.value,
+                setInfoCart({
+                  ...infoCart,
+                  ho_kh: e.target.value,
                 });
               }}
+              defaultValue={customer.ho_kh}
             />
           </div>
           <div style={inputHead}>
-            <Text style={inputHeadLabel}>Tên người nhận</Text>
+            <Text style={{ ...inputHeadLabel, marginLeft: 5 }}>
+              Tên người nhận
+            </Text>
             <Input
               placeholder="Nhập tên người nhận"
               onChange={(e) => {
-                setAddress({
-                  ...address,
-                  addressDetail: e.target.value,
+                setInfoCart({
+                  ...infoCart,
+                  ten_kh: e.target.value,
                 });
               }}
+              defaultValue={customer.ten_kh}
             />
           </div>
         </div>
         <div style={inputHead}>
-          <Text style={inputHeadLabel}>Họ người nhận</Text>
+          <Text style={inputHeadLabel}>Số điện thoại</Text>
           <Input
-            placeholder="Nhập họ người nhận"
+            type="number"
+            placeholder="Nhập số điện thoại"
+            defaultValue={customer.sdt}
             onChange={(e) => {
-              setAddress({
-                ...address,
-                addressDetail: e.target.value,
+              setInfoCart({
+                ...infoCart,
+                sdt: e.target.value,
               });
             }}
           />
@@ -258,8 +332,8 @@ const Cart = () => {
             style={{ width: 200 }}
             onChange={(value, label) => {
               getWardByProvinceId(value);
-              setAddress({
-                ...address,
+              setInfoCart({
+                ...infoCart,
                 province: label.label,
               });
             }}
@@ -278,8 +352,8 @@ const Cart = () => {
             style={{ width: 200 }}
             onChange={(value, label) => {
               getWardById(value);
-              setAddress({
-                ...address,
+              setInfoCart({
+                ...infoCart,
                 district: label.label,
               });
             }}
@@ -297,8 +371,8 @@ const Cart = () => {
           <Select
             style={{ width: 200 }}
             onChange={(value, label) => {
-              setAddress({
-                ...address,
+              setInfoCart({
+                ...infoCart,
                 ward: label.label,
               });
             }}
@@ -309,9 +383,10 @@ const Cart = () => {
           <Text style={inputHeadLabel}>Địa chỉ cụ thể</Text>
           <Input
             placeholder="Nhập địa chỉ cụ thể"
+            defaultValue={customer.dia_chi}
             onChange={(e) => {
-              setAddress({
-                ...address,
+              setInfoCart({
+                ...infoCart,
                 addressDetail: e.target.value,
               });
             }}
@@ -327,7 +402,7 @@ const Cart = () => {
         <div className="container">
           <div className="row">
             <Link
-              onClick={() => onOrder()}
+              onClick={() => onCheckOrder()}
               className="btn btn-outline-dark mb-5 w-25 mx-auto"
             >
               Đặt hàng
@@ -340,7 +415,10 @@ const Cart = () => {
 
   return (
     <div>
-      {provinces.length > 0 && state.length !== 0 && addressComponent()}
+      {provinces.length > 0 &&
+        state.length !== 0 &&
+        customer !== undefined &&
+        addressComponent()}
       {state.length === 0 && emptyCart()}
       {state.length !== 0 && cartItems}
       {tempTotalPrice()}

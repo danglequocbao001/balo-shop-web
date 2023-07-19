@@ -1,4 +1,8 @@
-export const BASE_URL = "http://localhost:5000/api";
+export const ALLOW_CORS = "http://localhost:8080/";
+
+export const API_ENDPOINT = "http://localhost:5000/api";
+
+export const BASE_URL = `${ALLOW_CORS}${API_ENDPOINT}`;
 
 export const TOKEN_LOCAL_STORAGE = "authorization";
 
@@ -42,6 +46,9 @@ const API_CONSTANTS = {
     CREATE: "/quang-cao",
     UPDATE: (ma_qc) => `/quang-cao/${ma_qc}`,
     DELETE: (ma_qc) => `/quang-cao/${ma_qc}`,
+  },
+  ORDERS: {
+    CREATE: "/don-dat-hang",
   },
   ORDERS_STATUS: {
     GET: "/trang-thai-ddh",

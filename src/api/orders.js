@@ -1,7 +1,6 @@
 /* eslint-disable import/no-anonymous-default-export */
 import api from "./api";
-
-const ALLOW_CORS = "http://localhost:8080/";
+import API_CONSTANTS, { ALLOW_CORS } from "./constants";
 
 export default {
   getAllProvinces: () => {
@@ -16,5 +15,8 @@ export default {
     return api.get(
       `${ALLOW_CORS}https://provinces.open-api.vn/api/d/${id}?depth=2`
     );
+  },
+  create: (params) => {
+    return api.post(API_CONSTANTS.ORDERS.CREATE, params);
   },
 };
