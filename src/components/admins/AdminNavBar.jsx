@@ -1,19 +1,16 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import {
-  faCartShopping,
-  faRegistered,
   faRightFromBracket,
   faLock,
   faUser,
-  faSearch,
   faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
-import { TOKEN_LOCAL_STORAGE } from "../api/constants";
-const Navbar = () => {
+import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
+const AdminNavBar = () => {
   const state = useSelector((state) => state.HandleCart);
   const [token, setToken] = useState("");
   const localStorageToken = localStorage.getItem(TOKEN_LOCAL_STORAGE);
@@ -24,14 +21,12 @@ const Navbar = () => {
 
   localStorage.setItem("cart", JSON.stringify(state));
 
-  const cartCount = JSON.parse(localStorage.getItem("cart"));
-
   return (
     <div>
       <nav className="navbar navbar-expand-lg bg-light">
         <div className="container">
-          <NavLink className="navbar-brand fw-bold fs-4" to="/">
-            B Balo Shop
+          <NavLink className="navbar-brand fw-bold fs-4" to="/admin">
+            B Balo Shop Admin
           </NavLink>
           <button
             className="navbar-toggler"
@@ -45,7 +40,7 @@ const Navbar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
+            {/* <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
               <li className="nav-item">
                 <NavLink className="nav-link " aria-current="page" to="/">
                   Trang chủ
@@ -56,23 +51,9 @@ const Navbar = () => {
                   Sản phẩm
                 </NavLink>
               </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/about">
-                  About
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink className="nav-link" to="/contact">
-                  Contact
-                </NavLink>
-              </li>
-            </ul>
+            </ul> */}
 
             <div className="buttons">
-              <NavLink to="/search" className="btn btn-outline-dark mx-5">
-                Tìm kiếm
-                <FontAwesomeIcon className="ms-2" icon={faSearch} />
-              </NavLink>
               {!token && (
                 <>
                   <NavLink to="/login" className="btn btn-outline-dark">
@@ -82,25 +63,20 @@ const Navbar = () => {
                       icon={faRightFromBracket}
                     />
                   </NavLink>
-                  <NavLink to="/register" className="btn btn-outline-dark mx-1">
-                    Đăng ký
-                    <FontAwesomeIcon className="ms-2" icon={faRegistered} />
-                  </NavLink>
                 </>
               )}
 
               {token && (
                 <>
-                  <NavLink to="/cart" className="btn btn-outline-dark">
-                    Giỏ hàng ({cartCount.length})
-                    <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
-                  </NavLink>
-                  <NavLink to="/orders" className="btn btn-outline-dark mx-2">
+                  <NavLink
+                    to="/admin/orders"
+                    className="btn btn-outline-dark mx-2"
+                  >
                     Đơn đặt hàng
                     <FontAwesomeIcon className="ms-2" icon={faReceipt} />
                   </NavLink>
-                  <NavLink to="/profile" className="btn btn-outline-dark">
-                    Khách hàng
+                  <NavLink to="/admin/profile" className="btn btn-outline-dark">
+                    Cá nhân
                     <FontAwesomeIcon className="ms-2" icon={faUser} />
                   </NavLink>
                   <button
@@ -125,4 +101,4 @@ const Navbar = () => {
   );
 };
 
-export default Navbar;
+export default AdminNavBar;

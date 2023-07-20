@@ -13,14 +13,26 @@ import Product from "./components/products/Product";
 import Profile from "./components/profile/Profile";
 import Search from "./components/search/Search";
 import Orders from "./components/orders/Orders";
+import { useFetchCurrentCredential } from "./hooks/useAuth";
+import AdminNavBar from "./components/admins/AdminNavBar";
+import AdminLogin from "./components/admins/AdminLogin";
 
 function App() {
+  const { currentCredential } = useFetchCurrentCredential();
+  currentCredential && console.log("fuck", currentCredential.role);
   return (
     <div className="App">
       <ToastContainer />
       <BrowserRouter>
-        <Navbar />
+        {currentCredential && currentCredential.role === "staff" ? (
+          <AdminNavBar />
+        ) : (
+          <Navbar />
+        )}
         <Routes>
+          {
+            // customer
+          }
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/signup" element={<Login />}></Route>
@@ -31,13 +43,11 @@ function App() {
           <Route path="/search" element={<Search />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
 
-          <Route path="/admin/nha-cung-cap" element={<></>}></Route>
-          <Route path="/admin/loai-mat-hang" element={<></>}></Route>
-          <Route path="/admin/mat-hang" element={<></>}></Route>
-          <Route path="/admin/quang-cao" element={<></>}></Route>
-          <Route path="/admin/khach-hang" element={<></>}></Route>
-          <Route path="/admin/nhan-vien" element={<></>}></Route>
-          <Route path="/admin/thong-ke-doanh-thu" element={<></>}></Route>
+          {
+            //admin
+          }
+          <Route path="/admin" element={<>thong ke doanh thu</>}></Route>
+          <Route path="/admin/login" element={<AdminLogin />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
