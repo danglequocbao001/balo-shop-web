@@ -91,7 +91,7 @@ const Navbar = () => {
 
               {token && (
                 <>
-                  <NavLink to="/cart" className="btn btn-outline-dark mx-2">
+                  <NavLink to="/cart" className="btn btn-outline-dark">
                     Giỏ hàng ({cartCount.length})
                     <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
                   </NavLink>
