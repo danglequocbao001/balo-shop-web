@@ -75,6 +75,7 @@ const AdminProfile = () => {
                     style={{ width: "150px" }}
                     fluid
                   />
+
                   <div
                     style={{
                       display: "flex",
@@ -90,12 +91,21 @@ const AdminProfile = () => {
                         fontWeight: "bold",
                         fontSize: 20,
                         marginTop: 10,
-                        marginLeft: -20,
+                        marginLeft: -30,
                       }}
                     >
-                      {`Nhân viên: ${staff.ho_nv} ${staff.ten_nv}`}
+                      {`${staff.ho_nv} ${staff.ten_nv}`}
                     </p>
                   </div>
+                  <p
+                    className="mb-1"
+                    style={{
+                      fontSize: 16,
+                      marginTop: 10,
+                    }}
+                  >
+                    {staff.ten_bp}
+                  </p>
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>
@@ -107,6 +117,10 @@ const AdminProfile = () => {
               {
                 key: "Mã bộ phận",
                 value: staff.ma_bp,
+              },
+              {
+                key: "Tên bộ phận",
+                value: staff.ten_bp,
               },
               {
                 key: "Email",
