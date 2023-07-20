@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import {
   MDBCol,
   MDBContainer,
@@ -104,6 +103,10 @@ const AdminProfile = () => {
               {
                 key: "Mã nhân viên",
                 value: staff.ma_nv,
+              },
+              {
+                key: "Mã bộ phận",
+                value: staff.ma_bp,
               },
               {
                 key: "Email",
