@@ -6,6 +6,7 @@ import {
   faLock,
   faUser,
   faSearch,
+  faReceipt,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -96,7 +97,7 @@ const Navbar = () => {
                   </NavLink>
                   <NavLink to="/orders" className="btn btn-outline-dark mx-2">
                     Đơn đặt hàng
-                    <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
+                    <FontAwesomeIcon className="ms-2" icon={faReceipt} />
                   </NavLink>
                   <NavLink to="/profile" className="btn btn-outline-dark">
                     Khách hàng
