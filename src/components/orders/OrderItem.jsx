@@ -4,6 +4,9 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import { Button } from "antd";
 import { fetchOneOrder } from "../../services/orders";
 import { ordersApi } from "../../api";
+import { Spin } from "antd";
+import { toast } from "react-toastify";
+import { styled } from "styled-components";
 
 const btnStyle = {
   backgroundColor: COLOR_CONSTANTS.BLACK,
@@ -14,8 +17,16 @@ const btnStyle = {
   width: 140,
   height: 40,
 };
+
+const SpinWrapper = styled(Spin)`
+  .ant-spin-dot-item {
+    background-color: ${COLOR_CONSTANTS.WHITE};
+  }
+`;
+
 const OrderItem = (params) => {
   const [isShow, setShow] = useState(false);
+  const [isLoading, setLoading] = useState(false);
 
   const getStatusColor = (status) => {
     if (status === "Đã hoàn thành") {
@@ -28,6 +39,7 @@ const OrderItem = (params) => {
   };
 
   const purchaseNow = async (ma_don_dat_hang) => {
+    setLoading(true);
     fetchOneOrder(ma_don_dat_hang).then(async (data) => {
       await ordersApi
         .purchase({
@@ -35,7 +47,12 @@ const OrderItem = (params) => {
           ma_don_dat_hang: ma_don_dat_hang,
         })
         .then((url) => {
+          setLoading(false);
           window.open(url);
+        })
+        .catch((err) => {
+          toast.error(err);
+          setLoading(false);
         });
     });
   };
@@ -165,7 +182,7 @@ const OrderItem = (params) => {
               purchaseNow(params.order.ma_don_dat_hang);
             }}
           >
-            Thanh toán
+            {isLoading ? <SpinWrapper /> : "Thanh toán"}
           </Button>
         )}
       </div>

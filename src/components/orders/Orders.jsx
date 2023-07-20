@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const Orders = () => {
   const { orders } = useFetchAllOrder();
+
   const [isShowStatus, setIsShowStatus] = useState(false);
 
   const status = (name, color, isHideGreater) => {

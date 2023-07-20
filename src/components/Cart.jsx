@@ -35,6 +35,8 @@ const Cart = () => {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const [isLoadingPurchase, setLoadingPurchase] = useState(false);
+
   const navigate = useNavigate();
 
   const [orderId, setOrderId] = useState();
@@ -420,6 +422,7 @@ const Cart = () => {
   };
 
   const purchaseNow = async (ma_don_dat_hang) => {
+    setLoadingPurchase(true);
     fetchOneOrder(ma_don_dat_hang).then(async (data) => {
       await ordersApi
         .purchase({
@@ -427,6 +430,7 @@ const Cart = () => {
           ma_don_dat_hang: ma_don_dat_hang,
         })
         .then((url) => {
+          setLoadingPurchase(false);
           navigate("/");
           window.open(url);
         });
@@ -456,7 +460,7 @@ const Cart = () => {
             window.location.reload();
           }}
           maskClosable={false}
-          okText="Thanh toán ngay"
+          okText={isLoadingPurchase ? "Đang xử lý..." : "Thanh toán ngay"}
           cancelText="Thanh toán sau"
           keyboard={false}
           closable={false}
