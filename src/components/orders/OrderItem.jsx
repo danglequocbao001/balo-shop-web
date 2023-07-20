@@ -173,7 +173,7 @@ const OrderItem = (params) => {
         }}
       >
         <Button style={btnStyle} onClick={() => setShow(!isShow)}>
-          Xem chi tiết
+          {isShow ? "Đóng" : "Xem chi tiết"}
         </Button>
         {params.order.ma_trang_thai === "CHO_THANH_TOAN" && (
           <Button
