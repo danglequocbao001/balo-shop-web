@@ -6,10 +6,10 @@ export const useFetchAllProvinces = () => {
   const [isLoading, setLoading] = useState(false);
   const [data, setData] = useState([]);
 
-  const renameAndMoveObject = (array) => {
+  const renameAndMoveObject = (array, text, replacedBy) => {
     for (let i = 0; i < array.length; i++) {
-      if (array[i].label === "Thành phố Hồ Chí Minh") {
-        array[i].label = "Sài Gòn";
+      if (array[i].label === text) {
+        array[i].label = replacedBy;
         const obj = array.splice(i, 1);
         array.unshift(obj[0]);
         break;
@@ -31,7 +31,7 @@ export const useFetchAllProvinces = () => {
       });
   }, []);
 
-  const result = renameAndMoveObject(data);
+  const result = renameAndMoveObject(data, "Thành phố Hồ Chí Minh", "Sài Gòn");
 
   return { provinces: result, isLoading };
 };
