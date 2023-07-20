@@ -16,6 +16,9 @@ export default {
       `${ALLOW_CORS}https://provinces.open-api.vn/api/d/${id}?depth=2`
     );
   },
+  getAll: () => {
+    return api.get(API_CONSTANTS.ORDERS.GET_ALL);
+  },
   create: (params) => {
     return api.post(API_CONSTANTS.ORDERS.CREATE, params);
   },

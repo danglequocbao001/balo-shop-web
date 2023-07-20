@@ -6,5 +6,7 @@ const COLOR_CONSTANTS = {
   BLACK: "#000000",
 
   LIGHT_GREY: "#F8F9FA",
+  MIDDLE_GREY: "#CCCCCC",
+  DARK_YELLOW: "#cca714",
 };
 export default COLOR_CONSTANTS;

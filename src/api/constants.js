@@ -48,6 +48,7 @@ const API_CONSTANTS = {
     DELETE: (ma_qc) => `/quang-cao/${ma_qc}`,
   },
   ORDERS: {
+    GET_ALL: "/don-dat-hang",
     CREATE: "/don-dat-hang",
     PURCHASE: "/don-dat-hang/purchase"
   },

@@ -94,6 +94,10 @@ const Navbar = () => {
                     Giỏ hàng ({cartCount.length})
                     <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
                   </NavLink>
+                  <NavLink to="/orders" className="btn btn-outline-dark mx-2">
+                    Đơn đặt hàng
+                    <FontAwesomeIcon className="ms-2" icon={faCartShopping} />
+                  </NavLink>
                   <NavLink to="/profile" className="btn btn-outline-dark">
                     Khách hàng
                     <FontAwesomeIcon className="ms-2" icon={faUser} />

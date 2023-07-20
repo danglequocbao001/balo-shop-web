@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { fetchAllProvinces } from "../services/orders";
+import { featchAllOrders, fetchAllProvinces } from "../services/orders";
 
 export const useFetchAllProvinces = () => {
   const [isLoading, setLoading] = useState(false);
@@ -34,4 +34,23 @@ export const useFetchAllProvinces = () => {
   const result = renameAndMoveObject(data);
 
   return { provinces: result, isLoading };
+};
+
+export const useFetchAllOrder = () => {
+  const [isLoading, setLoading] = useState(false);
+  const [data, setData] = useState();
+
+  useEffect(() => {
+    setLoading(true);
+    featchAllOrders()
+      .then((data) => {
+        setData(data);
+        setLoading(false);
+      })
+      .catch((err) => {
+        toast.error(err.message);
+        setLoading(false);
+      });
+  }, []);
+  return { orders: data, isLoading };
 };

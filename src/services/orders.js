@@ -31,20 +31,14 @@ const fetchWardsByDistrictId = async (id) => {
   });
 };
 
-const createOrder = async (params) => {
-  await ordersApi
-    .create(params)
-    .then((res) => {
-      return res;
-    })
-    .catch((err) => {
-      return err;
-    });
+const featchAllOrders = async () => {
+  const data = await ordersApi.getAll();
+  return data;
 };
 
 export {
   fetchAllProvinces,
   fetchDistrictsByProvinceId,
   fetchWardsByDistrictId,
-  createOrder,
+  featchAllOrders,
 };
