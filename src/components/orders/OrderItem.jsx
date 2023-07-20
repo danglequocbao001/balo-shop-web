@@ -7,6 +7,7 @@ import { ordersApi } from "../../api";
 import { Spin } from "antd";
 import { toast } from "react-toastify";
 import { styled } from "styled-components";
+import { useFetchOneCustomer } from "../../hooks/useKhachHang";
 
 const btnStyle = {
   backgroundColor: COLOR_CONSTANTS.BLACK,
@@ -26,7 +27,15 @@ const SpinWrapper = styled(Spin)`
 
 const OrderItem = (params) => {
   const [isShow, setShow] = useState(false);
+  const [isShowCustomer, setShowCustomer] = useState(false);
   const [isLoading, setLoading] = useState(false);
+  const { customer } = useFetchOneCustomer(params.order.ma_kh);
+
+  const isStaff =
+    params.currentCredential && params.currentCredential.role === "staff";
+
+  const isCustomer =
+    params.currentCredential && params.currentCredential.role === "customer";
 
   const getStatusColor = (status) => {
     if (status === "Đã hoàn thành") {
@@ -135,6 +144,25 @@ const OrderItem = (params) => {
     );
   };
 
+  const detailCustomer = (customer) => {
+    return (
+      <div
+        style={{
+          border: `1px solid ${COLOR_CONSTANTS.MIDDLE_GREY}`,
+          padding: 10,
+          paddingBottom: 0,
+          borderRadius: 10,
+          marginBottom: 10,
+        }}
+      >
+        {itemText("Mã khách hàng:", customer.ma_kh)}
+        {itemText("Họ tên khách hàng:", `${customer.ho_kh} ${customer.ten_kh}`)}
+        {itemText("Email khách hàng:", customer.email_kh)}
+        {itemText("Sdt khách hàng:", customer.sdt)}
+      </div>
+    );
+  };
+
   return (
     <div
       style={{
@@ -144,6 +172,27 @@ const OrderItem = (params) => {
         marginBottom: 20,
       }}
     >
+      {isStaff && customer && (
+        <>
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <p
+              style={{
+                color: "#8d8d8d",
+                textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => setShowCustomer(!isShowCustomer)}
+            >
+              Chi tiết khách hàng
+            </p>
+          </div>
+          {isShowCustomer && detailCustomer(customer)}
+        </>
+      )}
       <div
         style={{
           display: "flex",
@@ -175,7 +224,7 @@ const OrderItem = (params) => {
         <Button style={btnStyle} onClick={() => setShow(!isShow)}>
           {isShow ? "Đóng" : "Xem chi tiết"}
         </Button>
-        {params.order.ma_trang_thai === "CHO_THANH_TOAN" && (
+        {isCustomer && params.order.ma_trang_thai === "CHO_THANH_TOAN" && (
           <Button
             style={{ ...btnStyle, backgroundColor: COLOR_CONSTANTS.SUCCESS }}
             onClick={() => {
@@ -183,6 +232,18 @@ const OrderItem = (params) => {
             }}
           >
             {isLoading ? <SpinWrapper /> : "Thanh toán"}
+          </Button>
+        )}
+        {isStaff && params.order.ma_trang_thai === "CHO_DUYET" && (
+          <Button
+            style={{
+              ...btnStyle,
+              backgroundColor: COLOR_CONSTANTS.SUCCESS,
+              width: 200,
+            }}
+            onClick={() => {}}
+          >
+            {"Duyệt đơn đặt hàng"}
           </Button>
         )}
       </div>

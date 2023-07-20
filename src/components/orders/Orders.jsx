@@ -4,9 +4,12 @@ import OrderItem from "./OrderItem";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { faGreaterThan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useFetchCurrentCredential } from "../../hooks/useAuth";
 
 const Orders = () => {
   const { orders } = useFetchAllOrder();
+
+  const { currentCredential } = useFetchCurrentCredential();
 
   const [isShowStatus, setIsShowStatus] = useState(false);
 
@@ -80,14 +83,16 @@ const Orders = () => {
         Chi tiết
       </h5>
       {isShowStatus && statusSteps()}
-      {orders && (
+      {currentCredential && orders && (
         <div
           style={{
             marginTop: 30,
           }}
         >
           {orders.map((order) => {
-            return <OrderItem order={order} />;
+            return (
+              <OrderItem order={order} currentCredential={currentCredential} />
+            );
           })}
         </div>
       )}

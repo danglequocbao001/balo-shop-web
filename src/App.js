@@ -16,10 +16,11 @@ import Orders from "./components/orders/Orders";
 import { useFetchCurrentCredential } from "./hooks/useAuth";
 import AdminNavBar from "./components/admins/AdminNavBar";
 import AdminLogin from "./components/admins/AdminLogin";
+import AdminOrders from "./components/admins/adminOrders/AdminOrders";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
-  currentCredential && console.log("fuck", currentCredential.role);
+
   return (
     <div className="App">
       <ToastContainer />
@@ -48,6 +49,7 @@ function App() {
           }
           <Route path="/admin" element={<>thong ke doanh thu</>}></Route>
           <Route path="/admin/login" element={<AdminLogin />}></Route>
+          <Route path="/admin/orders" element={<AdminOrders />}></Route>
         </Routes>
       </BrowserRouter>
     </div>
