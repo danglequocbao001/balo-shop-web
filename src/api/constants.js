@@ -8,6 +8,7 @@ export const TOKEN_LOCAL_STORAGE = "authorization";
 
 const API_CONSTANTS = {
   AUTH: {
+    GET_CURRENT_CREDENTIAL: "/auth",
     SIGNUP_CUSTOMER: "/auth/signup-customer",
     LOGIN_CUSTOMER: "/auth/login-customer",
     LOGIN_STAFF: "/auth/login-staff",

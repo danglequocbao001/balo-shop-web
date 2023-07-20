@@ -13,10 +13,13 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TOKEN_LOCAL_STORAGE } from "../api/constants";
+import { useFetchCurrentCredential } from "../hooks/useAuth";
 const Navbar = () => {
   const state = useSelector((state) => state.HandleCart);
   const [token, setToken] = useState("");
   const localStorageToken = localStorage.getItem(TOKEN_LOCAL_STORAGE);
+  const { currentCredential } = useFetchCurrentCredential();
+  console.log(currentCredential);
 
   useEffect(() => {
     setToken(localStorageToken);
