@@ -11,7 +11,7 @@ const Orders = () => {
 
   const { currentCredential } = useFetchCurrentCredential();
 
-  const [isShowStatus, setIsShowStatus] = useState(false);
+  const [isShowStatus, setIsShowStatus] = useState(true);
 
   const status = (name, color, isHideGreater) => {
     return (
