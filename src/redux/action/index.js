@@ -12,3 +12,9 @@ export const deleteItem = (product) => {
     payload: product,
   };
 };
+
+export const clear = () => {
+  return {
+    type: "CLEAR_PRODUCT",
+  };
+};

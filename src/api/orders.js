@@ -19,6 +19,9 @@ export default {
   getAll: () => {
     return api.get(API_CONSTANTS.ORDERS.GET_ALL);
   },
+  getOne: (ma_don_dat_hang) => {
+    return api.get(API_CONSTANTS.ORDERS.GET_ONE(ma_don_dat_hang));
+  },
   create: (params) => {
     return api.post(API_CONSTANTS.ORDERS.CREATE, params);
   },

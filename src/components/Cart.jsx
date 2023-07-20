@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { deleteItem, addItem } from "../redux/action";
-import { Link } from "react-router-dom";
+import { deleteItem, addItem, clear } from "../redux/action";
+import { useNavigate } from "react-router-dom";
 import moneyFormatter from "../helpers/money";
 import COLOR_CONSTANTS from "../constants/colors";
 import ProductItem from "./products/ProductItem";
 import { useFetchAllProvinces } from "../hooks/useOrders";
-import { Select, Typography, Input } from "antd";
+import { Select, Typography, Input, Modal } from "antd";
 import {
   fetchDistrictsByProvinceId,
+  fetchOneOrder,
   fetchWardsByDistrictId,
 } from "../services/orders";
 import { toast } from "react-toastify";
@@ -31,6 +32,12 @@ const inputHeadLabel = {
 const Cart = () => {
   const { provinces } = useFetchAllProvinces();
   const { customer } = useFetchCurrentCustomer();
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const navigate = useNavigate();
+
+  const [orderId, setOrderId] = useState();
 
   const [districts, setDistricts] = useState([
     {
@@ -204,14 +211,15 @@ const Cart = () => {
 
     await ordersApi
       .create(bodyOrder)
-      .then(() => {
+      .then((res) => {
+        setOrderId(res.ma_don_dat_hang);
         toast.success("Đặt hàng thành công!");
+        dispatch(clear());
+        setIsModalOpen(true);
       })
       .catch((err) => {
         toast.error(err.message);
       });
-
-    // await ordersApi.purchase();
   };
 
   const cartItems = state.map((product) => {
@@ -399,16 +407,30 @@ const Cart = () => {
       <div>
         <div className="container">
           <div className="row">
-            <Link
+            <button
               onClick={() => onCheckOrder()}
               className="btn btn-outline-dark mb-5 w-25 mx-auto"
             >
               Đặt hàng
-            </Link>
+            </button>
           </div>
         </div>
       </div>
     );
+  };
+
+  const purchaseNow = async (ma_don_dat_hang) => {
+    fetchOneOrder(ma_don_dat_hang).then(async (data) => {
+      await ordersApi
+        .purchase({
+          tong_tien: data[0].tong_tien,
+          ma_don_dat_hang: ma_don_dat_hang,
+        })
+        .then((url) => {
+          navigate("/");
+          window.open(url);
+        });
+    });
   };
 
   return (
@@ -421,6 +443,27 @@ const Cart = () => {
       {state.length !== 0 && cartItems}
       {tempTotalPrice()}
       {state.length !== 0 && buttons()}
+      <>
+        <Modal
+          title="Thành công"
+          open={isModalOpen}
+          onOk={() => {
+            purchaseNow(orderId);
+          }}
+          onCancel={() => {
+            setIsModalOpen(!isModalOpen);
+            navigate("/orders");
+            window.location.reload();
+          }}
+          maskClosable={false}
+          okText="Thanh toán ngay"
+          cancelText="Thanh toán sau"
+          keyboard={false}
+          closable={false}
+        >
+          <p>Thực hiện đặt đơn đặt hàng thành công, thanh toán ngay!</p>
+        </Modal>
+      </>
     </div>
   );
 };

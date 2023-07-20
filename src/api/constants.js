@@ -50,7 +50,8 @@ const API_CONSTANTS = {
   ORDERS: {
     GET_ALL: "/don-dat-hang",
     CREATE: "/don-dat-hang",
-    PURCHASE: "/don-dat-hang/purchase"
+    PURCHASE: "/don-dat-hang/purchase",
+    GET_ONE: (ma_don_dat_hang) => `don-dat-hang/find-one/${ma_don_dat_hang}`,
   },
   ORDERS_STATUS: {
     GET: "/trang-thai-ddh",

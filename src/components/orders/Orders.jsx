@@ -1,7 +1,6 @@
 import React from "react";
 import { useFetchAllOrder } from "../../hooks/useOrders";
 import OrderItem from "./OrderItem";
-import COLOR_CONSTANTS from "../../constants/colors";
 const Orders = () => {
   const { orders } = useFetchAllOrder();
   return (

@@ -1,7 +1,6 @@
 const cart = [];
 
 const HandleCart = (state = cart, action) => {
-  
   const product = action.payload;
   switch (action.type) {
     case "ADD_PRODUCT":
@@ -30,6 +29,9 @@ const HandleCart = (state = cart, action) => {
           x.ma_mh === product.ma_mh ? { ...x, quantity: x.quantity - 1 } : x
         );
       }
+    case "CLEAR_PRODUCT":
+      state = [];
+      return state;
     default:
       return state;
   }

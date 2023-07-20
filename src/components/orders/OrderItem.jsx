@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import moneyFormatter from "../../helpers/money";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { Button } from "antd";
+import { fetchOneOrder } from "../../services/orders";
+import { ordersApi } from "../../api";
 
 const btnStyle = {
   backgroundColor: COLOR_CONSTANTS.BLACK,
@@ -23,6 +25,19 @@ const OrderItem = (params) => {
     } else {
       return COLOR_CONSTANTS.DARK_YELLOW;
     }
+  };
+
+  const purchaseNow = async (ma_don_dat_hang) => {
+    fetchOneOrder(ma_don_dat_hang).then(async (data) => {
+      await ordersApi
+        .purchase({
+          tong_tien: data[0].tong_tien,
+          ma_don_dat_hang: ma_don_dat_hang,
+        })
+        .then((url) => {
+          window.open(url);
+        });
+    });
   };
 
   const itemText = (title, text) => {
@@ -146,7 +161,9 @@ const OrderItem = (params) => {
         {params.order.ma_trang_thai === "CHO_THANH_TOAN" && (
           <Button
             style={{ ...btnStyle, backgroundColor: COLOR_CONSTANTS.SUCCESS }}
-            onClick={() => {}}
+            onClick={() => {
+              purchaseNow(params.order.ma_don_dat_hang);
+            }}
           >
             Thanh toán
           </Button>

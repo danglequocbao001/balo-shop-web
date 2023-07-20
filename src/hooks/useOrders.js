@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { featchAllOrders, fetchAllProvinces } from "../services/orders";
+import { fetchAllOrders, fetchAllProvinces } from "../services/orders";
 
 export const useFetchAllProvinces = () => {
   const [isLoading, setLoading] = useState(false);
@@ -42,7 +42,7 @@ export const useFetchAllOrder = () => {
 
   useEffect(() => {
     setLoading(true);
-    featchAllOrders()
+    fetchAllOrders()
       .then((data) => {
         setData(data);
         setLoading(false);

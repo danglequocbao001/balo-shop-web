@@ -31,8 +31,13 @@ const fetchWardsByDistrictId = async (id) => {
   });
 };
 
-const featchAllOrders = async () => {
+const fetchAllOrders = async () => {
   const data = await ordersApi.getAll();
+  return data;
+};
+
+const fetchOneOrder = async (ma_don_dat_hang) => {
+  const data = await ordersApi.getOne(ma_don_dat_hang);
   return data;
 };
 
@@ -40,5 +45,6 @@ export {
   fetchAllProvinces,
   fetchDistrictsByProvinceId,
   fetchWardsByDistrictId,
-  featchAllOrders,
+  fetchAllOrders,
+  fetchOneOrder,
 };
