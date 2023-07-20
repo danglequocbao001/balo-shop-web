@@ -45,6 +45,7 @@ const Orders = () => {
       <div
         style={{
           display: "flex",
+          marginTop: 20,
         }}
       >
         {status("Chờ thanh toán", COLOR_CONSTANTS.DARK_YELLOW)}
