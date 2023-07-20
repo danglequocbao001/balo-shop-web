@@ -72,7 +72,7 @@ const AdminNavBar = () => {
                     to="/admin/orders"
                     className="btn btn-outline-dark mx-2"
                   >
-                    QL Đơn đặt hàng
+                    QL đơn đặt hàng
                     <FontAwesomeIcon className="ms-2" icon={faReceipt} />
                   </NavLink>
                   <NavLink to="/admin/profile" className="btn btn-outline-dark">
