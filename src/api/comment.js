@@ -9,4 +9,7 @@ export default {
   create: (param) => {
     return api.post(API_CONSTANTS.COMMENT.CREATE, param);
   },
+  delete: (ma_binh_luan) => {
+    return api.delete(API_CONSTANTS.COMMENT.DELETE(ma_binh_luan));
+  },
 };

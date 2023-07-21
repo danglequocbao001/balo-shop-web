@@ -63,6 +63,7 @@ const API_CONSTANTS = {
   COMMENT: {
     GET_BY_PRODUCT: (ma_mh) => `/binh-luan/${ma_mh}`,
     CREATE: "/binh-luan",
+    DELETE: (ma_binh_luan) => `/binh-luan/${ma_binh_luan}`,
   },
 };
 
