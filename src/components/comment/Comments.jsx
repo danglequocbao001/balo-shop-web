@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useFetchCurrentCustomer } from "../../hooks/useKhachHang";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { toast } from "react-toastify";
+import { commentApi } from "../../api";
 
 const { TextArea } = Input;
 
@@ -17,7 +18,7 @@ const Comments = (param) => {
   const { comments } = useFetchAllCommentByProduct(ma_mh);
   const { customer } = useFetchCurrentCustomer();
 
-  const onAddComment = () => {
+  const onAddComment = async () => {
     if (comment === "") {
       toast.warn("Không được bỏ trống bình luận!");
     } else {
@@ -28,7 +29,17 @@ const Comments = (param) => {
         diem_danh_gia: rate,
       };
 
-      console.log(req);
+      await commentApi
+        .create(req)
+        .then(() => {
+          toast.success("Thêm bình luận thành công!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          toast.error(err);
+        });
     }
   };
 

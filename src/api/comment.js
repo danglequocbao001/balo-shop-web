@@ -6,4 +6,7 @@ export default {
   getByProduct: (ma_mh) => {
     return api.get(API_CONSTANTS.COMMENT.GET_BY_PRODUCT(ma_mh));
   },
+  create: (param) => {
+    return api.post(API_CONSTANTS.COMMENT.CREATE, param);
+  },
 };

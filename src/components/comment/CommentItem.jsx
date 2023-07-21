@@ -16,36 +16,40 @@ const CommentItem = (param) => {
         border: `1px solid ${COLOR_CONSTANTS.MIDDLE_GREY}`,
       }}
     >
-      <div
-        style={{
-          display: "flex",
-        }}
-      >
-        <div>
-          <MDBCardImage
-            src="https://toppng.com/uploads/preview/icon-customers-customer-icon-11563506628qpu3czucoo.png"
-            alt="avatar"
-            className="rounded-circle"
-            style={{ width: "50px" }}
-            fluid
-          />
-        </div>
-        <div
-          style={{
-            marginLeft: 10,
-          }}
-        >
-          <p
+      <>
+        {customer && (
+          <div
             style={{
-              fontWeight: "bold",
-              marginBottom: -3,
+              display: "flex",
             }}
-          >{`${comment.khach_hang.ho_kh} ${comment.khach_hang.ten_kh} ${
-            comment.ma_kh === customer.ma_kh ? "(Bạn)" : ""
-          }`}</p>
-          <Rate value={comment.diem_danh_gia} disabled />
-        </div>
-      </div>
+          >
+            <div>
+              <MDBCardImage
+                src="https://toppng.com/uploads/preview/icon-customers-customer-icon-11563506628qpu3czucoo.png"
+                alt="avatar"
+                className="rounded-circle"
+                style={{ width: "50px" }}
+                fluid
+              />
+            </div>
+            <div
+              style={{
+                marginLeft: 10,
+              }}
+            >
+              <p
+                style={{
+                  fontWeight: "bold",
+                  marginBottom: -3,
+                }}
+              >{`${comment.khach_hang.ho_kh} ${comment.khach_hang.ten_kh} ${
+                comment.ma_kh === customer.ma_kh ? "(Bạn)" : ""
+              }`}</p>
+              <Rate value={comment.diem_danh_gia} disabled />
+            </div>
+          </div>
+        )}
+      </>
       <div
         style={{
           marginLeft: 50,

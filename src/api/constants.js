@@ -62,6 +62,7 @@ const API_CONSTANTS = {
   },
   COMMENT: {
     GET_BY_PRODUCT: (ma_mh) => `/binh-luan/${ma_mh}`,
+    CREATE: "/binh-luan",
   },
 };
 
