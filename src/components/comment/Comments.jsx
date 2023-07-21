@@ -20,13 +20,13 @@ const Comments = (param) => {
   const { customer } = useFetchCurrentCustomer();
 
   const onAddComment = async () => {
-    if (comment === "") {
+    if (comment.trim() === "") {
       toast.warn("Không được bỏ trống bình luận!");
     } else {
       const req = {
         ma_kh: customer.ma_kh,
         ma_mh: ma_mh,
-        noi_dung: comment,
+        noi_dung: comment.trim(),
         diem_danh_gia: rate,
       };
 
