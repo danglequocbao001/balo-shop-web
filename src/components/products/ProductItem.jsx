@@ -1,8 +1,6 @@
 import { NavLink } from "react-router-dom";
 import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
-import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
-import { toast } from "react-toastify";
 
 const ProductItem = (param) => {
   const productDetailAndCartNoUse = !(

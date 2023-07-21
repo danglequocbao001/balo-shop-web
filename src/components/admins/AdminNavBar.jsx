@@ -46,8 +46,15 @@ const AdminNavBar = () => {
             {staff && (
               <ul className="navbar-nav mb-2 mb-lg-0">
                 <li className="nav-item">
-                  <NavLink className="nav-link " aria-current="page">
-                    {`Nhân viên: ${staff.ma_nv} ${staff.ho_nv} ${staff.ten_nv}`}
+                  <NavLink
+                    className="nav-link "
+                    aria-current="page"
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: 20,
+                    }}
+                  >
+                    {`Nhân viên: ${staff.ma_nv} - ${staff.ho_nv} ${staff.ten_nv} - ${staff.ma_bp}`}
                   </NavLink>
                 </li>
                 {/* <li className="nav-item">
