@@ -7,6 +7,7 @@ import moneyFormatter from "../../helpers/money";
 import ProductItem from "./ProductItem";
 import { toast } from "react-toastify";
 import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
+import Comments from "../comment/Comments";
 
 const Product = () => {
   const { ma_mh } = useParams();
@@ -103,6 +104,7 @@ const Product = () => {
       <div className="row py-5">
         {isLoading ? <Loading /> : <ShowProduct />}
       </div>
+      <Comments ma_mh={ma_mh} />
     </div>
   );
 };

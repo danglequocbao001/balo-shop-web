@@ -60,6 +60,9 @@ const API_CONSTANTS = {
   ORDERS_STATUS: {
     GET: "/trang-thai-ddh",
   },
+  COMMENT: {
+    GET_BY_PRODUCT: (ma_mh) => `/binh-luan/${ma_mh}`,
+  },
 };
 
 export default API_CONSTANTS;
