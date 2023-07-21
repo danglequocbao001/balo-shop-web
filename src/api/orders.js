@@ -31,4 +31,7 @@ export default {
   browse: (param) => {
     return api.post(API_CONSTANTS.ORDERS.BROWSE, param);
   },
+  delivered: (ma_don_dat_hang) => {
+    return api.post(API_CONSTANTS.ORDERS.DELIVERED(ma_don_dat_hang));
+  },
 };

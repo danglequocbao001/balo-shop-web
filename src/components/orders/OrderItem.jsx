@@ -290,14 +290,19 @@ const OrderItem = (params) => {
     return text;
   };
 
-  const handleDelivery = () => {
+  const handleDelivery = async () => {
     if (staff.ma_nv !== order.ma_nv_giao_hang) {
       toast.error("Không được xác nhận đơn hàng của nhân viên khác!");
     } else {
-      toast.success("Xác nhận giao hàng thành công!");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      await ordersApi
+        .delivered(order.ma_don_dat_hang)
+        .then(() => {
+          toast.success("Xác nhận giao hàng thành công!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => toast.error(err));
     }
   };
 
