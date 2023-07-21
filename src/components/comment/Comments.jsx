@@ -6,6 +6,7 @@ import { useFetchCurrentCustomer } from "../../hooks/useKhachHang";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { toast } from "react-toastify";
 import { commentApi } from "../../api";
+import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
 
 const { TextArea } = Input;
 
@@ -94,7 +95,11 @@ const Comments = (param) => {
 
   const showComments = () => {
     return (
-      <>
+      <div
+        style={{
+          marginTop: 20,
+        }}
+      >
         {comments.map((comment) => (
           <CommentItem
             key={comment.ma_binh_luan}
@@ -102,14 +107,14 @@ const Comments = (param) => {
             customer={customer}
           />
         ))}
-      </>
+      </div>
     );
   };
 
   return (
     <>
       <h3>Bình luận</h3>
-      {addComent()}
+      {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null && addComent()}
       {showComments()}
     </>
   );
