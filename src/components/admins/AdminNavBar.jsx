@@ -86,7 +86,7 @@ const AdminNavBar = () => {
                       window.location.reload();
                     }}
                   >
-                    <NavLink to="/login" className="btn btn-outline-dark">
+                    <NavLink to="/admin/login" className="btn btn-outline-dark">
                       Đăng xuất
                       <FontAwesomeIcon className="ms-2" icon={faLock} />
                     </NavLink>
