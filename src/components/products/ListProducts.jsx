@@ -19,7 +19,7 @@ const ListProducts = (param) => {
         <div className="row justify-content-center">
           {param.listProducts.length > 0 &&
             param.listProducts.map((product) => {
-              return <ProductItem product={product} key={product.ma_mh} />;
+              return <ProductItem key={product.ma_mh} product={product} />;
             })}
         </div>
       </div>

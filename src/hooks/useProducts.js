@@ -35,9 +35,16 @@ export const useFetchAllProducts = (filter) => {
             });
           setData(result);
         } else if (filter === PRODUCTS_FILTER.BEST_SELLER) {
-          const result = data.filter((product) => {
-            return product.chi_tiet_da_ban !== undefined;
-          });
+          const result = data
+            .filter((product) => {
+              return product.chi_tiet_da_ban !== undefined;
+            })
+            .sort(function (a, b) {
+              return (
+                b.chi_tiet_da_ban.tong_so_da_ban -
+                a.chi_tiet_da_ban.tong_so_da_ban
+              );
+            });
           setData(result);
         } else {
           setData(data);

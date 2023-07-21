@@ -18,7 +18,7 @@ const Advertisement = () => {
 
   const AdvertisementItem = (item) => {
     return (
-      <div>
+      <div key={item.ma_qc}>
         <div
           style={{
             padding: "50px 12% 20px 12%",
