@@ -4,6 +4,7 @@ const COLOR_CONSTANTS = {
   WARNING: "#ffd119",
   WHITE: "#ffffff",
   BLACK: "#000000",
+  GRAY: "#808080",
 
   LIGHT_GREY: "#F8F9FA",
   MIDDLE_GREY: "#CCCCCC",

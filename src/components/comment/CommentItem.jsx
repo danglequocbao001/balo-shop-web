@@ -9,11 +9,11 @@ const CommentItem = (param) => {
   return (
     <div
       style={{
-        backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
-        padding: 10,
+        padding: 15,
         marginBottom: 15,
         borderRadius: 10,
-        border: `1px solid ${COLOR_CONSTANTS.MIDDLE_GREY}`,
+        border: `1px solid ${COLOR_CONSTANTS.GRAY}`,
+        paddingBottom: 5,
       }}
     >
       <>
