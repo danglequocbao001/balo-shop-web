@@ -29,13 +29,28 @@ const OrderItem = (params) => {
   const [isShow, setShow] = useState(false);
   const [isShowCustomer, setShowCustomer] = useState(false);
   const [isLoading, setLoading] = useState(false);
-  const { customer } = useFetchOneCustomer(params.order.ma_kh);
 
-  const isStaff =
-    params.currentCredential && params.currentCredential.role === "staff";
+  const order = params.order;
+  const currentCredential = params.currentCredential;
+  const staff = params.staff;
 
-  const isCustomer =
-    params.currentCredential && params.currentCredential.role === "customer";
+  const { customer } = useFetchOneCustomer(order.ma_kh);
+
+  const isStaffBrowse =
+    currentCredential &&
+    currentCredential.role === "staff" &&
+    staff &&
+    staff.ma_bp === "NV_DUYET";
+
+  const isStaffDelivery =
+    currentCredential &&
+    currentCredential.role === "staff" &&
+    staff &&
+    staff.ma_bp === "NV_GH";
+
+  const isStaff = isStaffBrowse || isStaffDelivery;
+
+  const isCustomer = currentCredential && currentCredential.role === "customer";
 
   const getStatusColor = (status) => {
     if (status === "Đã hoàn thành") {
@@ -198,8 +213,8 @@ const OrderItem = (params) => {
           display: "flex",
         }}
       >
-        {itemText("Mã đơn:", params.order.ma_don_dat_hang)}
-        {itemText("Ngày tạo:", params.order.ngay_tao)}
+        {itemText("Mã đơn:", order.ma_don_dat_hang)}
+        {itemText("Ngày tạo:", order.ngay_tao)}
       </div>
       <div
         style={{
@@ -208,13 +223,13 @@ const OrderItem = (params) => {
       >
         {itemText(
           "Họ tên người nhận:",
-          `${params.order.ho_nguoi_nhan} ${params.order.ten_nguoi_nhan}`
+          `${order.ho_nguoi_nhan} ${order.ten_nguoi_nhan}`
         )}
-        {itemText("SĐT người nhận:", params.order.sdt)}
+        {itemText("SĐT người nhận:", order.sdt)}
       </div>
-      {itemText("Địa chỉ giao:", params.order.dia_chi_giao)}
-      {itemText("Trạng thái:", params.order.ten_trang_thai)}
-      {itemText("Tổng tiền:", moneyFormatter.format(params.order.tong_tien))}
+      {itemText("Địa chỉ giao:", order.dia_chi_giao)}
+      {itemText("Trạng thái:", order.ten_trang_thai)}
+      {itemText("Tổng tiền:", moneyFormatter.format(order.tong_tien))}
 
       <div
         style={{
@@ -224,17 +239,17 @@ const OrderItem = (params) => {
         <Button style={btnStyle} onClick={() => setShow(!isShow)}>
           {isShow ? "Đóng" : "Xem chi tiết"}
         </Button>
-        {isCustomer && params.order.ma_trang_thai === "CHO_THANH_TOAN" && (
+        {isCustomer && order.ma_trang_thai === "CHO_THANH_TOAN" && (
           <Button
             style={{ ...btnStyle, backgroundColor: COLOR_CONSTANTS.SUCCESS }}
             onClick={() => {
-              purchaseNow(params.order.ma_don_dat_hang);
+              purchaseNow(order.ma_don_dat_hang);
             }}
           >
             {isLoading ? <SpinWrapper /> : "Thanh toán"}
           </Button>
         )}
-        {isStaff && params.order.ma_trang_thai === "CHO_DUYET" && (
+        {isStaffBrowse && order.ma_trang_thai === "CHO_DUYET" && (
           <Button
             style={{
               ...btnStyle,
@@ -246,8 +261,20 @@ const OrderItem = (params) => {
             {"Duyệt đơn đặt hàng"}
           </Button>
         )}
+        {isStaffDelivery && order.ma_trang_thai === "CHO_GIAO_HANG" && (
+          <Button
+            style={{
+              ...btnStyle,
+              backgroundColor: COLOR_CONSTANTS.SUCCESS,
+              width: 200,
+            }}
+            onClick={() => {}}
+          >
+            {"Xác nhận giao hàng"}
+          </Button>
+        )}
       </div>
-      {isShow && detailItem(params.order.chi_tiet)}
+      {isShow && detailItem(order.chi_tiet)}
     </div>
   );
 };

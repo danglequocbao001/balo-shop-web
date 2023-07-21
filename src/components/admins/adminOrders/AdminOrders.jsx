@@ -3,11 +3,14 @@ import { useFetchAllOrder } from "../../../hooks/useOrders";
 import OrderItem from "../../orders/OrderItem";
 import { useFetchCurrentCredential } from "../../../hooks/useAuth";
 import { Select } from "antd";
+import { useFetchCurrentStaff } from "../../../hooks/useStaffs";
 
 const AdminOrders = () => {
   const { orders } = useFetchAllOrder();
 
   const { currentCredential } = useFetchCurrentCredential();
+
+  const { staff } = useFetchCurrentStaff();
 
   const [status, setStatus] = useState("ALL");
 
@@ -28,57 +31,68 @@ const AdminOrders = () => {
         padding: 50,
       }}
     >
-      <h5
-        style={{
-          color: "#8d8d8d",
-        }}
-      >
-        *Nhân viên duyệt đơn đặt hàng!
-      </h5>
+      {staff && (
+        <>
+          <h5
+            style={{
+              color: "#8d8d8d",
+            }}
+          >
+            {staff.ma_bp === "NV_DUYET"
+              ? "*Nhân viên duyệt đơn đặt hàng!"
+              : "*Nhân viên giao đơn đặt hàng"}
+          </h5>
 
-      <Select
-        defaultValue="Tất cả trạng thái"
-        options={[
-          {
-            value: "ALL",
-            label: "Tất cả trạng thái",
-          },
-          {
-            value: "CHO_THANH_TOAN",
-            label: "Chờ thanh toán",
-          },
-          {
-            value: "CHO_DUYET",
-            label: "Chờ duyệt",
-          },
-          {
-            value: "CHO_GIAO_HANG",
-            label: "Chờ giao hàng",
-          },
-          {
-            value: "DA_HOAN_THANH",
-            label: "Đã hoàn thành",
-          },
-        ]}
-        onChange={handleChangeStatus}
-        style={{
-          marginTop: 20,
-          width: 150,
-        }}
-      />
+          <Select
+            defaultValue={"ALL"}
+            options={[
+              {
+                value: "ALL",
+                label: "Tất cả trạng thái",
+              },
+              {
+                value: "CHO_THANH_TOAN",
+                label: "Chờ thanh toán",
+              },
+              {
+                value: "CHO_DUYET",
+                label: "Chờ duyệt",
+              },
+              {
+                value: "CHO_GIAO_HANG",
+                label: "Chờ giao hàng",
+              },
+              {
+                value: "DA_HOAN_THANH",
+                label: "Đã hoàn thành",
+              },
+            ]}
+            onChange={handleChangeStatus}
+            style={{
+              marginTop: 20,
+              width: 150,
+            }}
+          />
 
-      {currentCredential && orders && (
-        <div
-          style={{
-            marginTop: 30,
-          }}
-        >
-          {filterByMaTrangThai(orders, status).map((order) => {
-            return (
-              <OrderItem order={order} currentCredential={currentCredential} />
-            );
-          })}
-        </div>
+          {currentCredential && orders && (
+            <div
+              style={{
+                marginTop: 30,
+              }}
+            >
+              {filterByMaTrangThai(orders, status).map((order) => {
+                return (
+                  <OrderItem
+                    key={order.ma_don_dat_hang}
+                    order={order}
+                    currentCredential={currentCredential}
+                    staff={staff}
+                  />
+                );
+              })}
+            </div>
+          )}
+        </>
       )}
     </div>
   );

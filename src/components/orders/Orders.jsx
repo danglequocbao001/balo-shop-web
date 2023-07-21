@@ -91,7 +91,11 @@ const Orders = () => {
         >
           {orders.map((order) => {
             return (
-              <OrderItem order={order} currentCredential={currentCredential} />
+              <OrderItem
+                key={order.ma_don_dat_hang}
+                order={order}
+                currentCredential={currentCredential}
+              />
             );
           })}
         </div>
