@@ -28,4 +28,7 @@ export default {
   purchase: (param) => {
     return api.post(API_CONSTANTS.ORDERS.PURCHASE, param);
   },
+  browse: (param) => {
+    return api.post(API_CONSTANTS.ORDERS.BROWSE, param);
+  },
 };

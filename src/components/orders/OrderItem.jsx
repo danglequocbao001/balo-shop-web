@@ -4,7 +4,7 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import { Button } from "antd";
 import { fetchOneOrder } from "../../services/orders";
 import { ordersApi } from "../../api";
-import { Spin } from "antd";
+import { Spin, Modal, Select } from "antd";
 import { toast } from "react-toastify";
 import { styled } from "styled-components";
 import { useFetchOneCustomer } from "../../hooks/useKhachHang";
@@ -28,11 +28,18 @@ const SpinWrapper = styled(Spin)`
 const OrderItem = (params) => {
   const [isShow, setShow] = useState(false);
   const [isShowCustomer, setShowCustomer] = useState(false);
+
   const [isLoading, setLoading] = useState(false);
+
+  const [isShowBrowseModal, setShowBrowseModal] = useState(false);
+  const [isShowDeliverydModal, setShowDeliveryModal] = useState(false);
+
+  const [maNVGH, setMaNVGH] = useState();
 
   const order = params.order;
   const currentCredential = params.currentCredential;
   const staff = params.staff;
+  const staffs = params.staffs;
 
   const { customer } = useFetchOneCustomer(order.ma_kh);
 
@@ -178,6 +185,116 @@ const OrderItem = (params) => {
     );
   };
 
+  const convertDeliveryStaffs = (staffs) => {
+    return staffs
+      .filter((staff) => staff.bo_phan.ma_bp === "NV_GH")
+      .map((staff) => {
+        return {
+          value: staff.ma_nv,
+          label: `${staff.bo_phan.ma_bp} ${staff.ma_nv} ${staff.ho_nv} ${staff.ten_nv}`,
+        };
+      });
+  };
+
+  const handleBrowse = async () => {
+    if (!maNVGH) toast.error("Không được bỏ trống nhân viên giao hàng!");
+    else {
+      const req = {
+        ma_don_dat_hang: order.ma_don_dat_hang,
+        ma_nv_duyet: staff.ma_nv,
+        ma_nv_giao_hang: maNVGH,
+      };
+      await ordersApi
+        .browse(req)
+        .then(() => {
+          toast.success("Duyệt đơn đặt hàng thành công!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => toast.error(err.message));
+    }
+  };
+
+  const browseModal = () => {
+    return (
+      <Modal
+        title="Duyệt đơn đặt hàng"
+        open={isShowBrowseModal}
+        onOk={() => handleBrowse()}
+        onCancel={() => setShowBrowseModal(!isShowBrowseModal)}
+        okText="Duyệt đơn đặt hàng"
+        cancelText="Đóng"
+      >
+        <div
+          style={{
+            marginTop: 20,
+          }}
+        >
+          {itemText("Mã đơn đặt hàng: ", order.ma_don_dat_hang)}
+          {itemText("Mã nhân viên duyệt: ", staff.ma_nv)}
+          {itemText(
+            "Họ tên nhân viên duyệt: ",
+            `${staff.ho_nv} ${staff.ten_nv}`
+          )}
+          <div
+            style={{
+              display: "flex",
+            }}
+          >
+            <div
+              style={{
+                marginTop: 3,
+              }}
+            >
+              {itemText("Nhân viên giao hàng: ")}
+            </div>
+            <Select
+              style={{ width: 200 }}
+              onChange={(value) => {
+                setMaNVGH(value);
+              }}
+              options={convertDeliveryStaffs(staffs)}
+            />
+          </div>
+          <div
+            style={{
+              display: "flex",
+              marginTop: 5,
+            }}
+          >
+            {itemText("Trạng thái tiếp theo: ")}{" "}
+            <p
+              style={{
+                color: COLOR_CONSTANTS.DARK_YELLOW,
+                fontWeight: "bold",
+              }}
+            >
+              Chờ giao hàng
+            </p>
+          </div>
+        </div>
+      </Modal>
+    );
+  };
+
+  const handleDelivery = () => {};
+
+  const deliveryModal = () => {
+    return (
+      <Modal
+        title="Duyệt đơn đặt hàng"
+        open={isShowDeliverydModal}
+        onOk={() => handleDelivery()}
+        onCancel={() => setShowDeliveryModal(!isShowDeliverydModal)}
+        okText="Xác nhận giao hàng"
+        cancelText="Đóng"
+      >
+        <p>Some contents...</p>
+      </Modal>
+    );
+  };
+
   return (
     <div
       style={{
@@ -249,33 +366,40 @@ const OrderItem = (params) => {
             {isLoading ? <SpinWrapper /> : "Thanh toán"}
           </Button>
         )}
-        {isStaffBrowse && order.ma_trang_thai === "CHO_DUYET" && (
-          <Button
-            style={{
-              ...btnStyle,
-              backgroundColor: COLOR_CONSTANTS.SUCCESS,
-              width: 200,
-            }}
-            onClick={() => {}}
-          >
-            {"Duyệt đơn đặt hàng"}
-          </Button>
+        {isStaffBrowse && order.ma_trang_thai === "CHO_DUYET" && staffs && (
+          <>
+            {browseModal()}
+            <Button
+              style={{
+                ...btnStyle,
+                backgroundColor: COLOR_CONSTANTS.SUCCESS,
+                width: 200,
+              }}
+              onClick={() => setShowBrowseModal(!isShowBrowseModal)}
+            >
+              {"Duyệt đơn đặt hàng"}
+            </Button>
+          </>
         )}
         {isStaffDelivery && order.ma_trang_thai === "CHO_GIAO_HANG" && (
-          <Button
-            style={{
-              ...btnStyle,
-              backgroundColor: COLOR_CONSTANTS.SUCCESS,
-              width: 200,
-            }}
-            onClick={() => {}}
-          >
-            {"Xác nhận giao hàng"}
-          </Button>
+          <>
+            {deliveryModal()}
+            <Button
+              style={{
+                ...btnStyle,
+                backgroundColor: COLOR_CONSTANTS.SUCCESS,
+                width: 200,
+              }}
+              onClick={() => setShowDeliveryModal(!isShowDeliverydModal)}
+            >
+              {"Xác nhận giao hàng"}
+            </Button>
+          </>
         )}
       </div>
       {isShow && detailItem(order.chi_tiet)}
     </div>
   );
 };
+
 export default OrderItem;

@@ -3,7 +3,10 @@ import { useFetchAllOrder } from "../../../hooks/useOrders";
 import OrderItem from "../../orders/OrderItem";
 import { useFetchCurrentCredential } from "../../../hooks/useAuth";
 import { Select } from "antd";
-import { useFetchCurrentStaff } from "../../../hooks/useStaffs";
+import {
+  useFetchAllStaffs,
+  useFetchCurrentStaff,
+} from "../../../hooks/useStaffs";
 
 const AdminOrders = () => {
   const { orders } = useFetchAllOrder();
@@ -11,6 +14,8 @@ const AdminOrders = () => {
   const { currentCredential } = useFetchCurrentCredential();
 
   const { staff } = useFetchCurrentStaff();
+
+  const { staffs } = useFetchAllStaffs();
 
   const [status, setStatus] = useState("ALL");
 
@@ -87,6 +92,7 @@ const AdminOrders = () => {
                     order={order}
                     currentCredential={currentCredential}
                     staff={staff}
+                    staffs={staffs}
                   />
                 );
               })}
