@@ -4,12 +4,13 @@ import COLOR_CONSTANTS from "../../constants/colors";
 
 const CommentItem = (param) => {
   const comment = param.comment;
+  const customer = param.customer;
 
   return (
     <div
       style={{
         backgroundColor: COLOR_CONSTANTS.LIGHT_GREY,
-        padding: 15,
+        padding: 10,
         marginBottom: 15,
         borderRadius: 10,
         border: `1px solid ${COLOR_CONSTANTS.MIDDLE_GREY}`,
@@ -39,14 +40,17 @@ const CommentItem = (param) => {
               fontWeight: "bold",
               marginBottom: -3,
             }}
-          >{`${comment.khach_hang.ho_kh} ${comment.khach_hang.ten_kh}`}</p>
-          <Rate value={comment.diem_danh_gia} />
+          >{`${comment.khach_hang.ho_kh} ${comment.khach_hang.ten_kh} ${
+            comment.ma_kh === customer.ma_kh ? "(Bạn)" : ""
+          }`}</p>
+          <Rate value={comment.diem_danh_gia} disabled />
         </div>
       </div>
       <div
         style={{
           marginLeft: 50,
           padding: 10,
+          paddingBottom: 0,
         }}
       >
         <p>{`"${comment.noi_dung}"`}</p>
