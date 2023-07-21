@@ -10,10 +10,13 @@ import React, { useEffect, useState } from "react";
 import { NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
+import { useFetchCurrentStaff } from "../../hooks/useStaffs";
 const AdminNavBar = () => {
   const state = useSelector((state) => state.HandleCart);
   const [token, setToken] = useState("");
   const localStorageToken = localStorage.getItem(TOKEN_LOCAL_STORAGE);
+
+  const { staff } = useFetchCurrentStaff();
 
   useEffect(() => {
     setToken(localStorageToken);
@@ -40,18 +43,20 @@ const AdminNavBar = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            {/* <ul className="navbar-nav mx-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <NavLink className="nav-link " aria-current="page" to="/">
-                  Trang chủ
-                </NavLink>
-              </li>
-              <li className="nav-item">
+            {staff && (
+              <ul className="navbar-nav mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <NavLink className="nav-link " aria-current="page">
+                    {`Nhân viên: ${staff.ma_nv} ${staff.ho_nv} ${staff.ten_nv}`}
+                  </NavLink>
+                </li>
+                {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/products">
                   Sản phẩm
                 </NavLink>
-              </li>
-            </ul> */}
+              </li> */}
+              </ul>
+            )}
 
             <div className="buttons">
               {!token && (

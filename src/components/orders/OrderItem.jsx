@@ -99,6 +99,7 @@ const OrderItem = (params) => {
         <p
           style={{
             marginRight: 5,
+            whiteSpace: "nowrap",
           }}
         >
           {title}
@@ -278,19 +279,70 @@ const OrderItem = (params) => {
     );
   };
 
-  const handleDelivery = () => {};
+  const generateDeliveryText = (arr) => {
+    let text = "Đã giao thành công (các) sản phẩm: ";
+    arr.forEach((obj, index) => {
+      text += `${obj.so_luong_dat} x ${obj.mat_hang.ten_mh}`;
+      if (index < arr.length - 1) {
+        text += ", ";
+      }
+    });
+    return text;
+  };
+
+  const handleDelivery = () => {
+    if (staff.ma_nv !== order.ma_nv_giao_hang) {
+      toast.error("Không được xác nhận đơn hàng của nhân viên khác!");
+    } else {
+      toast.success("Xác nhận giao hàng thành công!");
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
+    }
+  };
 
   const deliveryModal = () => {
     return (
       <Modal
-        title="Duyệt đơn đặt hàng"
+        title="Xác nhận giao hàng"
         open={isShowDeliverydModal}
         onOk={() => handleDelivery()}
         onCancel={() => setShowDeliveryModal(!isShowDeliverydModal)}
         okText="Xác nhận giao hàng"
         cancelText="Đóng"
       >
-        <p>Some contents...</p>
+        <div
+          style={{
+            marginTop: 20,
+          }}
+        >
+          {itemText("Mã đơn đặt hàng: ", order.ma_don_dat_hang)}
+          {itemText("Mã nhân viên giao: ", order.ma_nv_giao_hang)}
+          {itemText(
+            "Họ tên nhân viên giao: ",
+            `${order.nv_gh.ho_nv} ${order.nv_gh.ten_nv}`
+          )}
+          {itemText(
+            "Xác nhận: ",
+            `${generateDeliveryText(order.chi_tiet)} đến khách hàng.`
+          )}
+          <div
+            style={{
+              display: "flex",
+              marginTop: 5,
+            }}
+          >
+            {itemText("Trạng thái tiếp theo: ")}{" "}
+            <p
+              style={{
+                color: COLOR_CONSTANTS.SUCCESS,
+                fontWeight: "bold",
+              }}
+            >
+              Đã hoàn thành
+            </p>
+          </div>
+        </div>
       </Modal>
     );
   };
