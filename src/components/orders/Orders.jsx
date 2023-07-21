@@ -5,6 +5,7 @@ import COLOR_CONSTANTS from "../../constants/colors";
 import { faGreaterThan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useFetchCurrentCredential } from "../../hooks/useAuth";
+import { Select } from "antd";
 
 const Orders = () => {
   const { orders } = useFetchAllOrder();
@@ -12,6 +13,19 @@ const Orders = () => {
   const { currentCredential } = useFetchCurrentCredential();
 
   const [isShowStatus, setIsShowStatus] = useState(true);
+
+  const [statusOption, setStatusOption] = useState("ALL");
+
+  const handleChangeStatus = (value) => {
+    setStatusOption(value);
+  };
+
+  const filterByMaTrangThai = (arr, ma_trang_thai) => {
+    if (ma_trang_thai === "ALL") {
+      return arr;
+    }
+    return arr.filter((obj) => obj.ma_trang_thai === ma_trang_thai);
+  };
 
   const status = (name, color, isHideGreater) => {
     return (
@@ -84,13 +98,43 @@ const Orders = () => {
         Chi tiết
       </h5>
       {isShowStatus && statusSteps()}
+      <Select
+        defaultValue={"ALL"}
+        options={[
+          {
+            value: "ALL",
+            label: "Tất cả trạng thái",
+          },
+          {
+            value: "CHO_THANH_TOAN",
+            label: "Chờ thanh toán",
+          },
+          {
+            value: "CHO_DUYET",
+            label: "Chờ duyệt",
+          },
+          {
+            value: "CHO_GIAO_HANG",
+            label: "Chờ giao hàng",
+          },
+          {
+            value: "DA_HOAN_THANH",
+            label: "Đã hoàn thành",
+          },
+        ]}
+        onChange={handleChangeStatus}
+        style={{
+          marginTop: 20,
+          width: 150,
+        }}
+      />
       {currentCredential && orders && (
         <div
           style={{
             marginTop: 30,
           }}
         >
-          {orders.map((order) => {
+          {filterByMaTrangThai(orders, statusOption).map((order) => {
             return (
               <OrderItem
                 key={order.ma_don_dat_hang}
