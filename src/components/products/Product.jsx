@@ -6,13 +6,18 @@ import { useFetchOneProducts } from "../../hooks/useProducts";
 import moneyFormatter from "../../helpers/money";
 import ProductItem from "./ProductItem";
 import { toast } from "react-toastify";
+import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
 
 const Product = () => {
   const { ma_mh } = useParams();
   const dispatch = useDispatch();
   const addProduct = (product) => {
-    toast.success("Thêm vào giỏ hàng thành công");
-    dispatch(addItem(product));
+    if (localStorage.getItem(TOKEN_LOCAL_STORAGE) === null) {
+      toast.warn("Bạn cần đăng nhập trước!");
+    } else {
+      toast.success("Thêm vào giỏ hàng thành công!");
+      dispatch(addItem(product));
+    }
   };
 
   const { product, isLoading } = useFetchOneProducts(ma_mh);
@@ -82,9 +87,11 @@ const Product = () => {
               >
                 Thêm vào giỏ hàng
               </button>
-              <Link to="/cart" className="btn btn-outline-dark mx-3">
-                Tới giỏ hàng
-              </Link>
+              {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null && (
+                <Link to="/cart" className="btn btn-outline-dark mx-3">
+                  Tới giỏ hàng
+                </Link>
+              )}
             </div>
           </>
         )}

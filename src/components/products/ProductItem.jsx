@@ -164,21 +164,12 @@ const ProductItem = (param) => {
             <p className="card-text">{`Nhà sản xuất: ${param.product.nha_san_xuat}`}</p>
             {productDetailAndCartNoUse && (
               <>
-                {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null ? (
-                  <NavLink
-                    to={`/products/${param.product.ma_mh}`}
-                    className="btn btn-dark"
-                  >
-                    Mua ngay
-                  </NavLink>
-                ) : (
-                  <NavLink
-                    onClick={() => toast.warn("Vui lòng đăng nhập trước")}
-                    className="btn btn-dark"
-                  >
-                    Mua ngay
-                  </NavLink>
-                )}
+                <NavLink
+                  to={`/products/${param.product.ma_mh}`}
+                  className="btn btn-dark"
+                >
+                  Chi tiết
+                </NavLink>
               </>
             )}
           </div>

@@ -16,6 +16,16 @@ const Orders = () => {
   const status = (name, color, isHideGreater) => {
     return (
       <>
+        {isHideGreater !== true && (
+          <FontAwesomeIcon
+            style={{
+              marginTop: 8,
+              marginRight: 10,
+              color: color,
+            }}
+            icon={faGreaterThan}
+          />
+        )}
         <p
           style={{
             backgroundColor: color,
@@ -30,15 +40,6 @@ const Orders = () => {
         >
           {name}
         </p>
-        {isHideGreater !== true && (
-          <FontAwesomeIcon
-            style={{
-              marginTop: 8,
-              marginRight: 10,
-            }}
-            icon={faGreaterThan}
-          />
-        )}
       </>
     );
   };
@@ -51,10 +52,10 @@ const Orders = () => {
           marginTop: 20,
         }}
       >
-        {status("Chờ thanh toán", COLOR_CONSTANTS.DARK_YELLOW)}
+        {status("Chờ thanh toán", COLOR_CONSTANTS.DARK_YELLOW, true)}
         {status("Chờ duyệt", COLOR_CONSTANTS.DARK_YELLOW)}
         {status("Chờ giao hàng", COLOR_CONSTANTS.DARK_YELLOW)}
-        {status("Đã hoàn thành", COLOR_CONSTANTS.SUCCESS, true)}
+        {status("Đã hoàn thành", COLOR_CONSTANTS.SUCCESS)}
       </div>
     );
   };

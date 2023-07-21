@@ -410,7 +410,17 @@ const OrderItem = (params) => {
           flexDirection: "row",
         }}
       >
-        <Button style={btnStyle} onClick={() => setShow(!isShow)}>
+        <Button
+          style={{
+            ...btnStyle,
+            backgroundColor: isShow
+              ? COLOR_CONSTANTS.WHITE
+              : COLOR_CONSTANTS.BLACK,
+            color: isShow ? COLOR_CONSTANTS.BLACK : COLOR_CONSTANTS.WHITE,
+            border: `1px solid ${COLOR_CONSTANTS.BLACK}`,
+          }}
+          onClick={() => setShow(!isShow)}
+        >
           {isShow ? "Đóng" : "Xem chi tiết"}
         </Button>
         {isCustomer && order.ma_trang_thai === "CHO_THANH_TOAN" && (

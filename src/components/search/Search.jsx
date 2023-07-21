@@ -155,7 +155,13 @@ const Search = () => {
             </div>
             <div style={{ display: "flex", marginTop: 20 }}>
               <div style={{ marginRight: 15 }}>
-                <Text>Nhà sản xuất</Text>
+                <Text
+                  style={{
+                    marginRight: 5,
+                  }}
+                >
+                  Nhà sản xuất
+                </Text>
                 <Select
                   style={{ width: 120 }}
                   defaultValue={"Tất cả"}
@@ -169,7 +175,13 @@ const Search = () => {
                 />
               </div>
               <div style={{ marginRight: 15 }}>
-                <Text>Loại mặt hàng</Text>
+                <Text
+                  style={{
+                    marginRight: 5,
+                  }}
+                >
+                  Loại mặt hàng
+                </Text>
                 <Select
                   style={{ width: 120 }}
                   defaultValue={"Tất cả"}
@@ -209,7 +221,13 @@ const Search = () => {
                 />
               </div>
               <div style={{ marginRight: 15 }}>
-                <Text>Khác</Text>
+                <Text
+                  style={{
+                    marginRight: 5,
+                  }}
+                >
+                  Khác
+                </Text>
                 <Select
                   style={{ width: 160 }}
                   defaultValue={"Tất cả"}
