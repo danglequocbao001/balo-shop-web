@@ -8,14 +8,12 @@ import { useNavigate } from "react-router-dom";
 import { TOKEN_LOCAL_STORAGE } from "../api/constants";
 
 const Login = () => {
-  // const [isLoading, setLoading] = useState(false);
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
 
   useEffect(() => {}, []);
 
   const onLogin = async (param) => {
-    // setLoading(true);
     try {
       const data = await authApi.loginCustomer(param);
       localStorage.setItem(TOKEN_LOCAL_STORAGE, data[TOKEN_LOCAL_STORAGE]);
@@ -28,8 +26,14 @@ const Login = () => {
   };
 
   return (
-    <>
-      <p className="title">Login Form</p>
+    <div
+      style={{
+        alignItems: "center",
+        justifyContent: "center",
+        display: "grid",
+      }}
+    >
+      <p className="title">Đăng nhập</p>
 
       <form
         className="Login"
@@ -42,7 +46,7 @@ const Login = () => {
         <input type="password" required {...register("mat_khau")} />
         <input type={"submit"} style={{ backgroundColor: "#a1eafb" }} />
       </form>
-    </>
+    </div>
   );
 };
 

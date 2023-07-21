@@ -138,6 +138,7 @@ const OrderItem = (params) => {
                 padding: 10,
                 marginRight: 10,
                 borderRadius: 10,
+                backgroundColor: COLOR_CONSTANTS.WHITE,
               }}
             >
               <div>
