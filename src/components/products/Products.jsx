@@ -5,7 +5,7 @@ import { useFetchAllProducts, PRODUCTS_FILTER } from "../../hooks/useProducts";
 import ListProducts from "./ListProducts";
 
 const Products = () => {
-  // const { products, isLoading: isProductsLoading } = useFetchAllProducts();
+  const { products, isLoading: isProductsLoading } = useFetchAllProducts();
   const { products: newProducts, isLoading: isNewProductsLoading } =
     useFetchAllProducts(PRODUCTS_FILTER.NEW);
   const { products: promoteProducts, isLoading: isPromoteProductsLoading } =
@@ -17,11 +17,6 @@ const Products = () => {
 
   return (
     <div>
-      {/* <ListProducts
-        title={"Tất cả sản phẩm"}
-        listProducts={products}
-        isListProductsLoading={isProductsLoading}
-      /> */}
       <ListProducts
         title={"Sản phẩm mới"}
         listProducts={newProducts}
@@ -36,6 +31,11 @@ const Products = () => {
         title={"Sản phẩm bán chạy"}
         listProducts={bestSellerProducts}
         isListProductsLoading={isBestSellerProductsLoading}
+      />
+      <ListProducts
+        title={"Tất cả sản phẩm"}
+        listProducts={products}
+        isListProductsLoading={isProductsLoading}
       />
     </div>
   );
