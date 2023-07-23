@@ -282,7 +282,7 @@ const AdminStatistics = () => {
         <ResponsiveContainer width={windowWidth - 50} height={600}>
           <AreaChart data={statisticsArr} margin={{ left: 0, right: 20 }}>
             <defs>
-              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <linearGradient id="colorTongThu" x1="0" y1="0" x2="0" y2="1">
                 <stop
                   offset="5%"
                   stopColor={COLOR_CONSTANTS.GRAY}
@@ -306,7 +306,8 @@ const AdminStatistics = () => {
               dataKey="tong_thu"
               stroke={COLOR_CONSTANTS.BLACK}
               fillOpacity={1}
-              fill="url(#colorUv)"
+              fill="url(#colorTongThu)"
+              activeDot={{ r: 6 }}
             />
           </AreaChart>
         </ResponsiveContainer>
