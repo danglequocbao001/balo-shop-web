@@ -8,6 +8,7 @@ import {
   Legend,
   AreaChart,
   Area,
+  ResponsiveContainer,
 } from "recharts";
 import { statisticsApi } from "../../api";
 import { toast } from "react-toastify";
@@ -119,32 +120,48 @@ const AdminStatistics = () => {
     }
   };
 
-  useEffect(() => {
-    getAllStatisticsByPeriod({
-      ngay_bat_dau: moment().add(-30, "days").format("YYYY-MM-DD"),
-      ngay_ket_thuc: moment().format("YYYY-MM-DD"),
-      type: type.value,
-    });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const dataFormater = (number) => {
+    if (number > 1000000000) {
+      return (number / 1000000000).toString() + "B";
+    } else if (number >= 1000000) {
+      return (number / 1000000).toString() + "M";
+    } else if (number > 1000) {
+      return (number / 1000).toString() + "K";
+    } else {
+      return number.toString();
+    }
+  };
 
-  return (
-    <div
-      style={{
-        padding: 50,
-      }}
-    >
-      <h1
+  const CustomToolTip = (props) => {
+    const { active, payload, label } = props;
+    if (!active || !payload) {
+      return null;
+    }
+    return (
+      <div
+        className="custom-tooltip"
         style={{
-          fontWeight: "bold",
-          cursor: "pointer",
-        }}
-        onClick={() => {
-          window.location.reload();
+          backgroundColor: COLOR_CONSTANTS.WHITE,
+          border: `1px solid ${COLOR_CONSTANTS.MIDDLE_GREY}`,
+          padding: 10,
+          borderRadius: 10,
         }}
       >
-        Thống kê doanh thu
-      </h1>
+        <p>
+          <strong>{`${type.label} ${label}`}</strong>
+        </p>
+        {payload.map((item, i) => (
+          <p key={i}>
+            {"Tổng tiền: "}
+            <strong>{moneyFormatter.format(item.value)}</strong>
+          </p>
+        ))}
+      </div>
+    );
+  };
+
+  const statisticsFilter = () => {
+    return (
       <div
         style={{
           display: "flex",
@@ -233,11 +250,17 @@ const AdminStatistics = () => {
             color: COLOR_CONSTANTS.WHITE,
             border: "none",
             marginLeft: 20,
+            fontWeight: "bold",
           }}
         >
           Xem thống kê
         </Button>
       </div>
+    );
+  };
+
+  const chart = () => {
+    return (
       <div>
         <h3
           style={{
@@ -257,42 +280,74 @@ const AdminStatistics = () => {
           9,
           chartTitle.length
         )}: ${moneyFormatter.format(totalPrice)}`}</h4>
-        <AreaChart
-          width={windowWidth - 50}
-          height={600}
-          data={statisticsArr}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-        >
-          <defs>
-            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
-              <stop
-                offset="5%"
-                stopColor={COLOR_CONSTANTS.BLACK}
-                stopOpacity={0.8}
-              />
-              <stop
-                offset="100%"
-                stopColor={COLOR_CONSTANTS.BLACK}
-                stopOpacity={0}
-              />
-            </linearGradient>
-          </defs>
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Line />
-          <Legend />
-          <CartesianGrid strokeDasharray="2 2" />
-          <Tooltip />
-          <Area
-            type="monotone"
-            dataKey="tong_tien"
-            stroke={COLOR_CONSTANTS.BLACK}
-            fillOpacity={1}
-            fill="url(#colorUv)"
-          />
-        </AreaChart>
+        <ResponsiveContainer width={windowWidth - 50} height={600}>
+          <AreaChart data={statisticsArr} margin={{ left: 0, right: 20 }}>
+            <defs>
+              <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset="5%"
+                  stopColor={COLOR_CONSTANTS.GRAY}
+                  stopOpacity={0.8}
+                />
+                <stop
+                  offset="100%"
+                  stopColor={COLOR_CONSTANTS.BLACK}
+                  stopOpacity={0}
+                />
+              </linearGradient>
+            </defs>
+            <XAxis dataKey="name" tickFormatter={(value) => `(${value})`} />
+            <YAxis tickFormatter={dataFormater} />
+            <Tooltip content={<CustomToolTip />} />
+            <Legend />
+            <Line
+              name="Tổng tiền"
+              type="monotone"
+              dataKey="tong_tien"
+              stroke="#8884d8"
+            />
+            <CartesianGrid strokeDasharray="2 2" />
+            <Area
+              type="monotone"
+              dataKey="tong_tien"
+              stroke={COLOR_CONSTANTS.BLACK}
+              fillOpacity={1}
+              fill="url(#colorUv)"
+            />
+          </AreaChart>
+        </ResponsiveContainer>
       </div>
+    );
+  };
+
+  useEffect(() => {
+    getAllStatisticsByPeriod({
+      ngay_bat_dau: moment().add(-30, "days").format("YYYY-MM-DD"),
+      ngay_ket_thuc: moment().format("YYYY-MM-DD"),
+      type: type.value,
+    });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  return (
+    <div
+      style={{
+        padding: "50px 30px 50px 30px",
+      }}
+    >
+      <h1
+        style={{
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        Thống kê doanh thu
+      </h1>
+      {statisticsFilter()}
+      {chart()}
     </div>
   );
 };
