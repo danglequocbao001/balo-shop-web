@@ -1,12 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  LineChart,
   Line,
   XAxis,
   YAxis,
   CartesianGrid,
   Tooltip,
   Legend,
+  AreaChart,
+  Area,
 } from "recharts";
 import { statisticsApi } from "../../api";
 import { toast } from "react-toastify";
@@ -256,29 +257,41 @@ const AdminStatistics = () => {
           9,
           chartTitle.length
         )}: ${moneyFormatter.format(totalPrice)}`}</h4>
-        <LineChart
+        <AreaChart
           width={windowWidth - 50}
           height={600}
           data={statisticsArr}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5,
-          }}
+          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
         >
-          <CartesianGrid strokeDasharray="2 2" />
+          <defs>
+            <linearGradient id="colorUv" x1="0" y1="0" x2="0" y2="1">
+              <stop
+                offset="5%"
+                stopColor={COLOR_CONSTANTS.BLACK}
+                stopOpacity={0.8}
+              />
+              <stop
+                offset="100%"
+                stopColor={COLOR_CONSTANTS.BLACK}
+                stopOpacity={0}
+              />
+            </linearGradient>
+          </defs>
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
+          <Line />
           <Legend />
-          <Line
+          <CartesianGrid strokeDasharray="2 2" />
+          <Tooltip />
+          <Area
             type="monotone"
             dataKey="tong_tien"
             stroke={COLOR_CONSTANTS.BLACK}
-            activeDot={{ r: 6 }}
+            fillOpacity={1}
+            fill="url(#colorUv)"
           />
-        </LineChart>
+        </AreaChart>
       </div>
     </div>
   );
