@@ -13,6 +13,7 @@ import { toast } from "react-toastify";
 import moment from "moment/moment";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { Button, DatePicker, Select } from "antd";
+import moneyFormatter from "../../helpers/money";
 
 const datePickerWrapper = {
   display: "flex",
@@ -28,11 +29,14 @@ const datePickerText = {
 
 const AdminStatistics = () => {
   const windowWidth = useRef(window.innerWidth).current;
+
   const [statisticsArr, setStatisticsArr] = useState([]);
+
   const [type, setType] = useState({
     value: "day",
     label: "Ngày",
   });
+
   const [beginDate, setBeginDate] = useState();
   const [endDate, setEndDate] = useState();
 
@@ -40,8 +44,16 @@ const AdminStatistics = () => {
     "Thống kê doanh thu trong 30 ngày gần nhất"
   );
 
+  const [totalPrice, setTotalPrice] = useState(0);
+
   const lastday = function (y, m) {
     return new Date(y, m + 1, 0).getDate();
+  };
+
+  const getTotalPrice = (arr) => {
+    return arr.reduce((total, obj) => {
+      return total + obj.tong_tien;
+    }, 0);
   };
 
   const getAllStatisticsByPeriod = async (param) => {
@@ -49,6 +61,7 @@ const AdminStatistics = () => {
       .getByPeriod(param)
       .then((data) => {
         setStatisticsArr(data);
+        setTotalPrice(getTotalPrice(data));
       })
       .catch((err) => {
         toast.error(err.message);
@@ -234,6 +247,15 @@ const AdminStatistics = () => {
         >
           {chartTitle}
         </h3>
+        <h4
+          style={{
+            margin: "20px 0",
+            fontWeight: "600",
+          }}
+        >{`Tổng ${chartTitle.substring(
+          9,
+          chartTitle.length
+        )}: ${moneyFormatter.format(totalPrice)}`}</h4>
         <LineChart
           width={windowWidth - 50}
           height={600}
@@ -245,7 +267,7 @@ const AdminStatistics = () => {
             bottom: 5,
           }}
         >
-          <CartesianGrid strokeDasharray="3 3" />
+          <CartesianGrid strokeDasharray="2 2" />
           <XAxis dataKey="name" />
           <YAxis />
           <Tooltip />
