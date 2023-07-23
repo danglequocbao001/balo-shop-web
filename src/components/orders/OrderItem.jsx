@@ -126,6 +126,7 @@ const OrderItem = (params) => {
           display: "flex",
           flexDirection: "row",
           marginTop: 10,
+          overflowY: "auto",
         }}
       >
         {chiTiet.map((item) => {

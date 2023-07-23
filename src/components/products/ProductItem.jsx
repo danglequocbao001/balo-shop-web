@@ -1,12 +1,28 @@
 import { NavLink } from "react-router-dom";
 import COLOR_CONSTANTS from "../../constants/colors";
 import moneyFormatter from "../../helpers/money";
+import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
+import { toast } from "react-toastify";
+import { useDispatch } from "react-redux";
+import { addItem } from "../../redux/action";
+import { Button } from "antd";
 
 const ProductItem = (param) => {
   const productDetailAndCartNoUse = !(
     (param.productDetail === true && param.isCart === undefined) ||
     (param.productDetail === undefined && param.isCart === true)
   );
+
+  const dispatch = useDispatch();
+  const addProduct = (product) => {
+    if (localStorage.getItem(TOKEN_LOCAL_STORAGE) === null) {
+      toast.warn("Bạn cần đăng nhập trước!");
+    } else {
+      toast.success("Thêm vào giỏ hàng thành công!");
+      dispatch(addItem(product));
+    }
+  };
+
   const khuyenMai = () => {
     return (
       <div
@@ -168,6 +184,17 @@ const ProductItem = (param) => {
                 >
                   Chi tiết
                 </NavLink>
+                <Button
+                  onClick={() => addProduct(param.product)}
+                  className="btn btn-dark"
+                  style={{
+                    height: 40,
+                    marginTop: 5,
+                    color: COLOR_CONSTANTS.WHITE,
+                  }}
+                >
+                  Thêm vào giỏ hàng
+                </Button>
               </>
             )}
           </div>
