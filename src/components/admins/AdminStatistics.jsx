@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
 import {
-  Line,
   XAxis,
   YAxis,
   CartesianGrid,
@@ -54,7 +53,7 @@ const AdminStatistics = () => {
 
   const getTotalPrice = (arr) => {
     return arr.reduce((total, obj) => {
-      return total + obj.tong_tien;
+      return total + obj.tong_thu;
     }, 0);
   };
 
@@ -152,7 +151,7 @@ const AdminStatistics = () => {
         </p>
         {payload.map((item, i) => (
           <p key={i}>
-            {"Tổng tiền: "}
+            {"Tổng thu: "}
             <strong>{moneyFormatter.format(item.value)}</strong>
           </p>
         ))}
@@ -300,16 +299,11 @@ const AdminStatistics = () => {
             <YAxis tickFormatter={dataFormater} />
             <Tooltip content={<CustomToolTip />} />
             <Legend />
-            <Line
-              name="Tổng tiền"
-              type="monotone"
-              dataKey="tong_tien"
-              stroke="#8884d8"
-            />
             <CartesianGrid strokeDasharray="2 2" />
             <Area
+              name="Tổng thu"
               type="monotone"
-              dataKey="tong_tien"
+              dataKey="tong_thu"
               stroke={COLOR_CONSTANTS.BLACK}
               fillOpacity={1}
               fill="url(#colorUv)"
