@@ -191,6 +191,7 @@ const ProductItem = (param) => {
                     height: 40,
                     marginTop: 5,
                     color: COLOR_CONSTANTS.WHITE,
+                    border: "none",
                   }}
                 >
                   Thêm vào giỏ hàng
