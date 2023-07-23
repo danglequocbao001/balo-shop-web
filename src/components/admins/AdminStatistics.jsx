@@ -35,7 +35,12 @@ const AdminStatistics = () => {
   });
   const [beginDate, setBeginDate] = useState();
   const [endDate, setEndDate] = useState();
-  var lastday = function (y, m) {
+
+  const [chartTitle, setChartTitle] = useState(
+    "Thống kê doanh thu trong 30 ngày gần nhất"
+  );
+
+  const lastday = function (y, m) {
     return new Date(y, m + 1, 0).getDate();
   };
 
@@ -63,6 +68,34 @@ const AdminStatistics = () => {
         ngay_ket_thuc: endDate,
         type: type.value,
       });
+      const finalBeginDate = `${beginDate.substring(
+        8,
+        10
+      )}/${beginDate.substring(5, 7)}/${beginDate.substring(0, 4)}`;
+      const finalEndDate = `${endDate.substring(8, 10)}/${endDate.substring(
+        5,
+        7
+      )}/${endDate.substring(0, 4)}`;
+
+      if (type.value === "month") {
+        setChartTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate.substring(
+            3,
+            10
+          )} đến ${type.label.toLowerCase()} ${finalEndDate.substring(3, 10)}`
+        );
+      } else if (type.value === "year") {
+        setChartTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate.substring(
+            6,
+            10
+          )} đến ${type.label.toLowerCase()} ${finalEndDate.substring(6, 10)}`
+        );
+      } else {
+        setChartTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate} đến ${type.label.toLowerCase()} ${finalEndDate}`
+        );
+      }
     }
   };
 
@@ -81,7 +114,7 @@ const AdminStatistics = () => {
         padding: 50,
       }}
     >
-      <h3>Trang chủ</h3>
+      <h1>Trang chủ</h1>
       <div
         style={{
           display: "flex",
@@ -176,7 +209,15 @@ const AdminStatistics = () => {
         </Button>
       </div>
       <div>
-        <h4>Thống kê doanh thu trong 30 ngày gần nhất</h4>
+        <h3
+          style={{
+            textAlign: "center",
+            padding: 10,
+            fontWeight: "bold",
+          }}
+        >
+          {chartTitle}
+        </h3>
         <LineChart
           width={windowWidth - 50}
           height={600}
