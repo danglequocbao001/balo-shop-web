@@ -65,6 +65,9 @@ const API_CONSTANTS = {
     CREATE: "/binh-luan",
     DELETE: (ma_binh_luan) => `/binh-luan/${ma_binh_luan}`,
   },
+  STATISTICS: {
+    GET_BY_PERIOD: "/thong-ke",
+  },
 };
 
 export default API_CONSTANTS;

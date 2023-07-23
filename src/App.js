@@ -18,6 +18,7 @@ import AdminNavBar from "./components/admins/AdminNavBar";
 import AdminLogin from "./components/admins/AdminLogin";
 import AdminOrders from "./components/admins/adminOrders/AdminOrders";
 import AdminProfile from "./components/admins/adminProfile/AdminProfile";
+import AdminStatistics from "./components/admins/AdminStatistics";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
@@ -48,7 +49,7 @@ function App() {
           {
             //admin
           }
-          <Route path="/admin" element={<>thong ke doanh thu</>}></Route>
+          <Route path="/admin" element={<AdminStatistics />}></Route>
           <Route path="/admin/login" element={<AdminLogin />}></Route>
           <Route path="/admin/orders" element={<AdminOrders />}></Route>
           <Route path="/admin/profile" element={<AdminProfile />}></Route>

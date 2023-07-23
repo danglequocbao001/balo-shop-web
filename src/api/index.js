@@ -8,6 +8,7 @@ import ordersStatusApi from "./orders-status";
 import quangCaoApi from "./quang-cao";
 import ordersApi from "./orders";
 import commentApi from "./comment";
+import statisticsApi from "./statistics";
 
 export {
   authApi,
@@ -20,4 +21,5 @@ export {
   quangCaoApi,
   ordersApi,
   commentApi,
+  statisticsApi,
 };
