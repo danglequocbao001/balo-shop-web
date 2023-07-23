@@ -68,14 +68,18 @@ const AdminStatistics = () => {
         ngay_ket_thuc: endDate,
         type: type.value,
       });
+
       const finalBeginDate = `${beginDate.substring(
         8,
         10
       )}/${beginDate.substring(5, 7)}/${beginDate.substring(0, 4)}`;
+
       const finalEndDate = `${endDate.substring(8, 10)}/${endDate.substring(
         5,
         7
       )}/${endDate.substring(0, 4)}`;
+
+      const isToday = endDate === moment().format("YYYY-MM-DD");
 
       if (type.value === "month") {
         setChartTitle(
@@ -93,7 +97,9 @@ const AdminStatistics = () => {
         );
       } else {
         setChartTitle(
-          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate} đến ${type.label.toLowerCase()} ${finalEndDate}`
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate} đến ${
+            isToday ? "hôm nay" : type.label.toLowerCase()
+          } ${isToday ? "" : finalEndDate}`
         );
       }
     }
@@ -114,7 +120,17 @@ const AdminStatistics = () => {
         padding: 50,
       }}
     >
-      <h1>Trang chủ</h1>
+      <h1
+        style={{
+          fontWeight: "bold",
+          cursor: "pointer",
+        }}
+        onClick={() => {
+          window.location.reload();
+        }}
+      >
+        Thống kê doanh thu
+      </h1>
       <div
         style={{
           display: "flex",
@@ -238,7 +254,7 @@ const AdminStatistics = () => {
             type="monotone"
             dataKey="tong_tien"
             stroke={COLOR_CONSTANTS.BLACK}
-            activeDot={{ r: 8 }}
+            activeDot={{ r: 6 }}
           />
         </LineChart>
       </div>
