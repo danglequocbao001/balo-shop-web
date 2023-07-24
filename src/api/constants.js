@@ -35,7 +35,7 @@ const API_CONSTANTS = {
     GET_ALL: "/mat-hang",
     GET_ONE: (ma_mh) => `/mat-hang/${ma_mh}`,
     CREATE: "/mat-hang",
-    UPDATE: (ma_mh) => `/mat-hang/${ma_mh}`,
+    UPDATE: "/mat-hang",
     DELETE: (ma_mh) => `/mat-hang/${ma_mh}`,
     SEARCH: "mat-hang/search",
   },

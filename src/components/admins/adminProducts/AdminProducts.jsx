@@ -20,7 +20,7 @@ const AdminProducts = () => {
             }}
           >
             <h1>Quản lý mặt hàng</h1>
-            <ModalAddProduct />
+            <ModalAddProduct isAdd={true} />
           </div>
         </div>
         <div className="row justify-content-center">

@@ -12,8 +12,8 @@ export default {
   create: (param) => {
     return api.post(API_CONSTANTS.PRODUCTS.CREATE, param);
   },
-  update: (ma_mh, param) => {
-    return api.put(API_CONSTANTS.PRODUCTS.UPDATE(ma_mh), param);
+  update: (param) => {
+    return api.put(API_CONSTANTS.PRODUCTS.UPDATE, param);
   },
   delete: (ma_mh) => {
     return api.delete(API_CONSTANTS.PRODUCTS.DELETE(ma_mh));

@@ -2,6 +2,7 @@ import { Button, Image } from "antd";
 import React, { useState } from "react";
 import COLOR_CONSTANTS from "../../../constants/colors";
 import moneyFormatter from "../../../helpers/money";
+import ModalAddProduct from "./ModalAddProduct";
 
 const AdminProductItem = (params) => {
   const [showDetail, setDetail] = useState(false);
@@ -57,19 +58,26 @@ const AdminProductItem = (params) => {
         {itemText("Loại mặt hàng: ", product.loai_mat_hang.ten_loai_mh)}
         {itemText("Tên mặt hàng: ", product.ten_mh)}
 
-        <Button
-          className="btn btn-dark"
+        <div
           style={{
-            height: 40,
-            marginTop: 5,
-            color: COLOR_CONSTANTS.WHITE,
-            border: "none",
-            margin: "10px 0",
+            display: "flex",
           }}
-          onClick={() => setDetail(!showDetail)}
         >
-          Chi tiết
-        </Button>
+          <Button
+            className="btn btn-dark"
+            style={{
+              height: 40,
+              marginTop: 5,
+              color: COLOR_CONSTANTS.WHITE,
+              border: "none",
+              margin: "10px 0",
+            }}
+            onClick={() => setDetail(!showDetail)}
+          >
+            Chi tiết
+          </Button>
+          <ModalAddProduct product={product} isAdd={false} />
+        </div>
         {showDetail && (
           <>
             {itemText(
