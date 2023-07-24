@@ -19,6 +19,7 @@ import AdminLogin from "./components/admins/AdminLogin";
 import AdminOrders from "./components/admins/adminOrders/AdminOrders";
 import AdminProfile from "./components/admins/adminProfile/AdminProfile";
 import AdminStatistics from "./components/admins/AdminStatistics";
+import AdminProducts from "./components/admins/adminProducts/AdminProducts";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
@@ -53,6 +54,7 @@ function App() {
           <Route path="/admin/login" element={<AdminLogin />}></Route>
           <Route path="/admin/orders" element={<AdminOrders />}></Route>
           <Route path="/admin/profile" element={<AdminProfile />}></Route>
+          <Route path="/admin/products" element={<AdminProducts />}></Route>
         </Routes>
       </BrowserRouter>
     </div>

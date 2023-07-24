@@ -5,7 +5,7 @@ import { TOKEN_LOCAL_STORAGE } from "../../api/constants";
 import { toast } from "react-toastify";
 import { useDispatch } from "react-redux";
 import { addItem } from "../../redux/action";
-import { Button } from "antd";
+import { Button, Image } from "antd";
 
 const ProductItem = (param) => {
   const productDetailAndCartNoUse = !(
@@ -124,7 +124,7 @@ const ProductItem = (param) => {
             {`${param.product.ma_loai_mh}/${param.product.loai_mat_hang.ten_loai_mh}`}
           </span>
         )}
-        <img
+        <Image
           src={param.product.hinh_anh}
           className="card-img-top"
           alt={param.product.loai_mat_hang.ten_loai_mh}

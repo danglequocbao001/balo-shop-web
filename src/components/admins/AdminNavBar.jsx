@@ -81,6 +81,13 @@ const AdminNavBar = () => {
               {token && (
                 <>
                   <NavLink
+                    to="/admin/products"
+                    className="btn btn-outline-dark mx-2"
+                  >
+                    QL mặt hàng
+                    <FontAwesomeIcon className="ms-2" icon={faReceipt} />
+                  </NavLink>
+                  <NavLink
                     to="/admin/orders"
                     className="btn btn-outline-dark mx-2"
                   >
