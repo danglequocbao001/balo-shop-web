@@ -2,6 +2,7 @@ import React from "react";
 import { useFetchAllProducts } from "../../../hooks/useProducts";
 import AdminProductItem from "./AdminProductItem";
 import LoadingSpinner from "../../LoadingSpinnner/LoadingSpinner";
+import ModalAddProduct from "./ModalAddProduct";
 
 const AdminProducts = () => {
   const { products, isLoading } = useFetchAllProducts();
@@ -14,9 +15,12 @@ const AdminProducts = () => {
             className="col-12"
             style={{
               marginBottom: 20,
+              display: "flex",
+              justifyContent: "space-between",
             }}
           >
             <h1>Quản lý mặt hàng</h1>
+            <ModalAddProduct />
           </div>
         </div>
         <div className="row justify-content-center">
