@@ -36,6 +36,16 @@ const AdminOrders = () => {
         padding: 50,
       }}
     >
+      <div
+        className="col-12"
+        style={{
+          marginBottom: 20,
+          display: "flex",
+          justifyContent: "space-between",
+        }}
+      >
+        <h1>Quản lý đơn đặt hàng</h1>
+      </div>
       {staff && (
         <>
           <h5
