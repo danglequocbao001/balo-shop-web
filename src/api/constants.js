@@ -41,6 +41,8 @@ const API_CONSTANTS = {
   },
   PRODUCTS_TYPE: {
     GET: "/loai-mat-hang",
+    CREATE: "/loai-mat-hang",
+    UPDATE: "/loai-mat-hang",
   },
   ADVERTISEMENT: {
     GET: "/quang-cao",

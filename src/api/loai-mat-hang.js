@@ -6,4 +6,10 @@ export default {
   getAll: () => {
     return api.get(API_CONSTANTS.PRODUCTS_TYPE.GET);
   },
+  create: (param) => {
+    return api.post(API_CONSTANTS.PRODUCTS_TYPE.CREATE, param);
+  },
+  update: (param) => {
+    return api.put(API_CONSTANTS.PRODUCTS_TYPE.UPDATE, param);
+  },
 };

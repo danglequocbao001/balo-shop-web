@@ -4,6 +4,7 @@ import {
   faLock,
   faUser,
   faReceipt,
+  faShoppingBag,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import React, { useEffect, useState } from "react";
@@ -80,12 +81,19 @@ const AdminNavBar = () => {
 
               {token && (
                 <>
+                <NavLink
+                    to="/admin/product-types"
+                    className="btn btn-outline-dark mx-2"
+                  >
+                    QL loại mặt hàng
+                    <FontAwesomeIcon className="ms-2" icon={faShoppingBag} />
+                  </NavLink>
                   <NavLink
                     to="/admin/products"
                     className="btn btn-outline-dark mx-2"
                   >
                     QL mặt hàng
-                    <FontAwesomeIcon className="ms-2" icon={faReceipt} />
+                    <FontAwesomeIcon className="ms-2" icon={faShoppingBag} />
                   </NavLink>
                   <NavLink
                     to="/admin/orders"
