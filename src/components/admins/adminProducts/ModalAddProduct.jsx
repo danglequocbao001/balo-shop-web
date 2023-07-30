@@ -7,10 +7,11 @@ import { toast } from "react-toastify";
 import { useFetchAllLoaiMatHangs } from "../../../hooks/useLoaiMatHang";
 import { productsApi } from "../../../api";
 import COLOR_CONSTANTS from "../../../constants/colors";
-
-const input = {
-  marginTop: 10,
-};
+import {
+  modalInputHeader,
+  modalInputWrapper,
+} from "../../profile/EditProfileModal";
+import { formStyles, submitBtn } from "../../Login";
 
 const ModalAddProduct = (param) => {
   const [isOpen, setOpen] = useState(false);
@@ -87,7 +88,7 @@ const ModalAddProduct = (param) => {
         </Button>
       )}
       <Modal
-        title="Vertically centered modal dialog"
+        title={`${isAdd ? "Thêm" : "Sửa"} sản phẩm`}
         centered
         open={isOpen}
         onOk={() => setOpen(false)}
@@ -97,82 +98,109 @@ const ModalAddProduct = (param) => {
         <form
           className="ModalAddProduct"
           onSubmit={handleSubmit(onProcessProduct)}
-          style={{
-            display: "inline-grid",
-          }}
+          style={formStyles}
         >
-          <input
-            type="text"
-            required
-            {...register("ma_mh")}
-            name="ma_mh"
-            style={input}
-            placeholder="Điền mã mặt hàng"
-            disabled={!isAdd}
-          />
-          <select name="ma_loai_mh" {...register("ma_loai_mh")} required>
-            {loaiMatHangs &&
-              loaiMatHangs.map((loaiMatHang) => {
-                return (
-                  <option value={`${loaiMatHang.ma_loai_mh}`}>
-                    {`${loaiMatHang.ma_loai_mh}-${loaiMatHang.ten_loai_mh}`}
-                  </option>
-                );
-              })}
-          </select>
-          <input
-            style={input}
-            type="text"
-            required
-            {...register("ten_mh")}
-            placeholder="Điền tên mặt hàng"
-          />
-          <input
-            style={input}
-            type="text"
-            required
-            {...register("nha_san_xuat")}
-            placeholder="Điền nhà sản xuất"
-          />
-          <input
-            style={input}
-            type="text"
-            required
-            {...register("hinh_anh")}
-            placeholder="Điền link ảnh"
-          />
-          <input
-            style={input}
-            type="text"
-            required
-            {...register("mo_ta")}
-            placeholder="Điền mô tả"
-          />
-          <input
-            style={input}
-            type="number"
-            required
-            {...register("gia")}
-            placeholder="Điền giá"
-            disabled={!isAdd}
-          />
-          <input
-            style={input}
-            type="number"
-            required
-            {...register("so_luong")}
-            placeholder="Điền số lượng"
-            disabled={!isAdd}
-          />
-          <select name="is_new" {...register("is_new")}>
-            <option value={true}>Áp dụng mới</option>
-            <option value={false}>Không áp dụng mới</option>
-          </select>
-          <select name="is_active" {...register("is_active")}>
-            <option value={true}>Áp dụng</option>
-            <option value={false}>Không áp dụng</option>
-          </select>
-          <input style={input} type={"submit"} />
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Mã mặt hàng:  "}</p>
+            <input
+              type="text"
+              required
+              {...register("ma_mh")}
+              name="ma_mh"
+              placeholder="Điền mã mặt hàng"
+              disabled={!isAdd}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Loại mặt hàng: "}</p>
+            <select name="ma_loai_mh" {...register("ma_loai_mh")} required>
+              {loaiMatHangs &&
+                loaiMatHangs.map((loaiMatHang) => {
+                  return (
+                    <option value={`${loaiMatHang.ma_loai_mh}`}>
+                      {`${loaiMatHang.ma_loai_mh}-${loaiMatHang.ten_loai_mh}`}
+                    </option>
+                  );
+                })}
+            </select>
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Tên mặt hàng:  "}</p>
+            <input
+              type="text"
+              required
+              {...register("ten_mh")}
+              placeholder="Điền tên mặt hàng"
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Nhà sản xuất:  "}</p>
+            <input
+              type="text"
+              required
+              {...register("nha_san_xuat")}
+              placeholder="Điền nhà sản xuất"
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>{"Ảnh:                    "}</p>
+            <input
+              type="text"
+              required
+              {...register("hinh_anh")}
+              placeholder="Điền link ảnh"
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>{"Mô tả:                  "}</p>
+            <input
+              type="text"
+              required
+              {...register("mo_ta")}
+              placeholder="Điền mô tả"
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>
+              {"Giá:                      "}
+            </p>
+            <input
+              type="number"
+              required
+              {...register("gia")}
+              placeholder="Điền giá"
+              disabled={!isAdd}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>{"Số lượng:            "}</p>
+            <input
+              type="number"
+              required
+              {...register("so_luong")}
+              placeholder="Điền số lượng"
+              disabled={!isAdd}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>
+              {"Sản phẩm mới:              "}
+            </p>
+            <select name="is_new" {...register("is_new")}>
+              <option value={true}>Áp dụng</option>
+              <option value={false}>Không áp dụng</option>
+            </select>
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>{"Đang được hoạt động:"}</p>
+            <select name="is_active" {...register("is_active")}>
+              <option value={true}>Áp dụng</option>
+              <option value={false}>Không áp dụng</option>
+            </select>
+          </div>
+          <button style={submitBtn} type={"submit"}>{`${
+            isAdd ? "Thêm" : "Sửa"
+          } sản phẩm`}</button>
         </form>
       </Modal>
     </>
