@@ -29,6 +29,7 @@ export const headerTitle = {
   textAlign: "center",
   marginTop: 20,
   marginBottom: 50,
+  fontWeight: "bold",
 };
 
 export const formStyles = {
