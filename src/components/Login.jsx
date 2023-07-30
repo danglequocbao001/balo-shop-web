@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useForm } from "react-hook-form";
 import "../styles/Login.css";
 import { authApi } from "../api";
@@ -38,7 +38,7 @@ export const formStyles = {
 
 export const inputWrapper = {
   marginLeft: "10%",
-  marginBottom: 30,
+  marginBottom: 10,
 };
 
 export const inputTitle = {
@@ -63,14 +63,13 @@ export const submitBtn = {
   fontSize: 15,
   display: "flex",
   marginLeft: "auto",
+  marginTop: 20,
   marginRight: 60,
 };
 
 const Login = () => {
   const { register, handleSubmit } = useForm();
   const navigate = useNavigate();
-
-  useEffect(() => {}, []);
 
   const onLogin = async (param) => {
     try {

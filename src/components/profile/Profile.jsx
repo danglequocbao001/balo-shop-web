@@ -104,10 +104,10 @@ const Profile = () => {
               </MDBCard>
             </MDBCol>
             {customerDetails([
-              //   {
-              //     key: "Mã khách hàng",
-              //     value: customer.ma_kh,
-              //   },
+              {
+                key: "Mã khách hàng",
+                value: customer.ma_kh,
+              },
               {
                 key: "Email",
                 value: customer.email_kh,
@@ -127,7 +127,9 @@ const Profile = () => {
               {
                 key: "CMND/CCCD",
                 value: `${
-                  customer.so_id === null ? "Chưa cập nhật" : customer.so_id
+                  customer.so_id === null || customer.so_id === ""
+                    ? "Chưa cập nhật"
+                    : customer.so_id
                 }`,
               },
               {

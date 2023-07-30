@@ -21,6 +21,7 @@ import AdminProfile from "./components/admins/adminProfile/AdminProfile";
 import AdminStatistics from "./components/admins/AdminStatistics";
 import AdminProducts from "./components/admins/adminProducts/AdminProducts";
 import AdminProductTypes from "./components/admins/adminProductTypes/AdminProductTypes";
+import Register from "./components/Register";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
@@ -40,6 +41,7 @@ function App() {
           }
           <Route path="/" element={<Home />}></Route>
           <Route path="/login" element={<Login />}></Route>
+          <Route path="/register" element={<Register />}></Route>
           <Route path="/signup" element={<Login />}></Route>
           <Route exact path="/products" element={<Products />}></Route>
           <Route exact path="/products/:ma_mh" element={<Product />}></Route>
@@ -56,7 +58,10 @@ function App() {
           <Route path="/admin/orders" element={<AdminOrders />}></Route>
           <Route path="/admin/profile" element={<AdminProfile />}></Route>
           <Route path="/admin/products" element={<AdminProducts />}></Route>
-          <Route path="/admin/product-types" element={<AdminProductTypes />}></Route>
+          <Route
+            path="/admin/product-types"
+            element={<AdminProductTypes />}
+          ></Route>
         </Routes>
       </BrowserRouter>
     </div>

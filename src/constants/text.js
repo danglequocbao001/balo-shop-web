@@ -4,7 +4,8 @@ const TEXT_CONSTANTS = {
   THAT_BAI: "Thất bại",
   LOI: "Lỗi",
 
-  DANG_NHAP_THANH_CONG: "Đăng nhập thành công",
+  DANG_NHAP_THANH_CONG: "Đăng nhập thành công!",
+  DANG_KY_THANH_CONG: "Đăng ký thành công!",
 
   KHONG_BO_TRONG: "Không được bỏ trống",
 };
