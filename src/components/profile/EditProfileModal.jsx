@@ -4,9 +4,22 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPencil } from "@fortawesome/free-solid-svg-icons";
 import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
+import { khachHangApi } from "../../api";
+import { formStyles, submitBtn } from "../Login";
 
-const input = {
+export const modalInputWrapper = {
+  display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   marginTop: 10,
+};
+
+export const modalInputHeader = {
+  fontWeight: "bold",
+  marginTop: 5,
+  marginBottom: 0,
+  marginRight: 5,
+  whiteSpace: "pre-wrap",
 };
 
 const EditProfileModal = (param) => {
@@ -26,11 +39,28 @@ const EditProfileModal = (param) => {
   const [isOpen, setOpen] = useState(false);
 
   const onUpdate = async (param) => {
-    toast.success("Đang thực hiện...")
-    console.log(param);
-    setTimeout(() => {
-      window.location.reload();
-    }, 2000);
+    if (JSON.stringify(param) === JSON.stringify(DEFAULT_VALUES)) {
+      toast.warning("Không có thay đổi khác để cập nhật!");
+    } else if (param.sdt.length !== 10) {
+      toast.warning("Số điện thoại phải có 10 số!");
+    } else if (
+      param.so_id.length > 0 &&
+      (param.so_id.length < 9 || param.so_id.length > 12)
+    ) {
+      toast.warning("CMND/CCCD có thể bỏ trống hoặc phải có từ 9-12 số!");
+    } else {
+      await khachHangApi
+        .update(param)
+        .then(() => {
+          toast.success("Cập nhật thành công!");
+          setTimeout(() => {
+            window.location.reload();
+          }, 1000);
+        })
+        .catch((err) => {
+          toast.error(err.message);
+        });
+    }
   };
   return (
     <>
@@ -39,33 +69,40 @@ const EditProfileModal = (param) => {
       </Button>
 
       <Modal
-        title="Vertically centered modal dialog"
+        title="Sửa thông tin người dùng"
         centered
         open={isOpen}
-        onOk={() => setOpen(false)}
         onCancel={() => setOpen(false)}
+        footer={null}
       >
         <form
           className="EditProfileModal"
           onSubmit={handleSubmit(onUpdate)}
-          style={{
-            display: "inline-grid",
-          }}
+          style={formStyles}
         >
-          <input
-            type="email"
-            required
-            {...register("email_kh")}
-            name="email_kh"
-            disabled
-            style={input}
-          />
-          <input style={input} type="text" required {...register("ho_kh")} />
-          <input style={input} type="text" required {...register("ten_kh")} />
-          <input style={input} type="text" required {...register("dia_chi")} />
-          <input style={input} type="tel" required {...register("sdt")} />
-          <input style={input} type="number" required {...register("so_id")} />
-          <input style={input} type={"submit"} />
+          <div style={modalInputWrapper}>
+            <p style={{ ...modalInputHeader }}>{"Họ:                   "}</p>
+            <input type="text" required {...register("ho_kh")} />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Tên:                  "}</p>
+            <input type="text" required {...register("ten_kh")} />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Địa chỉ:            "}</p>
+            <input type="text" required {...register("dia_chi")} />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>Số điện thoại:</p>
+            <input type="number" required {...register("sdt")} />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>CMND/CCCD:</p>
+            <input type="number" {...register("so_id")} />
+          </div>
+          <button style={submitBtn} type={"submit"}>
+            Sửa
+          </button>
         </form>
       </Modal>
     </>

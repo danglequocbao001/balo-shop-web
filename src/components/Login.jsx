@@ -34,6 +34,7 @@ export const headerTitle = {
 
 export const formStyles = {
   display: "block",
+  marginTop: 30,
 };
 
 export const inputWrapper = {

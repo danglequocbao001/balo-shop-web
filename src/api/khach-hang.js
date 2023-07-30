@@ -12,7 +12,7 @@ export default {
   getMe: () => {
     return api.get(API_CONSTANTS.CUSTOMERS.GET_ME);
   },
-  update: (ma_kh, param) => {
-    return api.put(API_CONSTANTS.CUSTOMERS.UPDATE(ma_kh), param);
+  update: (param) => {
+    return api.put(API_CONSTANTS.CUSTOMERS.UPDATE, param);
   },
 };
