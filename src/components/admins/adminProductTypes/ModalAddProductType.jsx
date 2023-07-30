@@ -6,10 +6,11 @@ import { useForm } from "react-hook-form";
 import { toast } from "react-toastify";
 import { loaiMatHangApi } from "../../../api";
 import COLOR_CONSTANTS from "../../../constants/colors";
-
-const input = {
-  marginTop: 10,
-};
+import { formStyles, submitBtn } from "../../Login";
+import {
+  modalInputHeader,
+  modalInputWrapper,
+} from "../../profile/EditProfileModal";
 
 const ModalAddProductType = (param) => {
   const [isOpen, setOpen] = useState(false);
@@ -77,7 +78,7 @@ const ModalAddProductType = (param) => {
         </Button>
       )}
       <Modal
-        title="Vertically centered modal dialog"
+        title={`${isAdd ? "Thêm" : "Sửa"} loại mặt hàng`}
         centered
         open={isOpen}
         onOk={() => setOpen(false)}
@@ -87,28 +88,33 @@ const ModalAddProductType = (param) => {
         <form
           className="ModalAddProduct"
           onSubmit={handleSubmit(onProcessProduct)}
-          style={{
-            display: "inline-grid",
-          }}
+          style={formStyles}
         >
-          <input
-            type="text"
-            required
-            {...register("ma_loai_mh")}
-            name="ma_loai_mh"
-            style={input}
-            placeholder="Điền mã loại mặt hàng"
-            disabled={!isAdd}
-          />
-          <input
-            type="text"
-            required
-            {...register("ten_loai_mh")}
-            name="ten_loai_mh"
-            style={input}
-            placeholder="Điền tên loại mặt hàng"
-          />
-          <input style={input} type={"submit"} />
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Mã loại mặt hàng:  "}</p>
+            <input
+              type="text"
+              required
+              {...register("ma_loai_mh")}
+              name="ma_loai_mh"
+              placeholder="Điền mã loại mặt hàng"
+              disabled={!isAdd}
+            />
+          </div>
+
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Tên loại mặt hàng:  "}</p>
+            <input
+              type="text"
+              required
+              {...register("ten_loai_mh")}
+              name="ten_loai_mh"
+              placeholder="Điền tên loại mặt hàng"
+            />
+          </div>
+          <button style={submitBtn} type={"submit"}>{`${
+            isAdd ? "Thêm" : "Sửa"
+          } loại mặt hàng`}</button>
         </form>
       </Modal>
     </>

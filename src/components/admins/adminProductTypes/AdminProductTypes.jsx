@@ -18,7 +18,7 @@ const AdminProductTypes = () => {
       key: "ten_loai_mh",
     },
     {
-      title: "Action",
+      title: "Sửa",
       dataIndex: "",
       key: "ma_loai_mh",
       render: (text, record) => <ModalAddProductType productType={record} />,

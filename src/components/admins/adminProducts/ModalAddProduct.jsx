@@ -88,7 +88,7 @@ const ModalAddProduct = (param) => {
         </Button>
       )}
       <Modal
-        title={`${isAdd ? "Thêm" : "Sửa"} sản phẩm`}
+        title={`${isAdd ? "Thêm" : "Sửa"} mặt hàng`}
         centered
         open={isOpen}
         onOk={() => setOpen(false)}
@@ -200,7 +200,7 @@ const ModalAddProduct = (param) => {
           </div>
           <button style={submitBtn} type={"submit"}>{`${
             isAdd ? "Thêm" : "Sửa"
-          } sản phẩm`}</button>
+          } mặt hàng`}</button>
         </form>
       </Modal>
     </>
