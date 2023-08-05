@@ -15,6 +15,7 @@ import moment from "moment/moment";
 import COLOR_CONSTANTS from "../../../constants/colors";
 import { Button, DatePicker, Select } from "antd";
 import moneyFormatter from "../../../helpers/money";
+import AdminPDFStatistics from "./AdminPDFStatistics";
 
 const datePickerWrapper = {
   display: "flex",
@@ -45,7 +46,15 @@ const AdminStatistics = () => {
     "Thống kê doanh thu trong 30 ngày gần nhất"
   );
 
+  const [chartPDFTitle, setChartPDFTitle] = useState(
+    `Thống kê doanh thu từ ngày ${moment()
+      .add(-29, "days")
+      .format("DD-MM-YYYY")} đến ngày ${moment().format("DD-MM-YYYY")}`
+  );
+
   const [totalPrice, setTotalPrice] = useState(0);
+
+  const [isShowPDF, setShowPDF] = useState(false);
 
   const lastday = function (y, m) {
     return new Date(y, m + 1, 0).getDate();
@@ -69,7 +78,7 @@ const AdminStatistics = () => {
       });
   };
 
-  const generateStatistics = () => {
+  const generateStatistics = (isPDF) => {
     if (beginDate === undefined || endDate === undefined) {
       toast.warn("Không được bỏ trống khoảng thời gian bắt đầu và kết thúc!");
     } else if (beginDate > endDate) {
@@ -102,8 +111,20 @@ const AdminStatistics = () => {
             10
           )} đến ${type.label.toLowerCase()} ${finalEndDate.substring(3, 10)}`
         );
+        setChartPDFTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate.substring(
+            3,
+            10
+          )} đến ${type.label.toLowerCase()} ${finalEndDate.substring(3, 10)}`
+        );
       } else if (type.value === "year") {
         setChartTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate.substring(
+            6,
+            10
+          )} đến ${type.label.toLowerCase()} ${finalEndDate.substring(6, 10)}`
+        );
+        setChartPDFTitle(
           `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate.substring(
             6,
             10
@@ -115,7 +136,11 @@ const AdminStatistics = () => {
             isToday ? "hôm nay" : type.label.toLowerCase()
           } ${isToday ? "" : finalEndDate}`
         );
+        setChartPDFTitle(
+          `Thống kê doanh thu từ ${type.label.toLowerCase()} ${finalBeginDate} đến ${type.label.toLowerCase()} ${finalEndDate}`
+        );
       }
+      isPDF && setShowPDF(!isShowPDF);
     }
   };
 
@@ -167,81 +192,101 @@ const AdminStatistics = () => {
           margin: 30,
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            marginTop: 12,
-          }}
-        >
-          <p
-            style={{
-              marginTop: 3,
-              marginRight: 5,
-            }}
-          >
-            Xem theo:
-          </p>
-          <Select
-            defaultValue={"day"}
-            options={[
-              {
-                value: "day",
-                label: "Ngày",
-              },
-              {
-                value: "month",
-                label: "Tháng",
-              },
-              {
-                value: "year",
-                label: "Năm",
-              },
-            ]}
-            onChange={(value, label) => {
-              setType(label);
-            }}
-            style={{
-              width: 90,
-            }}
-          />
-        </div>
-        <div style={datePickerWrapper}>
-          <p style={datePickerText}>{`${type.label} bắt đầu:`}</p>
-          <DatePicker
-            onChange={(date, dateString) => {
-              if (type.value === "month") {
-                setBeginDate(`${dateString}-01`);
-              } else if (type.value === "year") {
-                setBeginDate(`${dateString}-01-01`);
-              } else {
-                setBeginDate(dateString);
-              }
-            }}
-            picker={type.value}
-          />
-        </div>
-        <div style={datePickerWrapper}>
-          <p style={datePickerText}>{`${type.label} kết thúc:`}</p>
-          <DatePicker
-            onChange={(date, dateString) => {
-              if (type.value === "month") {
-                setEndDate(
-                  `${dateString}-${lastday(
-                    parseInt(dateString.substring(0, 4)),
-                    parseInt(dateString.substring(5, 8)) - 1
-                  )}`
-                );
-              } else if (type.value === "year") {
-                setEndDate(`${dateString}-12-31`);
-              } else {
-                setEndDate(dateString);
-              }
-            }}
-            picker={type.value}
-          />
-        </div>
+        {!isShowPDF && (
+          <>
+            <div
+              style={{
+                display: "flex",
+                marginTop: 12,
+              }}
+            >
+              <p
+                style={{
+                  marginTop: 3,
+                  marginRight: 5,
+                }}
+              >
+                Xem theo:
+              </p>
+              <Select
+                defaultValue={"day"}
+                options={[
+                  {
+                    value: "day",
+                    label: "Ngày",
+                  },
+                  {
+                    value: "month",
+                    label: "Tháng",
+                  },
+                  {
+                    value: "year",
+                    label: "Năm",
+                  },
+                ]}
+                onChange={(value, label) => {
+                  setType(label);
+                }}
+                style={{
+                  width: 90,
+                }}
+              />
+            </div>
+            <div style={datePickerWrapper}>
+              <p style={datePickerText}>{`${type.label} bắt đầu:`}</p>
+              <DatePicker
+                onChange={(date, dateString) => {
+                  if (type.value === "month") {
+                    setBeginDate(`${dateString}-01`);
+                  } else if (type.value === "year") {
+                    setBeginDate(`${dateString}-01-01`);
+                  } else {
+                    setBeginDate(dateString);
+                  }
+                }}
+                picker={type.value}
+              />
+            </div>
+            <div style={datePickerWrapper}>
+              <p style={datePickerText}>{`${type.label} kết thúc:`}</p>
+              <DatePicker
+                onChange={(date, dateString) => {
+                  if (type.value === "month") {
+                    setEndDate(
+                      `${dateString}-${lastday(
+                        parseInt(dateString.substring(0, 4)),
+                        parseInt(dateString.substring(5, 8)) - 1
+                      )}`
+                    );
+                  } else if (type.value === "year") {
+                    setEndDate(`${dateString}-12-31`);
+                  } else {
+                    setEndDate(dateString);
+                  }
+                }}
+                picker={type.value}
+              />
+            </div>
+            <Button
+              onClick={() => generateStatistics(false)}
+              className="btn btn-dark"
+              style={{
+                height: 35,
+                marginTop: 10,
+                color: COLOR_CONSTANTS.WHITE,
+                border: "none",
+                marginLeft: 20,
+                fontWeight: "bold",
+              }}
+            >
+              Xem thống kê
+            </Button>
+          </>
+        )}
         <Button
-          onClick={() => generateStatistics()}
+          onClick={() => {
+            isShowPDF ? window.location.reload() : generateStatistics(true);
+          }}
           className="btn btn-dark"
           style={{
             height: 35,
@@ -252,7 +297,7 @@ const AdminStatistics = () => {
             fontWeight: "bold",
           }}
         >
-          Xem thống kê
+          {isShowPDF ? "Đóng" : "Xuất thống kê"}
         </Button>
       </div>
     );
@@ -270,6 +315,14 @@ const AdminStatistics = () => {
         >
           {chartTitle}
         </h3>
+        {isShowPDF && (
+          <AdminPDFStatistics
+            statistics={statisticsArr}
+            title={chartPDFTitle}
+            type={type}
+            totalPrice={totalPrice}
+          />
+        )}
         <h4
           style={{
             margin: "20px 0",
@@ -317,7 +370,7 @@ const AdminStatistics = () => {
 
   useEffect(() => {
     getAllStatisticsByPeriod({
-      ngay_bat_dau: moment().add(-30, "days").format("YYYY-MM-DD"),
+      ngay_bat_dau: moment().add(-29, "days").format("YYYY-MM-DD"),
       ngay_ket_thuc: moment().format("YYYY-MM-DD"),
       type: type.value,
     });
