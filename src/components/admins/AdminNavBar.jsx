@@ -58,11 +58,6 @@ const AdminNavBar = () => {
                     {`Nhân viên: ${staff.ma_nv} - ${staff.ho_nv} ${staff.ten_nv} - ${staff.ma_bp}`}
                   </NavLink>
                 </li>
-                {/* <li className="nav-item">
-                <NavLink className="nav-link" to="/products">
-                  Sản phẩm
-                </NavLink>
-              </li> */}
               </ul>
             )}
 
@@ -81,7 +76,7 @@ const AdminNavBar = () => {
 
               {token && (
                 <>
-                <NavLink
+                  <NavLink
                     to="/admin/product-types"
                     className="btn btn-outline-dark mx-2"
                   >
@@ -113,7 +108,14 @@ const AdminNavBar = () => {
                       window.location.reload();
                     }}
                   >
-                    <NavLink to="/admin/login" className="btn btn-outline-dark">
+                    <NavLink
+                      to="/admin/login"
+                      className="btn btn-outline-dark"
+                      style={{
+                        marginTop: 5,
+                        marginLeft: 2,
+                      }}
+                    >
                       Đăng xuất
                       <FontAwesomeIcon className="ms-2" icon={faLock} />
                     </NavLink>
