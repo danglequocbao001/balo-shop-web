@@ -59,6 +59,9 @@ const API_CONSTANTS = {
     DELIVERED: (ma_don_dat_hang) =>
       `/don-dat-hang/delivered/${ma_don_dat_hang}`,
   },
+  BILLS: {
+    CREATE: "/hoa-don",
+  },
   ORDERS_STATUS: {
     GET: "/trang-thai-ddh",
   },

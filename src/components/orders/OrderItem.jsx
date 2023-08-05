@@ -3,11 +3,17 @@ import moneyFormatter from "../../helpers/money";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { Button } from "antd";
 import { fetchOneOrder } from "../../services/orders";
-import { ordersApi } from "../../api";
+import { billApi, ordersApi } from "../../api";
 import { Spin, Modal, Select } from "antd";
 import { toast } from "react-toastify";
 import { styled } from "styled-components";
 import { useFetchOneCustomer } from "../../hooks/useKhachHang";
+import { formStyles, submitBtn } from "../Login";
+import {
+  modalInputHeader,
+  modalInputWrapper,
+} from "../profile/EditProfileModal";
+import { useForm } from "react-hook-form";
 
 const btnStyle = {
   backgroundColor: COLOR_CONSTANTS.BLACK,
@@ -33,6 +39,7 @@ const OrderItem = (params) => {
 
   const [isShowBrowseModal, setShowBrowseModal] = useState(false);
   const [isShowDeliverydModal, setShowDeliveryModal] = useState(false);
+  const [isShowInvoiceBillModal, setShowInvoiceBillModal] = useState(false);
 
   const [maNVGH, setMaNVGH] = useState();
 
@@ -58,6 +65,16 @@ const OrderItem = (params) => {
   const isStaff = isStaffBrowse || isStaffDelivery;
 
   const isCustomer = currentCredential && currentCredential.role === "customer";
+
+  const DEFAULT_VALUES_INVOICE_BILL = {
+    ma_hoa_don: "",
+    ma_nv: staff ? staff.ma_nv : "",
+    ma_don_dat_hang: order.ma_don_dat_hang,
+  };
+
+  const { register, handleSubmit } = useForm({
+    defaultValues: DEFAULT_VALUES_INVOICE_BILL,
+  });
 
   const getStatusColor = (status) => {
     if (status === "Đã hoàn thành") {
@@ -354,6 +371,75 @@ const OrderItem = (params) => {
     );
   };
 
+  const handleInvoiceBill = async (param) => {
+    await billApi
+      .create(param)
+      .then(() => {
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+        toast.success("Lập hóa đơn thành công!");
+      })
+      .catch((err) => toast.error(err.message));
+  };
+
+  const invoiceBillModal = () => {
+    return (
+      <Modal
+        title="Lập hóa đơn"
+        open={isShowInvoiceBillModal}
+        // onOk={() => handleDelivery()}
+        onCancel={() => setShowInvoiceBillModal(!isShowInvoiceBillModal)}
+        footer={null}
+      >
+        <form onSubmit={handleSubmit(handleInvoiceBill)} style={formStyles}>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Mã đơn đặt hàng:"}</p>
+            <input
+              type="text"
+              required
+              {...register("ma_don_dat_hang")}
+              name="ma_don_dat_hang"
+              disabled={true}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Mã nhân viên:       "}</p>
+            <input
+              type="text"
+              required
+              {...register("ma_nv")}
+              name="ma_nv"
+              disabled={true}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Họ tên nhân viên:"}</p>
+            <input
+              type="text"
+              required
+              disabled={true}
+              value={`${staff.ho_nv} ${staff.ten_nv}`}
+            />
+          </div>
+          <div style={modalInputWrapper}>
+            <p style={modalInputHeader}>{"Mã hóa đơn:           "}</p>
+            <input
+              type="text"
+              required
+              {...register("ma_hoa_don")}
+              name="ma_hoa_don"
+              placeholder="Điền mã hóa đơn"
+            />
+          </div>
+          <button style={submitBtn} type={"submit"}>
+            {"Lập hóa đơn"}
+          </button>
+        </form>
+      </Modal>
+    );
+  };
+
   return (
     <div
       style={{
@@ -465,6 +551,33 @@ const OrderItem = (params) => {
             </Button>
           </>
         )}
+        {/* {isStaff && order.ma_trang_thai !== "DA_HUY" && !order.hoa_don && (
+          <>
+            {invoiceBillModal()}
+            <Button
+              style={{
+                ...btnStyle,
+                backgroundColor: COLOR_CONSTANTS.SUCCESS,
+                width: 200,
+              }}
+              onClick={() => setShowInvoiceBillModal(!isShowInvoiceBillModal)}
+            >
+              {"Lập hóa đơn"}
+            </Button>
+          </>
+        )}
+        {order.hoa_don && (
+          <Button
+            style={{
+              ...btnStyle,
+              backgroundColor: COLOR_CONSTANTS.SUCCESS,
+              width: 200,
+            }}
+            // onClick={() => setShowInvoiceBillModal(!isShowInvoiceBillModal)}
+          >
+            {"Xem hóa đơn"}
+          </Button>
+        )} */}
       </div>
       {isShow && detailItem(order.chi_tiet)}
     </div>
