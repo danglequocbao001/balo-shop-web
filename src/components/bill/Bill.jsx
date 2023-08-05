@@ -73,6 +73,9 @@ const Bill = () => {
                   >{`Mã đơn đặt hàng: ${order.ma_don_dat_hang}`}</Text>
                   <Text
                     style={styles.infoText}
+                  >{`Nhân viên lập: ${order.hoa_don.ma_nv}`}</Text>
+                  <Text
+                    style={styles.infoText}
                   >{`Họ tên người nhận: ${order.ho_nguoi_nhan} ${order.ten_nguoi_nhan}`}</Text>
                   <Text
                     style={styles.infoText}
