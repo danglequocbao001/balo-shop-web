@@ -87,22 +87,22 @@ const Bill = () => {
               )}
               <View style={styles.table}>
                 <View style={styles.pdfTableRow}>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "5%" }]}>
                     <Text style={styles.pdfTableCell}>STT</Text>
                   </View>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "15%" }]}>
                     <Text style={styles.pdfTableCell}>Mã mặt hàng</Text>
                   </View>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "30%" }]}>
                     <Text style={styles.pdfTableCell}>Tên mặt hàng</Text>
                   </View>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "15%" }]}>
                     <Text style={styles.pdfTableCell}>Đơn vị tính</Text>
                   </View>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "15%" }]}>
                     <Text style={styles.pdfTableCell}>Số lượng</Text>
                   </View>
-                  <View style={styles.pdfTableCol}>
+                  <View style={[styles.pdfTableCol, { width: "20%" }]}>
                     <Text style={styles.pdfTableCell}>Đơn giá</Text>
                   </View>
                 </View>
@@ -111,28 +111,28 @@ const Bill = () => {
                   order.chi_tiet.map((mat_hang_da_mua, index) => {
                     return (
                       <View style={styles.pdfTableRow}>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "5%" }]}>
                           <Text style={styles.pdfTableCell}>{index + 1}</Text>
                         </View>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "15%" }]}>
                           <Text style={styles.pdfTableCell}>
                             {mat_hang_da_mua.ma_mh}
                           </Text>
                         </View>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "30%" }]}>
                           <Text style={styles.pdfTableCell}>
                             {mat_hang_da_mua.mat_hang.ten_mh}
                           </Text>
                         </View>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "15%" }]}>
                           <Text style={styles.pdfTableCell}>Cái</Text>
                         </View>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "15%" }]}>
                           <Text style={styles.pdfTableCell}>
                             {mat_hang_da_mua.so_luong_dat}
                           </Text>
                         </View>
-                        <View style={styles.pdfTableCol}>
+                        <View style={[styles.pdfTableCol, { width: "20%" }]}>
                           <Text style={styles.pdfTableCell}>
                             {moneyFormatter.format(mat_hang_da_mua.don_gia_dat)}
                           </Text>
@@ -211,7 +211,6 @@ const styles = StyleSheet.create({
     flexDirection: "row",
   },
   pdfTableCol: {
-    width: "16.67%",
     borderStyle: "solid",
     borderWidth: 1,
     borderLeftWidth: 0,
