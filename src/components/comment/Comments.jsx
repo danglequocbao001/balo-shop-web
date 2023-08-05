@@ -17,6 +17,7 @@ const Comments = (param) => {
   const [rate, setRate] = useState(0);
 
   const { comments } = useFetchAllCommentByProduct(ma_mh);
+
   const { customer } = useFetchCurrentCustomer();
 
   const onAddComment = async () => {
@@ -51,6 +52,16 @@ const Comments = (param) => {
           padding: "20px 0",
         }}
       >
+        {!comments.is_can_comment && (
+          <p
+            style={{
+              color: COLOR_CONSTANTS.WARNING,
+              fontWeight: "bold",
+            }}
+          >
+            {"*Bạn cần phải mua sản phẩm trước khi có thể bình luận!"}
+          </p>
+        )}
         <Rate
           defaultValue={0}
           value={rate}
@@ -58,6 +69,7 @@ const Comments = (param) => {
           onChange={(value) => {
             setRate(value);
           }}
+          disabled={!comments.is_can_comment}
         />
         <TextArea
           value={comment}
@@ -68,6 +80,7 @@ const Comments = (param) => {
             padding: "10px 15px",
             fontSize: 16,
           }}
+          disabled={!comments.is_can_comment}
         />
         <div
           style={{
@@ -83,8 +96,10 @@ const Comments = (param) => {
               color: COLOR_CONSTANTS.WHITE,
               fontWeight: "bold",
               border: "none",
+              opacity: comments.is_can_comment ? 1 : 0.3,
             }}
             onClick={() => onAddComment()}
+            disabled={!comments.is_can_comment}
           >
             Thêm bình luận
           </Button>
@@ -100,7 +115,7 @@ const Comments = (param) => {
           marginTop: 20,
         }}
       >
-        {comments.map((comment) => (
+        {comments.data.map((comment) => (
           <CommentItem
             key={comment.ma_binh_luan}
             comment={comment}
@@ -114,8 +129,10 @@ const Comments = (param) => {
   return (
     <>
       <h3>Bình luận</h3>
-      {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null && addComent()}
-      {showComments()}
+      {localStorage.getItem(TOKEN_LOCAL_STORAGE) !== null &&
+        comments &&
+        addComent()}
+      {comments.data && showComments()}
     </>
   );
 };
