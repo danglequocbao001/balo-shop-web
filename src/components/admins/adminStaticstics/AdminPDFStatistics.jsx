@@ -7,6 +7,7 @@ import {
   PDFViewer,
   Font,
   View,
+  Image,
 } from "@react-pdf/renderer";
 import moneyFormatter from "../../../helpers/money";
 import COLOR_CONSTANTS from "../../../constants/colors";
@@ -41,9 +42,27 @@ const AdminPDFStatistics = (params) => {
         >
           <Document>
             <Page style={styles.body}>
-              <Text style={styles.title}>B Balo Shop</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginRight: 30,
+                }}
+              >
+                <Image
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                  src={"../../../../favicon.ico"}
+                />
+                <Text style={styles.title}>Balo Shop</Text>
+              </View>
               <Text style={styles.author}>97 Man Thiện, Hiệp Phú, Thủ Đức</Text>
-              <Text style={styles.title}>THỐNG KÊ DOANH THU</Text>
+              <Text style={[styles.title, { fontSize: 22 }]}>
+                THỐNG KÊ DOANH THU
+              </Text>
               <Text style={[styles.text, { textAlign: "center" }]}>
                 {title}
               </Text>
@@ -134,7 +153,7 @@ const styles = StyleSheet.create({
     fontFamily: "Roboto",
   },
   title: {
-    fontSize: 24,
+    fontSize: 35,
     textAlign: "center",
   },
   author: {
