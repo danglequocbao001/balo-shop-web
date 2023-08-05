@@ -93,6 +93,14 @@ const Search = () => {
   };
 
   const onSearch = async (paramSearch) => {
+    paramSearch.ten_mh =
+      paramSearch.ten_mh === null
+        ? paramSearch.ten_mh
+        : paramSearch.ten_mh.trim().replace(/\s+/g, " ");
+    paramSearch.mo_ta =
+      paramSearch.mo_ta === null
+        ? paramSearch.mo_ta
+        : paramSearch.mo_ta.trim().replace(/\s+/g, " ");
     setLoading(true);
     try {
       const data = await fetchSearchProduct(paramSearch);
@@ -198,6 +206,7 @@ const Search = () => {
                 <Text style={inputItemLabel}>Giá tối thiểu</Text>
                 <Input
                   placeholder="Nhập giá tối thiểu"
+                  type="number"
                   onChange={(e) => {
                     setParamSearch({
                       ...paramSearch,
@@ -212,6 +221,7 @@ const Search = () => {
                 </Text>
                 <Input
                   placeholder="Nhập giá tối đa"
+                  type="number"
                   onChange={(e) => {
                     setParamSearch({
                       ...paramSearch,
