@@ -178,6 +178,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 12,
     textAlign: "justify",
+    marginBottom: 5,
   },
   table: {
     display: "table",

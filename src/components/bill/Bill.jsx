@@ -7,6 +7,7 @@ import {
   PDFViewer,
   Font,
   View,
+  Image,
 } from "@react-pdf/renderer";
 import COLOR_CONSTANTS from "../../constants/colors";
 import { useParams } from "react-router-dom";
@@ -51,13 +52,29 @@ const Bill = () => {
         >
           <Document>
             <Page style={styles.body}>
-              <Text style={styles.title}>B Balo Shop</Text>
+              <View
+                style={{
+                  flexDirection: "row",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  marginRight: 30,
+                }}
+              >
+                <Image
+                  style={{
+                    width: 60,
+                    height: 60,
+                  }}
+                  src={"../../../../favicon.ico"}
+                />
+                <Text style={styles.title}>Balo Shop</Text>
+              </View>
               <Text style={styles.author}>97 Man Thiện, Hiệp Phú, Thủ Đức</Text>
               <Text style={styles.title}>HÓA ĐƠN</Text>
               {order.hoa_don && (
                 <>
                   <Text style={[styles.text, { textAlign: "center" }]}>
-                    {`Ngày ${order.hoa_don.ngay_lap.substring(
+                    {`Ngày lập: Ngày ${order.hoa_don.ngay_lap.substring(
                       8,
                       10
                     )} tháng ${order.hoa_don.ngay_lap.substring(
@@ -196,6 +213,7 @@ const styles = StyleSheet.create({
   infoText: {
     fontSize: 12,
     textAlign: "justify",
+    marginBottom: 5,
   },
   table: {
     display: "table",
