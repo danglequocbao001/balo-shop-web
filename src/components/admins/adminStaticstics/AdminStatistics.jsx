@@ -323,47 +323,51 @@ const AdminStatistics = () => {
             totalPrice={totalPrice}
           />
         )}
-        <h4
-          style={{
-            margin: "20px 0",
-            fontWeight: "600",
-          }}
-        >{`Tổng ${chartTitle.substring(
-          9,
-          chartTitle.length
-        )}: ${moneyFormatter.format(totalPrice)}`}</h4>
-        <ResponsiveContainer width={windowWidth - 50} height={600}>
-          <AreaChart data={statisticsArr} margin={{ left: 0, right: 20 }}>
-            <defs>
-              <linearGradient id="colorTongThu" x1="0" y1="0" x2="0" y2="1">
-                <stop
-                  offset="5%"
-                  stopColor={COLOR_CONSTANTS.GRAY}
-                  stopOpacity={0.8}
+        {!isShowPDF && (
+          <>
+            <h4
+              style={{
+                margin: "20px 0",
+                fontWeight: "600",
+              }}
+            >{`Tổng ${chartTitle.substring(
+              9,
+              chartTitle.length
+            )}: ${moneyFormatter.format(totalPrice)}`}</h4>
+            <ResponsiveContainer width={windowWidth - 50} height={600}>
+              <AreaChart data={statisticsArr} margin={{ left: 0, right: 20 }}>
+                <defs>
+                  <linearGradient id="colorTongThu" x1="0" y1="0" x2="0" y2="1">
+                    <stop
+                      offset="5%"
+                      stopColor={COLOR_CONSTANTS.GRAY}
+                      stopOpacity={0.8}
+                    />
+                    <stop
+                      offset="100%"
+                      stopColor={COLOR_CONSTANTS.BLACK}
+                      stopOpacity={0}
+                    />
+                  </linearGradient>
+                </defs>
+                <XAxis dataKey="name" tickFormatter={(value) => `(${value})`} />
+                <YAxis tickFormatter={dataFormater} />
+                <Tooltip content={<CustomToolTip />} />
+                <Legend />
+                <CartesianGrid strokeDasharray="2 2" />
+                <Area
+                  name="Tổng thu"
+                  type="monotone"
+                  dataKey="tong_thu"
+                  stroke={COLOR_CONSTANTS.BLACK}
+                  fillOpacity={1}
+                  fill="url(#colorTongThu)"
+                  activeDot={{ r: 6 }}
                 />
-                <stop
-                  offset="100%"
-                  stopColor={COLOR_CONSTANTS.BLACK}
-                  stopOpacity={0}
-                />
-              </linearGradient>
-            </defs>
-            <XAxis dataKey="name" tickFormatter={(value) => `(${value})`} />
-            <YAxis tickFormatter={dataFormater} />
-            <Tooltip content={<CustomToolTip />} />
-            <Legend />
-            <CartesianGrid strokeDasharray="2 2" />
-            <Area
-              name="Tổng thu"
-              type="monotone"
-              dataKey="tong_thu"
-              stroke={COLOR_CONSTANTS.BLACK}
-              fillOpacity={1}
-              fill="url(#colorTongThu)"
-              activeDot={{ r: 6 }}
-            />
-          </AreaChart>
-        </ResponsiveContainer>
+              </AreaChart>
+            </ResponsiveContainer>
+          </>
+        )}
       </div>
     );
   };
