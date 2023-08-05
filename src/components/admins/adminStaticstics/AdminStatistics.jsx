@@ -9,12 +9,12 @@ import {
   Area,
   ResponsiveContainer,
 } from "recharts";
-import { statisticsApi } from "../../api";
+import { statisticsApi } from "../../../api";
 import { toast } from "react-toastify";
 import moment from "moment/moment";
-import COLOR_CONSTANTS from "../../constants/colors";
+import COLOR_CONSTANTS from "../../../constants/colors";
 import { Button, DatePicker, Select } from "antd";
-import moneyFormatter from "../../helpers/money";
+import moneyFormatter from "../../../helpers/money";
 
 const datePickerWrapper = {
   display: "flex",

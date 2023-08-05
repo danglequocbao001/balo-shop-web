@@ -18,11 +18,11 @@ import AdminNavBar from "./components/admins/AdminNavBar";
 import AdminLogin from "./components/admins/AdminLogin";
 import AdminOrders from "./components/admins/adminOrders/AdminOrders";
 import AdminProfile from "./components/admins/adminProfile/AdminProfile";
-import AdminStatistics from "./components/admins/AdminStatistics";
 import AdminProducts from "./components/admins/adminProducts/AdminProducts";
 import AdminProductTypes from "./components/admins/adminProductTypes/AdminProductTypes";
 import Register from "./components/Register";
 import Bill from "./components/bill/Bill";
+import AdminStatistics from "./components/admins/adminStaticstics/AdminStatistics";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
