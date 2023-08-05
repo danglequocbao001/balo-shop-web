@@ -14,6 +14,7 @@ import {
   modalInputWrapper,
 } from "../profile/EditProfileModal";
 import { useForm } from "react-hook-form";
+import { NavLink } from "react-router-dom";
 
 const btnStyle = {
   backgroundColor: COLOR_CONSTANTS.BLACK,
@@ -551,7 +552,7 @@ const OrderItem = (params) => {
             </Button>
           </>
         )}
-        {/* {isStaff && order.ma_trang_thai !== "DA_HUY" && !order.hoa_don && (
+        {isStaff && order.ma_trang_thai !== "DA_HUY" && !order.hoa_don && (
           <>
             {invoiceBillModal()}
             <Button
@@ -567,17 +568,17 @@ const OrderItem = (params) => {
           </>
         )}
         {order.hoa_don && (
-          <Button
+          <NavLink
             style={{
               ...btnStyle,
-              backgroundColor: COLOR_CONSTANTS.SUCCESS,
               width: 200,
             }}
-            // onClick={() => setShowInvoiceBillModal(!isShowInvoiceBillModal)}
+            to={`/bill/${order.ma_don_dat_hang}`}
+            className="btn btn-dark"
           >
             {"Xem hóa đơn"}
-          </Button>
-        )} */}
+          </NavLink>
+        )}
       </div>
       {isShow && detailItem(order.chi_tiet)}
     </div>

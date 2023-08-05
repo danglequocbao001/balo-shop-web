@@ -22,6 +22,7 @@ import AdminStatistics from "./components/admins/AdminStatistics";
 import AdminProducts from "./components/admins/adminProducts/AdminProducts";
 import AdminProductTypes from "./components/admins/adminProductTypes/AdminProductTypes";
 import Register from "./components/Register";
+import Bill from "./components/bill/Bill";
 
 function App() {
   const { currentCredential } = useFetchCurrentCredential();
@@ -49,6 +50,7 @@ function App() {
           <Route path="/profile" element={<Profile />}></Route>
           <Route path="/search" element={<Search />}></Route>
           <Route path="/orders" element={<Orders />}></Route>
+          <Route exact path="/bill/:ma_don_dat_hang" element={<Bill />}></Route>
 
           {
             //admin
