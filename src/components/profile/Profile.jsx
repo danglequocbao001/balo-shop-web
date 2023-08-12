@@ -1,5 +1,4 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
 import {
   MDBCol,
   MDBContainer,
@@ -99,7 +98,7 @@ const Profile = () => {
                     <EditProfileModal customer={customer} />
                   </div>
                   <p className="mb-4">{`${customer.dia_chi}`}</p>
-                  <NavLink className="btn btn-dark">Đổi mật khẩu</NavLink>
+                  {/* <NavLink className="btn btn-dark">Đổi mật khẩu</NavLink> */}
                 </MDBCardBody>
               </MDBCard>
             </MDBCol>

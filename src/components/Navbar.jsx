@@ -56,7 +56,7 @@ const Navbar = () => {
                   Sản phẩm
                 </NavLink>
               </li>
-              <li className="nav-item">
+              {/* <li className="nav-item">
                 <NavLink className="nav-link" to="/about">
                   About
                 </NavLink>
@@ -65,7 +65,7 @@ const Navbar = () => {
                 <NavLink className="nav-link" to="/contact">
                   Contact
                 </NavLink>
-              </li>
+              </li> */}
             </ul>
 
             <div className="buttons">
