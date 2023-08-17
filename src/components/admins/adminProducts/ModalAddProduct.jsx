@@ -29,7 +29,7 @@ const ModalAddProduct = (param) => {
     gia: param.product ? param.product.gia : 0,
     so_luong: param.product ? param.product.so_luong : 0,
     is_new: param.product ? param.product.is_new : false,
-    is_active: param.product ? param.product.is_active : true,
+    is_active: true,
   };
 
   const { register, handleSubmit } = useForm({
@@ -191,13 +191,13 @@ const ModalAddProduct = (param) => {
               <option value={false}>Không áp dụng</option>
             </select>
           </div>
-          <div style={modalInputWrapper}>
+          {/* <div style={modalInputWrapper}>
             <p style={{ ...modalInputHeader }}>{"Đang được hoạt động:"}</p>
             <select name="is_active" {...register("is_active")}>
               <option value={true}>Áp dụng</option>
               <option value={false}>Không áp dụng</option>
             </select>
-          </div>
+          </div> */}
           <button style={submitBtn} type={"submit"}>{`${
             isAdd ? "Thêm" : "Sửa"
           } mặt hàng`}</button>
