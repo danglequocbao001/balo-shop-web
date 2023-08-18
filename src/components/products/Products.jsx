@@ -5,7 +5,7 @@ import { useFetchAllProducts, PRODUCTS_FILTER } from "../../hooks/useProducts";
 import ListProducts from "./ListProducts";
 
 const Products = () => {
-  // const { products, isLoading: isProductsLoading } = useFetchAllProducts();
+  const { products, isLoading: isProductsLoading } = useFetchAllProducts();
   const { products: newProducts, isLoading: isNewProductsLoading } =
     useFetchAllProducts(PRODUCTS_FILTER.NEW);
   const { products: promoteProducts, isLoading: isPromoteProductsLoading } =
@@ -19,24 +19,26 @@ const Products = () => {
     <div>
       <ListProducts
         title={"Sản phẩm mới"}
-        listProducts={newProducts}
+        listProducts={newProducts.filter((item) => item.so_luong !== 0)}
         isListProductsLoading={isNewProductsLoading}
       />
       <ListProducts
         title={"Sản phẩm đang được khuyến mãi"}
-        listProducts={promoteProducts}
+        listProducts={promoteProducts.filter((item) => item.so_luong !== 0)}
         isListProductsLoading={isPromoteProductsLoading}
       />
       <ListProducts
         title={"Sản phẩm bán chạy"}
-        listProducts={bestSellerProducts.slice(0, 3)}
+        listProducts={bestSellerProducts
+          .filter((item) => item.so_luong !== 0)
+          .slice(0, 3)}
         isListProductsLoading={isBestSellerProductsLoading}
       />
-      {/* <ListProducts
+      <ListProducts
         title={"Tất cả sản phẩm"}
-        listProducts={products}
+        listProducts={products.filter((item) => item.so_luong !== 0)}
         isListProductsLoading={isProductsLoading}
-      /> */}
+      />
     </div>
   );
 };
